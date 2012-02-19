@@ -1,0 +1,32 @@
+name: EggCatcher
+version: 1.15
+description: This plugin allows you to catch mobs in eggs.
+author: shansen
+
+main: me.shansen.EggCatcher.EggCatcher
+
+permissions:
+    eggcatcher.catch.*:
+        description: Gives access to catch all types of mobs.
+        default: op
+        children:
+            eggcatcher.catch.pig: true
+            eggcatcher.catch.sheep: true
+            eggcatcher.catch.cow: true
+            eggcatcher.catch.chicken: true
+            eggcatcher.catch.squid: true
+            eggcatcher.catch.wolf: true
+            eggcatcher.catch.mushroomCow: true
+            eggcatcher.catch.creeper: true
+            eggcatcher.catch.skeleton: true
+            eggcatcher.catch.spider: true
+            eggcatcher.catch.zombie: true
+            eggcatcher.catch.slime: true
+            eggcatcher.catch.ghast: true
+            eggcatcher.catch.pigzombie: true
+            eggcatcher.catch.enderman: true
+            eggcatcher.catch.cavespider: true
+            eggcatcher.catch.silverfish: true
+            eggcatcher.catch.blaze: true
+            eggcatcher.catch.magmacube: true
+            eggcatcher.catch.villager: true

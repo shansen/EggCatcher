@@ -1,0 +1,87 @@
+UsePermissions: true
+UseCatchChance: true
+LooseEggOnFail: true
+UseVaultCost: false
+UseItemCost: false
+ExplosionEffect: true
+SmokeEffect: false
+NonPlayerCatching: true
+PreventCatchingBabyAnimals: true
+PreventCatchingTamedAnimals: true
+PreventCatchingShearedSheeps: true
+SpawnChickenOnSuccess: false
+SpawnChickenOnFail: true
+CatchChance:
+  Pig: 100.0
+  Sheep: 100.0
+  MushroomCow: 100.0
+  Cow: 100.0
+  Chicken: 100.0
+  Squid: 100.0
+  Wolf: 100.0
+  Creeper: 0.0
+  Skeleton: 100.0
+  CaveSpider: 100.0
+  Spider: 100.0
+  PigZombie: 100.0
+  Zombie: 100.0
+  MagmaCube: 100.0
+  Slime: 100.0
+  Ghast: 0.0
+  Enderman: 100.0
+  Silverfish: 100.0
+  Blaze: 0.0
+  Villager: 100.0
+VaultCost:
+  Pig: 0.0
+  Sheep: 0.0
+  MushroomCow: 0.0
+  Cow: 0.0
+  Chicken: 0.0
+  Squid: 0.0
+  Wolf: 0.0
+  Creeper: 0.0
+  Skeleton: 0.0
+  CaveSpider: 0.0
+  Spider: 0.0
+  PigZombie: 0.0
+  Zombie: 0.0
+  MagmaCube: 0.0
+  Slime: 0.0
+  Ghast: 0.0
+  Enderman: 0.0
+  Silverfish: 0.0
+  Blaze: 0.0
+  Villager: 0.0
+ItemCost:
+  ItemId: 371
+  Amount:
+    Pig: 0
+    Sheep: 0
+    MushroomCow: 0
+    Cow: 0
+    Chicken: 0
+    Squid: 0
+    Wolf: 0
+    Creeper: 0
+    Skeleton: 0
+    CaveSpider: 0
+    Spider: 0
+    PigZombie: 0
+    Zombie: 0
+    MagmaCube: 0
+    Slime: 0
+    Ghast: 0
+    Enderman: 0
+    Silverfish: 0
+    Blaze: 0
+    Villager: 0
+Messages:
+  PermissionFail: "You do not have permission to catch this mob!"
+  VaultFail: "It costs %s dollars to catch this mob!"
+  VaultSuccess: "You paid %s dollars for catching this mob!"
+  ItemCostFail: "It costs %s gold nugget(s) to catch this mob!"
+  ItemCostSuccess: "You paid %s gold nugget(s) for catching this mob!"
+  CatchChanceFail: "You failed to catch this mob!"
+  CatchChanceSuccess: ""
+ConfigVersion: 1.15
