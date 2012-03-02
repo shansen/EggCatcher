@@ -1,5 +1,5 @@
 name: EggCatcher
-version: 1.15
+version: 1.16
 description: This plugin allows you to catch mobs in eggs.
 author: shansen
 
@@ -30,3 +30,4 @@ permissions:
             eggcatcher.catch.blaze: true
             eggcatcher.catch.magmacube: true
             eggcatcher.catch.villager: true
+            eggcatcher.catch.ocelot: true

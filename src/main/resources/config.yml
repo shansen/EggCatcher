@@ -32,6 +32,7 @@ CatchChance:
   Silverfish: 100.0
   Blaze: 0.0
   Villager: 100.0
+  Ocelot: 100.0
 VaultCost:
   Pig: 0.0
   Sheep: 0.0
@@ -53,6 +54,7 @@ VaultCost:
   Silverfish: 0.0
   Blaze: 0.0
   Villager: 0.0
+  Ocelot: 0.0
 ItemCost:
   ItemId: 371
   Amount:
@@ -76,6 +78,7 @@ ItemCost:
     Silverfish: 0
     Blaze: 0
     Villager: 0
+    Ocelot: 0
 Messages:
   PermissionFail: "You do not have permission to catch this mob!"
   VaultFail: "It costs %s dollars to catch this mob!"
@@ -84,4 +87,4 @@ Messages:
   ItemCostSuccess: "You paid %s gold nugget(s) for catching this mob!"
   CatchChanceFail: "You failed to catch this mob!"
   CatchChanceSuccess: ""
-ConfigVersion: 1.15
+ConfigVersion: 1.16

@@ -63,7 +63,7 @@ public class EggCatcher extends JavaPlugin {
 	public void CheckConfigurationFile() {
 		double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
 
-		if (configVersion == 1.15) {
+		if (configVersion == 1.16) {
 			//
 			this.saveConfig();
 		} else {
