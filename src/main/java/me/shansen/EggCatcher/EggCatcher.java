@@ -28,6 +28,7 @@ import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.entity.*;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class EggCatcher extends JavaPlugin {
@@ -55,16 +56,22 @@ public class EggCatcher extends JavaPlugin {
 		pm.registerEvents(entityListener, this);
 
 		if (getServer().getPluginManager().getPlugin("Vault") != null) {
-			economy = getServer().getServicesManager()
-					.getRegistration(Economy.class).getProvider();
+			RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager()
+					.getRegistration(Economy.class);
+			if(economyProvider!=null){
+				economy = economyProvider.getProvider();
+			}
 		}
 	}
 
 	public void CheckConfigurationFile() {
 		double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-
-		if (configVersion == 1.16) {
+		if (configVersion == 1.17) {
 			//
+			this.saveConfig();
+		}
+		if (configVersion == 1.16) {
+			this.getConfig().set("ConfigVersion", 1.17);
 			this.saveConfig();
 		} else {
 			this.saveResource("config.yml", true);
