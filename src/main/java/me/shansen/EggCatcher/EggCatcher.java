@@ -14,7 +14,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 package me.shansen.EggCatcher;
 
@@ -56,9 +56,9 @@ public class EggCatcher extends JavaPlugin {
 		pm.registerEvents(entityListener, this);
 
 		if (getServer().getPluginManager().getPlugin("Vault") != null) {
-			RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager()
-					.getRegistration(Economy.class);
-			if(economyProvider!=null){
+			RegisteredServiceProvider<Economy> economyProvider = getServer()
+					.getServicesManager().getRegistration(Economy.class);
+			if (economyProvider != null) {
 				economy = economyProvider.getProvider();
 			}
 		}
@@ -66,11 +66,13 @@ public class EggCatcher extends JavaPlugin {
 
 	public void CheckConfigurationFile() {
 		double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-		if (configVersion == 1.17) {
+		if (configVersion == 1.18) {
 			//
 			this.saveConfig();
-		}
-		if (configVersion == 1.16) {
+		} else if (configVersion == 1.17) {
+			this.getConfig().set("ConfigVersion", 1.18);
+			this.saveConfig();
+		} else if (configVersion == 1.16) {
 			this.getConfig().set("ConfigVersion", 1.17);
 			this.saveConfig();
 		} else {
