@@ -1,0 +1,1 @@
+[![Build Status](https://secure.travis-ci.org/sansen/EggCatcher.png)](http://travis-ci.org/sansen/EggCatcher)
