@@ -33,6 +33,8 @@ CatchChance:
   Blaze: 0.0
   Villager: 100.0
   Ocelot: 100.0
+  Witch: 100.0
+  Bat: 100.0
 VaultCost:
   Pig: 0.0
   Sheep: 0.0
@@ -55,6 +57,8 @@ VaultCost:
   Blaze: 0.0
   Villager: 0.0
   Ocelot: 0.0
+  Witch: 0.0
+  Bat: 0.0
 ItemCost:
   ItemId: 371
   Amount:
@@ -79,6 +83,8 @@ ItemCost:
     Blaze: 0
     Villager: 0
     Ocelot: 0
+    Witch: 0
+    Bat: 0
 Messages:
   PermissionFail: "You do not have permission to catch this mob!"
   VaultFail: "It costs %s dollars to catch this mob!"
@@ -87,4 +93,4 @@ Messages:
   ItemCostSuccess: "You paid %s gold nugget(s) for catching this mob!"
   CatchChanceFail: "You failed to catch this mob!"
   CatchChanceSuccess: ""
-ConfigVersion: 1.16
+ConfigVersion: 1.21

@@ -42,7 +42,10 @@ public enum EggType {
 	SQUID			(EntityType.SQUID, 94, "Squid"),
 	WOLF			(EntityType.WOLF, 95, "Wolf"),
 	VILLAGER		(EntityType.VILLAGER, 120, "Villager"),
-	OCELOT			(EntityType.OCELOT, 98, "Ocelot");
+	OCELOT			(EntityType.OCELOT, 98, "Ocelot"),
+	BAT				(EntityType.BAT, 0, "Bat"),
+	WITCH			(EntityType.WITCH, 0, "Witch");
+	
 	
 	private final EntityType entityType;
 	private final Integer creatureId;
