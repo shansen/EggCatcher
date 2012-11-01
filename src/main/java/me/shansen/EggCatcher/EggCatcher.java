@@ -69,8 +69,7 @@ public class EggCatcher extends JavaPlugin {
 		if (configVersion == 1.21) {
 			//
 			this.saveConfig();
-		}
-		if (configVersion == 1.18) {
+		} else if (configVersion == 1.18) {
 			this.getConfig().set("ConfigVersion", 1.21);
 			this.getConfig().set("CatchChance.Bat", 100.0);
 			this.getConfig().set("CatchChance.Witch", 100.0);
