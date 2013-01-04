@@ -11,6 +11,7 @@ PreventCatchingTamedAnimals: true
 PreventCatchingShearedSheeps: true
 SpawnChickenOnSuccess: false
 SpawnChickenOnFail: true
+VaultTargetBankAccount: ""
 CatchChance:
   Pig: 100.0
   Sheep: 100.0

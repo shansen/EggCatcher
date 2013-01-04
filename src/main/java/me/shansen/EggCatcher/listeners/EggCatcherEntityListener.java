@@ -54,6 +54,8 @@ public class EggCatcherEntityListener implements Listener {
 
 	private final String catchChanceSuccessMessage;
 	private final String catchChanceFailMessage;
+	
+	private final String vaultTargetBankAccount;
 
 	private final Boolean spawnChickenOnFail;
 	private final Boolean spawnChickenOnSuccess;
@@ -84,6 +86,7 @@ public class EggCatcherEntityListener implements Listener {
 				true);
 		this.spawnChickenOnSuccess = this.config.getBoolean(
 				"SpawnChickenOnSuccess", false);
+		this.vaultTargetBankAccount = this.config.getString("VaultTargetBankAccount", "");
 	}
 
 	@EventHandler
@@ -185,6 +188,11 @@ public class EggCatcherEntityListener implements Listener {
 				} else {
 					EggCatcher.economy.withdrawPlayer(player.getName(),
 							vaultCost);
+					
+					if(!this.vaultTargetBankAccount.isEmpty()) {
+						EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
+					}
+					
 					player.sendMessage(String.format(
 							config.getString("Messages.VaultSuccess"),
 							vaultCost));
