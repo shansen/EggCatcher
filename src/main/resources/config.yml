@@ -94,4 +94,4 @@ Messages:
   ItemCostSuccess: "You paid %s gold nugget(s) for catching this mob!"
   CatchChanceFail: "You failed to catch this mob!"
   CatchChanceSuccess: ""
-ConfigVersion: 1.21
+ConfigVersion: 1.22

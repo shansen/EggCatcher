@@ -66,8 +66,12 @@ public class EggCatcher extends JavaPlugin {
 
 	public void CheckConfigurationFile() {
 		double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-		if (configVersion == 1.21) {
+		if (configVersion == 1.22) {
 			//
+			this.saveConfig();
+		}else if (configVersion == 1.21) {
+			this.getConfig().set("VaultTargetBankAccount", "");
+			this.getConfig().set("ConfigVersion", 1.22);
 			this.saveConfig();
 		} else if (configVersion == 1.18) {
 			this.getConfig().set("ConfigVersion", 1.21);
