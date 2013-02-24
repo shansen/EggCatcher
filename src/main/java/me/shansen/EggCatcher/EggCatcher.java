@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package me.shansen.EggCatcher;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -30,6 +31,7 @@ import org.bukkit.entity.*;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
 
 public class EggCatcher extends JavaPlugin {
 	Logger log = Logger.getLogger("Minecraft");
@@ -62,6 +64,10 @@ public class EggCatcher extends JavaPlugin {
 				economy = economyProvider.getProvider();
 			}
 		}
+		try {
+		    Metrics metrics = new Metrics(this);
+		    metrics.start();
+		} catch (IOException e) {}
 	}
 
 	public void CheckConfigurationFile() {
