@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package me.shansen.EggCatcher.listeners;
 
+import me.shansen.EggCatcher.events.EggCaptureEvent;
 import me.shansen.EggCatcher.EggCatcher;
 import me.shansen.EggCatcher.EggType;
 
@@ -140,6 +141,13 @@ public class EggCatcherEntityListener implements Listener {
 					return;
 				}
 			}
+		}
+
+
+		EggCaptureEvent eggCaptureEvent = new EggCaptureEvent(entity, egg);
+		this.plugin.getServer().getPluginManager().callEvent(eggCaptureEvent);
+		if (eggCaptureEvent.isCancelled()) {
+			return;
 		}
 
 		if (egg.getShooter() instanceof Player) {
