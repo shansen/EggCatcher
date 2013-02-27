@@ -31,6 +31,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
 import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -90,7 +91,7 @@ public class EggCatcherEntityListener implements Listener {
 		this.vaultTargetBankAccount = this.config.getString("VaultTargetBankAccount", "");
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
 	public void onEntityHitByEgg(EntityDamageEvent event) {
 		EntityDamageByEntityEvent damageEvent = null;
 		Egg egg = null;
