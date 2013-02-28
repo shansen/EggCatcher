@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package me.shansen.EggCatcher;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -32,6 +34,12 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class EggCatcher extends JavaPlugin {
 	Logger log = Logger.getLogger("Minecraft");
@@ -45,6 +53,7 @@ public class EggCatcher extends JavaPlugin {
 	}
 
 	public void onEnable() {
+        this.CheckUpdate();
 		this.CheckConfigurationFile();
 		PluginManager pm = this.getServer().getPluginManager();
 		log.info(this.getDescription().getName() + " v"
@@ -70,6 +79,23 @@ public class EggCatcher extends JavaPlugin {
 		} catch (IOException e) {}
 	}
 
+    public void CheckUpdate() {
+        try {
+            URL url = new URL("http://dev.bukkit.org/server-mods/eggcatcher/files.rss");
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document document = builder.parse(url.openStream());
+
+            NodeList nodes = document.getElementsByTagName("item");
+
+            String latestVersion = ((Element)nodes.item(0)).getElementsByTagName("title").item(0).getTextContent().replace("v","");
+            String link = ((Element)nodes.item(0)).getElementsByTagName("link").item(0).getTextContent();
+            if(!this.getDescription().getVersion().equalsIgnoreCase(latestVersion)){
+               this.getLogger().info(String.format("There's a new version available (%s). Get it from %s", latestVersion, link));
+            }
+
+        } catch (Exception e) { }
+
+    }
 	public void CheckConfigurationFile() {
 		double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
         if (configVersion == 1.25) {
