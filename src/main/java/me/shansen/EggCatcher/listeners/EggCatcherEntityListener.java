@@ -160,6 +160,7 @@ public class EggCatcherEntityListener implements Listener {
 							.getString("Messages.PermissionFail"));
 					if (!this.looseEggOnFail) {
 						player.getInventory().addItem(new ItemStack(344, 1));
+                        EggCatcher.eggs.add(egg);
 					}
 					return;
 				}
@@ -170,7 +171,13 @@ public class EggCatcherEntityListener implements Listener {
                     + eggType.getFriendlyName());
                 double currentHealth = ((LivingEntity)entity).getHealth() * 100.0 / ((LivingEntity)entity).getMaxHealth();
                 if(healthPercentage < currentHealth) {
-                    player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
+                    if (this.healthPercentageFailMessage.length() > 0) {
+                        player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
+                    }
+                    if (!this.looseEggOnFail) {
+                        player.getInventory().addItem(new ItemStack(344, 1));
+                        EggCatcher.eggs.add(egg);
+                    }
                     return;
                 }
             }
@@ -188,6 +195,7 @@ public class EggCatcherEntityListener implements Listener {
 					}
 					if (!this.looseEggOnFail) {
 						player.getInventory().addItem(new ItemStack(344, 1));
+                        EggCatcher.eggs.add(egg);
 					}
 					return;
 				}
@@ -201,6 +209,7 @@ public class EggCatcherEntityListener implements Listener {
 							config.getString("Messages.VaultFail"), vaultCost));
 					if (!this.looseEggOnFail) {
 						player.getInventory().addItem(new ItemStack(344, 1));
+                        EggCatcher.eggs.add(egg);
 					}
 					return;
 				} else {
@@ -233,6 +242,7 @@ public class EggCatcherEntityListener implements Listener {
 							String.valueOf(itemAmount)));
 					if (!this.looseEggOnFail) {
 						player.getInventory().addItem(new ItemStack(344, 1));
+                        EggCatcher.eggs.add(egg);
 					}
 					return;
 				}
