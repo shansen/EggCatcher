@@ -72,8 +72,37 @@ public class EggCatcher extends JavaPlugin {
 
 	public void CheckConfigurationFile() {
 		double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-		if (configVersion == 1.22) {
-			//
+        if (configVersion == 1.25) {
+            //
+            this.saveConfig();
+        }
+		else if (configVersion == 1.22) {
+            this.getConfig().set("UseHealthPercentage", false);
+            this.getConfig().set("HealthPercentage.Pig", 100.0);
+            this.getConfig().set("HealthPercentage.Sheep", 100.0);
+            this.getConfig().set("HealthPercentage.MushroomCow", 100.0);
+            this.getConfig().set("HealthPercentage.Cow", 100.0);
+            this.getConfig().set("HealthPercentage.Chicken", 100.0);
+            this.getConfig().set("HealthPercentage.Squid", 100.0);
+            this.getConfig().set("HealthPercentage.Wolf", 100.0);
+            this.getConfig().set("HealthPercentage.Creeper", 100.0);
+            this.getConfig().set("HealthPercentage.Skeleton", 100.0);
+            this.getConfig().set("HealthPercentage.CaveSpider", 100.0);
+            this.getConfig().set("HealthPercentage.Spider", 100.0);
+            this.getConfig().set("HealthPercentage.PigZombie", 100.0);
+            this.getConfig().set("HealthPercentage.Zombie", 100.0);
+            this.getConfig().set("HealthPercentage.MagmaCube", 100.0);
+            this.getConfig().set("HealthPercentage.Slime", 100.0);
+            this.getConfig().set("HealthPercentage.Ghast", 100.0);
+            this.getConfig().set("HealthPercentage.Enderman", 100.0);
+            this.getConfig().set("HealthPercentage.Silverfish", 100.0);
+            this.getConfig().set("HealthPercentage.Blaze", 100.0);
+            this.getConfig().set("HealthPercentage.Villager", 100.0);
+            this.getConfig().set("HealthPercentage.Ocelot", 100.0);
+            this.getConfig().set("HealthPercentage.Witch", 100.0);
+            this.getConfig().set("HealthPercentage.Bat", 100.0);
+            this.getConfig().set("Messages.HealthPercentageFail", "The mob has more than %s percent health left and cannot be caught!");
+            this.getConfig().set("ConfigVersion", 1.25);
 			this.saveConfig();
 		}else if (configVersion == 1.21) {
 			this.getConfig().set("VaultTargetBankAccount", "");

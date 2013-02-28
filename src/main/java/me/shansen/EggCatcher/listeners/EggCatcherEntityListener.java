@@ -24,12 +24,7 @@ import me.shansen.EggCatcher.EggType;
 
 import org.bukkit.Effect;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Animals;
-import org.bukkit.entity.Egg;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Sheep;
-import org.bukkit.entity.Tameable;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -44,6 +39,7 @@ public class EggCatcherEntityListener implements Listener {
 	JavaPlugin plugin;
 	private final Boolean usePermissions;
 	private final Boolean useCatchChance;
+    private final Boolean useHealthPercentage;
 	private final Boolean looseEggOnFail;
 	private final Boolean useVaultCost;
 	private final Boolean useItemCost;
@@ -56,6 +52,7 @@ public class EggCatcherEntityListener implements Listener {
 
 	private final String catchChanceSuccessMessage;
 	private final String catchChanceFailMessage;
+    private final String healthPercentageFailMessage;
 	
 	private final String vaultTargetBankAccount;
 
@@ -67,6 +64,7 @@ public class EggCatcherEntityListener implements Listener {
 		this.plugin = plugin;
 		this.usePermissions = this.config.getBoolean("UsePermissions", true);
 		this.useCatchChance = this.config.getBoolean("UseCatchChance", true);
+        this.useHealthPercentage = this.config.getBoolean("UseHealthPercentage", false);
 		this.looseEggOnFail = this.config.getBoolean("LooseEggOnFail", true);
 		this.useVaultCost = this.config.getBoolean("UseVaultCost", false);
 		this.useItemCost = this.config.getBoolean("UseItemCost", false);
@@ -78,6 +76,7 @@ public class EggCatcherEntityListener implements Listener {
 				.getString("Messages.CatchChanceSuccess");
 		this.catchChanceFailMessage = this.config
 				.getString("Messages.CatchChanceFail");
+        this.healthPercentageFailMessage = this.config.getString("Messages.HealthPercentageFail");
 		this.preventCatchingBabyAnimals = this.config.getBoolean(
 				"PreventCatchingBabyAnimals", true);
 		this.preventCatchingTamableAnimals = this.config.getBoolean(
@@ -165,6 +164,16 @@ public class EggCatcherEntityListener implements Listener {
 					return;
 				}
 			}
+
+            if (this.useHealthPercentage) {
+                double healthPercentage = config.getDouble("HealthPercentage."
+                    + eggType.getFriendlyName());
+                double currentHealth = ((LivingEntity)entity).getHealth() * 100.0 / ((LivingEntity)entity).getMaxHealth();
+                if(healthPercentage < currentHealth) {
+                    player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
+                    return;
+                }
+            }
 
 			if (this.useCatchChance) {
 				double catchChance = config.getDouble("CatchChance."
