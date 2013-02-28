@@ -36,22 +36,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class EggCatcher extends JavaPlugin {
     public static List<Egg> eggs = new ArrayList<Egg>();
     public static Economy economy = null;
-    Logger log = Logger.getLogger("Minecraft");
 
     public void onDisable() {
-        log.info(this.getDescription().getName() + " v" + this.getDescription().getVersion() + " is disabled!");
     }
 
     public void onEnable() {
         this.CheckUpdate();
         this.CheckConfigurationFile();
         PluginManager pm = this.getServer().getPluginManager();
-        log.info(this.getDescription().getName() + " v" + this.getDescription().getVersion() + " is enabled!");
 
         final EggCatcherPlayerListener playerListener = new EggCatcherPlayerListener();
         final EggCatcherEntityListener entityListener = new EggCatcherEntityListener(this);
