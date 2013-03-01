@@ -45,8 +45,12 @@ public class EggCatcher extends JavaPlugin {
     }
 
     public void onEnable() {
-        this.CheckUpdate();
         this.CheckConfigurationFile();
+
+        if (this.getConfig().getBoolean("CheckForUpdates")) {
+            this.CheckUpdate();
+        }
+
         PluginManager pm = this.getServer().getPluginManager();
 
         final EggCatcherPlayerListener playerListener = new EggCatcherPlayerListener();
@@ -122,6 +126,7 @@ public class EggCatcher extends JavaPlugin {
             this.getConfig().set("HealthPercentage.Bat", 100.0);
             this.getConfig().set("Messages.HealthPercentageFail", "The mob has more than %s percent health left and "
                     + "cannot be caught!");
+            this.getConfig().set("CheckForUpdates", true);
             this.getConfig().set("ConfigVersion", 1.25);
             this.saveConfig();
         } else if (configVersion == 1.21) {
