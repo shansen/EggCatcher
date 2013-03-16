@@ -30,6 +30,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class EggCatcherEntityListener implements Listener {
@@ -244,7 +245,18 @@ public class EggCatcherEntityListener implements Listener {
         if (this.smokeEffect) {
             entity.getWorld().playEffect(entity.getLocation(), Effect.SMOKE, 0);
         }
-        entity.getWorld().dropItem(entity.getLocation(), new ItemStack(383, 1, eggType.getCreatureId()));
+
+        ItemStack eggStack = new ItemStack(383, 1, eggType.getCreatureId());
+        String customName = ((LivingEntity) entity).getCustomName();
+
+        if (customName != null) {
+            // Entity had custom name
+            ItemMeta meta = eggStack.getItemMeta();
+            meta.setDisplayName(customName);
+            eggStack.setItemMeta(meta);
+        }
+
+        entity.getWorld().dropItem(entity.getLocation(), eggStack);
 
         if (!this.spawnChickenOnSuccess) {
             if (!EggCatcher.eggs.contains(egg)) {
