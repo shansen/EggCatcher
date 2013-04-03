@@ -209,9 +209,10 @@ public class EggCatcherEntityListener implements Listener {
 
             if (this.useItemCost) {
                 int itemId = config.getInt("ItemCost.ItemId", 266);
+                int itemData = config.getInt("ItemCost.ItemData", 0);
                 int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
-                ItemStack itemStack = new ItemStack(itemId, itemAmount);
-                if (player.getInventory().contains(itemId, itemAmount)) {
+                ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
+                if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
                     player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
                             String.valueOf(itemAmount)));
                     player.getInventory().removeItem(itemStack);
