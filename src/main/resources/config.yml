@@ -63,6 +63,7 @@ VaultCost:
   Bat: 0.0
 ItemCost:
   ItemId: 371
+  ItemData: 0
   Amount:
     Pig: 0
     Sheep: 0
@@ -120,5 +121,5 @@ Messages:
   CatchChanceFail: "You failed to catch this mob!"
   CatchChanceSuccess: ""
   HealthPercentageFail: "The mob has more than %s percent health left and cannot be caught!"
-ConfigVersion: 1.25
+ConfigVersion: 1.28
 CheckForUpdates: true
