@@ -248,6 +248,7 @@ public class EggCatcherEntityListener implements Listener {
         }
 
         ItemStack eggStack = new ItemStack(383, 1, eggType.getCreatureId());
+
         String customName = ((LivingEntity) entity).getCustomName();
 
         if (customName != null) {
@@ -255,6 +256,12 @@ public class EggCatcherEntityListener implements Listener {
             ItemMeta meta = eggStack.getItemMeta();
             meta.setDisplayName(customName);
             eggStack.setItemMeta(meta);
+        }
+
+        if(entity instanceof Pig) {
+            if(((Pig)entity).hasSaddle()) {
+                entity.getWorld().dropItem(entity.getLocation(), new ItemStack(329, 1));
+            }
         }
 
         entity.getWorld().dropItem(entity.getLocation(), eggStack);
