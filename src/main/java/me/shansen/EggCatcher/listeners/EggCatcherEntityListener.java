@@ -45,7 +45,7 @@ public class EggCatcherEntityListener implements Listener {
     private final Boolean smokeEffect;
     private final Boolean nonPlayerCatching;
     private final Boolean preventCatchingBabyAnimals;
-    private final Boolean preventCatchingTamableAnimals;
+    private final Boolean preventCatchingTamedAnimals;
     private final Boolean preventCatchingShearedSheeps;
     private final String catchChanceSuccessMessage;
     private final String catchChanceFailMessage;
@@ -72,7 +72,7 @@ public class EggCatcherEntityListener implements Listener {
         this.catchChanceFailMessage = this.config.getString("Messages.CatchChanceFail");
         this.healthPercentageFailMessage = this.config.getString("Messages.HealthPercentageFail");
         this.preventCatchingBabyAnimals = this.config.getBoolean("PreventCatchingBabyAnimals", true);
-        this.preventCatchingTamableAnimals = this.config.getBoolean("PreventCatchingTamableAnimals", true);
+        this.preventCatchingTamedAnimals = this.config.getBoolean("PreventCatchingTamedAnimals", true);
         this.preventCatchingShearedSheeps = this.config.getBoolean("PreventCatchingShearedSheeps", true);
         this.spawnChickenOnFail = this.config.getBoolean("SpawnChickenOnFail", true);
         this.spawnChickenOnSuccess = this.config.getBoolean("SpawnChickenOnSuccess", false);
@@ -116,7 +116,7 @@ public class EggCatcherEntityListener implements Listener {
             }
         }
 
-        if (this.preventCatchingTamableAnimals) {
+        if (this.preventCatchingTamedAnimals) {
             if (entity instanceof Tameable) {
                 if (((Tameable) entity).isTamed()) {
                     return;
