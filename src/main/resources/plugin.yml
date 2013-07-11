@@ -33,3 +33,4 @@ permissions:
             eggcatcher.catch.ocelot: true
             eggcatcher.catch.bat: true
             eggcatcher.catch.witch: true
+            eggcatcher.catch.horse: true
