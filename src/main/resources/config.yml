@@ -37,6 +37,7 @@ CatchChance:
   Ocelot: 100.0
   Witch: 100.0
   Bat: 100.0
+  Horse: 100.0
 VaultCost:
   Pig: 0.0
   Sheep: 0.0
@@ -61,6 +62,7 @@ VaultCost:
   Ocelot: 0.0
   Witch: 0.0
   Bat: 0.0
+  Horse: 0.0
 ItemCost:
   ItemId: 371
   ItemData: 0
@@ -88,6 +90,7 @@ ItemCost:
     Ocelot: 0
     Witch: 0
     Bat: 0
+    Horse: 0
 HealthPercentage:
   Pig: 100.0
   Sheep: 100.0
@@ -112,6 +115,7 @@ HealthPercentage:
   Ocelot: 100.0
   Witch: 100.0
   Bat: 100.0
+  Horse: 100.0
 Messages:
   PermissionFail: "You do not have permission to catch this mob!"
   VaultFail: "It costs %s dollars to catch this mob!"
@@ -121,5 +125,5 @@ Messages:
   CatchChanceFail: "You failed to catch this mob!"
   CatchChanceSuccess: ""
   HealthPercentageFail: "The mob has more than %s percent health left and cannot be caught!"
-ConfigVersion: 1.28
+ConfigVersion: 2.00
 CheckForUpdates: true
