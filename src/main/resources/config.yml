@@ -6,7 +6,7 @@ UseItemCost: false
 UseHealthPercentage: false
 ExplosionEffect: true
 SmokeEffect: false
-NonPlayerCatching: true
+NonPlayerCatching: false
 PreventCatchingBabyAnimals: true
 PreventCatchingTamedAnimals: true
 PreventCatchingShearedSheeps: true
