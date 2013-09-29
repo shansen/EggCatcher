@@ -21,7 +21,9 @@ package me.shansen.EggCatcher.listeners;
 import me.shansen.EggCatcher.EggCatcher;
 import me.shansen.EggCatcher.EggType;
 import me.shansen.EggCatcher.events.EggCaptureEvent;
+
 import org.bukkit.Effect;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -146,7 +148,7 @@ public class EggCatcherEntityListener implements Listener {
                 if (!player.hasPermission("eggcatcher.catch." + eggType.getFriendlyName().toLowerCase())) {
                     player.sendMessage(config.getString("Messages.PermissionFail"));
                     if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(344, 1));
+                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                         EggCatcher.eggs.add(egg);
                     }
                     return;
@@ -162,7 +164,7 @@ public class EggCatcherEntityListener implements Listener {
                         player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
                     }
                     if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(344, 1));
+                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                         EggCatcher.eggs.add(egg);
                     }
                     return;
@@ -180,7 +182,7 @@ public class EggCatcherEntityListener implements Listener {
                         player.sendMessage(this.catchChanceFailMessage);
                     }
                     if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(344, 1));
+                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                         EggCatcher.eggs.add(egg);
                     }
                     return;
@@ -192,7 +194,7 @@ public class EggCatcherEntityListener implements Listener {
                 if (!EggCatcher.economy.has(player.getName(), vaultCost)) {
                     player.sendMessage(String.format(config.getString("Messages.VaultFail"), vaultCost));
                     if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(344, 1));
+                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                         EggCatcher.eggs.add(egg);
                     }
                     return;
@@ -211,7 +213,8 @@ public class EggCatcherEntityListener implements Listener {
                 int itemId = config.getInt("ItemCost.ItemId", 266);
                 int itemData = config.getInt("ItemCost.ItemData", 0);
                 int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
-                ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
+                @SuppressWarnings("deprecation")
+				ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
                 if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
                     player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
                             String.valueOf(itemAmount)));
@@ -220,7 +223,7 @@ public class EggCatcherEntityListener implements Listener {
                     player.sendMessage(String.format(config.getString("Messages.ItemCostFail"),
                             String.valueOf(itemAmount)));
                     if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(344, 1));
+                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                         EggCatcher.eggs.add(egg);
                     }
                     return;
@@ -247,7 +250,7 @@ public class EggCatcherEntityListener implements Listener {
             entity.getWorld().playEffect(entity.getLocation(), Effect.SMOKE, 0);
         }
 
-        ItemStack eggStack = new ItemStack(383, 1, eggType.getCreatureId());
+        ItemStack eggStack = new ItemStack(Material.MONSTER_EGG, 1, eggType.getCreatureId());
 
         String customName = ((LivingEntity) entity).getCustomName();
 
@@ -260,7 +263,7 @@ public class EggCatcherEntityListener implements Listener {
 
         if(entity instanceof Pig) {
             if(((Pig)entity).hasSaddle()) {
-                entity.getWorld().dropItem(entity.getLocation(), new ItemStack(329, 1));
+                entity.getWorld().dropItem(entity.getLocation(), new ItemStack(Material.SADDLE, 1));
             }
         }
 
