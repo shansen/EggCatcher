@@ -37,24 +37,24 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class EggCatcherEntityListener implements Listener {
 
-    private final Boolean usePermissions;
-    private final Boolean useCatchChance;
-    private final Boolean useHealthPercentage;
-    private final Boolean looseEggOnFail;
-    private final Boolean useVaultCost;
-    private final Boolean useItemCost;
-    private final Boolean explosionEffect;
-    private final Boolean smokeEffect;
-    private final Boolean nonPlayerCatching;
-    private final Boolean preventCatchingBabyAnimals;
-    private final Boolean preventCatchingTamedAnimals;
-    private final Boolean preventCatchingShearedSheeps;
+    private final boolean usePermissions;
+    private final boolean useCatchChance;
+    private final boolean useHealthPercentage;
+    private final boolean looseEggOnFail;
+    private final boolean useVaultCost;
+    private final boolean useItemCost;
+    private final boolean explosionEffect;
+    private final boolean smokeEffect;
+    private final boolean nonPlayerCatching;
+    private final boolean preventCatchingBabyAnimals;
+    private final boolean preventCatchingTamedAnimals;
+    private final boolean preventCatchingShearedSheeps;
     private final String catchChanceSuccessMessage;
     private final String catchChanceFailMessage;
     private final String healthPercentageFailMessage;
     private final String vaultTargetBankAccount;
-    private final Boolean spawnChickenOnFail;
-    private final Boolean spawnChickenOnSuccess;
+    private final boolean spawnChickenOnFail;
+    private final boolean spawnChickenOnSuccess;
     FileConfiguration config;
     JavaPlugin plugin;
 
