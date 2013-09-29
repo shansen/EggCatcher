@@ -188,8 +188,10 @@ public class EggCatcherEntityListener implements Listener {
                     return;
                 }
             }
+            
+            boolean freeCatch = player.hasPermission("eggcatcher.free");
 
-            if (this.useVaultCost) {
+            if (this.useVaultCost && !freeCatch) {
                 vaultCost = config.getDouble("VaultCost." + eggType.getFriendlyName());
                 if (!EggCatcher.economy.has(player.getName(), vaultCost)) {
                     player.sendMessage(String.format(config.getString("Messages.VaultFail"), vaultCost));
@@ -209,7 +211,7 @@ public class EggCatcherEntityListener implements Listener {
                 }
             }
 
-            if (this.useItemCost) {
+            if (this.useItemCost && !freeCatch) {
                 int itemId = config.getInt("ItemCost.ItemId", 266);
                 int itemData = config.getInt("ItemCost.ItemData", 0);
                 int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
