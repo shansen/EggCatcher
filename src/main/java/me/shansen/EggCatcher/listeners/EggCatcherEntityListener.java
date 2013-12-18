@@ -111,8 +111,8 @@ public class EggCatcherEntityListener implements Listener {
         }
 
         if (this.preventCatchingBabyAnimals) {
-            if (entity instanceof Animals) {
-                if (!((Animals) entity).isAdult()) {
+            if (entity instanceof Ageable) {
+                if (!((Ageable) entity).isAdult()) {
                     return;
                 }
             }
