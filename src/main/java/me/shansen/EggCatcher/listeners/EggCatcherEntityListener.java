@@ -31,6 +31,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -266,6 +267,23 @@ public class EggCatcherEntityListener implements Listener {
         if(entity instanceof Pig) {
             if(((Pig)entity).hasSaddle()) {
                 entity.getWorld().dropItem(entity.getLocation(), new ItemStack(Material.SADDLE, 1));
+            }
+        }
+
+        if(entity instanceof Horse) {
+            if(((Horse) entity).isCarryingChest()){
+                entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.CHEST));
+            }
+        }
+
+        if(entity instanceof InventoryHolder){
+
+            ItemStack[] items = ((InventoryHolder) entity).getInventory().getContents();
+
+            for(ItemStack itemStack : items) {
+                if(itemStack!=null){
+                    entity.getWorld().dropItemNaturally(entity.getLocation(), itemStack);
+                }
             }
         }
 
