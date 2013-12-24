@@ -26,14 +26,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,24 +67,7 @@ public class EggCatcher extends JavaPlugin {
     }
 
     public void CheckUpdate() {
-        try {
-            URL url = new URL("http://dev.bukkit.org/server-mods/eggcatcher/files.rss");
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document document = builder.parse(url.openStream());
-
-            NodeList nodes = document.getElementsByTagName("item");
-
-            String latestVersion = ((Element) nodes.item(0)).getElementsByTagName("title").item(0).getTextContent()
-                    .replace("v", "");
-            String link = ((Element) nodes.item(0)).getElementsByTagName("link").item(0).getTextContent();
-            if (!this.getDescription().getVersion().equalsIgnoreCase(latestVersion)) {
-                this.getLogger().info(String.format("There's a new version available (%s). Get it from %s",
-                        latestVersion, link));
-            }
-
-        } catch (Exception e) {
-        }
-
+        Updater updater = new Updater(this, 35664, this.getFile(), Updater.UpdateType.DEFAULT, false);
     }
 
     public void CheckConfigurationFile() {
