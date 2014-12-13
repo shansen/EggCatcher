@@ -25,8 +25,6 @@ import org.bukkit.entity.Egg;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +38,6 @@ public class EggCatcher extends JavaPlugin {
     public void onEnable() {
         this.CheckConfigurationFile();
 
-        if (this.getConfig().getBoolean("CheckForUpdates")) {
-            this.CheckUpdate();
-        }
 
         PluginManager pm = this.getServer().getPluginManager();
 
@@ -59,15 +54,6 @@ public class EggCatcher extends JavaPlugin {
                 economy = economyProvider.getProvider();
             }
         }
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException e) {
-        }
-    }
-
-    public void CheckUpdate() {
-        Updater updater = new Updater(this, 35664, this.getFile(), Updater.UpdateType.DEFAULT, false);
     }
 
     public void CheckConfigurationFile() {

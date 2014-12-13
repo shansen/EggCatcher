@@ -82,7 +82,8 @@ public class EggCatcherEntityListener implements Listener {
         this.vaultTargetBankAccount = this.config.getString("VaultTargetBankAccount", "");
     }
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    @SuppressWarnings("deprecation")
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onEntityHitByEgg(EntityDamageEvent event) {
         EntityDamageByEntityEvent damageEvent = null;
         Egg egg = null;
@@ -216,8 +217,7 @@ public class EggCatcherEntityListener implements Listener {
                 int itemId = config.getInt("ItemCost.ItemId", 266);
                 int itemData = config.getInt("ItemCost.ItemData", 0);
                 int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
-                @SuppressWarnings("deprecation")
-				ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
+                ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
                 if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
                     player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
                             String.valueOf(itemAmount)));

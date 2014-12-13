@@ -4,12 +4,12 @@ LooseEggOnFail: true
 UseVaultCost: false
 UseItemCost: false
 UseHealthPercentage: false
-ExplosionEffect: true
-SmokeEffect: false
+ExplosionEffect: false
+SmokeEffect: true
 NonPlayerCatching: false
-PreventCatchingBabyAnimals: true
-PreventCatchingTamedAnimals: true
-PreventCatchingShearedSheeps: true
+PreventCatchingBabyAnimals: false
+PreventCatchingTamedAnimals: false
+PreventCatchingShearedSheeps: false
 SpawnChickenOnSuccess: false
 SpawnChickenOnFail: true
 VaultTargetBankAccount: ""
@@ -21,23 +21,31 @@ CatchChance:
   Chicken: 100.0
   Squid: 100.0
   Wolf: 100.0
-  Creeper: 0.0
+  Creeper: 100.0
   Skeleton: 100.0
   CaveSpider: 100.0
   Spider: 100.0
   PigZombie: 100.0
   Zombie: 100.0
-  MagmaCube: 100.0
-  Slime: 100.0
-  Ghast: 0.0
-  Enderman: 100.0
-  Silverfish: 100.0
-  Blaze: 0.0
-  Villager: 100.0
+  MagmaCube: 50.0
+  Slime: 50.0
+  Ghast: 40.0
+  Enderman: 40.0
+  Silverfish: 40.0
+  Blaze: 35.0
+  Villager: 35.0
   Ocelot: 100.0
-  Witch: 100.0
-  Bat: 100.0
+  Witch: 35.0
+  Bat: 40.0
   Horse: 100.0
+  EnderDragon: 10.0
+  Endermite: 40.0
+  Rabbit: 100.0
+  Guardian: 10.0
+  Snowman: 40.0
+  VillagerGolem: 40.0
+  WitherBoss: 10.0
+  Giant: 10.0
 VaultCost:
   Pig: 0.0
   Sheep: 0.0
@@ -63,6 +71,14 @@ VaultCost:
   Witch: 0.0
   Bat: 0.0
   Horse: 0.0
+  EnderDragon: 0.0
+  Endermite: 0.0
+  Rabbit: 0.0
+  Guardian: 0.0
+  Snowman: 0.0
+  VillagerGolem: 0.0
+  WitherBoss: 0.0
+  Giant: 0.0
 ItemCost:
   ItemId: 371
   ItemData: 0
@@ -91,6 +107,14 @@ ItemCost:
     Witch: 0
     Bat: 0
     Horse: 0
+    EnderDragon: 0
+    Endermite: 0
+    Rabbit: 0
+    Guardian: 0
+    Snowman: 0
+    VillagerGolem: 0
+    WitherBoss: 0
+    Giant: 0
 HealthPercentage:
   Pig: 100.0
   Sheep: 100.0
@@ -116,6 +140,14 @@ HealthPercentage:
   Witch: 100.0
   Bat: 100.0
   Horse: 100.0
+  EnderDragon: 100.0
+  Endermite: 100.0
+  Rabbit: 100.0
+  Guardian: 100.0
+  Snowman: 100.0
+  VillagerGolem: 100.0
+  WitherBoss: 100.0
+  Giant: 100.0
 Messages:
   PermissionFail: "You do not have permission to catch this mob!"
   VaultFail: "It costs %s dollars to catch this mob!"
@@ -126,4 +158,3 @@ Messages:
   CatchChanceSuccess: ""
   HealthPercentageFail: "The mob has more than %s percent health left and cannot be caught!"
 ConfigVersion: 2.00
-CheckForUpdates: true
