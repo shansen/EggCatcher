@@ -34,6 +34,14 @@ permissions:
             eggcatcher.catch.bat: true
             eggcatcher.catch.witch: true
             eggcatcher.catch.horse: true
+            eggcatcher.catch.endermite: true
+            eggcatcher.catch.enderdragon: true
+            eggcatcher.catch.rabbit: true
+            eggcatcher.catch.guardian: true
+            eggcatcher.catch.snowman: true
+            eggcatcher.catch.villagergolem: true
+            eggcatcher.catch.witherboss: true
+            eggcatcher.catch.giant: true
     eggcatcher.free:
         description: Makes catching a mob free.
         default: false
