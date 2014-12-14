@@ -22,3 +22,4 @@ dependency-reduced-pom.xml
 
 /lib/
 .settings
+.git
