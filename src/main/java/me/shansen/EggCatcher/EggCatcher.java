@@ -19,12 +19,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package me.shansen.EggCatcher;
 
 import me.shansen.EggCatcher.listeners.EggCatcherEntityListener;
+import me.shansen.EggCatcher.listeners.EggCatcherPlayerClickListener;
 import me.shansen.EggCatcher.listeners.EggCatcherPlayerListener;
 import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.entity.Egg;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,17 +40,19 @@ public class EggCatcher extends JavaPlugin {
     }
 
     public void onEnable() {
-        this.CheckConfigurationFile();
-
-
+       
         PluginManager pm = this.getServer().getPluginManager();
 
         final EggCatcherPlayerListener playerListener = new EggCatcherPlayerListener();
         final EggCatcherEntityListener entityListener = new EggCatcherEntityListener(this);
+        final EggCatcherPlayerClickListener ecpl = new EggCatcherPlayerClickListener();
 
         pm.registerEvents(playerListener, this);
         pm.registerEvents(entityListener, this);
-
+        pm.registerEvents(ecpl, this);
+        if (!new File("./plugins/EggCatcher/config.yml").exists())
+            saveDefaultConfig();
+        reloadConfig();
         if (getServer().getPluginManager().getPlugin("Vault") != null) {
             RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration
                     (Economy.class);
@@ -56,11 +62,4 @@ public class EggCatcher extends JavaPlugin {
         }
     }
 
-    public void CheckConfigurationFile() {
-        double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-        if (configVersion != 2.00) {
-            this.saveResource("config.yml", true);
-            this.reloadConfig();
-        }
-    }
 }
