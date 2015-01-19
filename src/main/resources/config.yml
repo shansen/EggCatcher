@@ -38,6 +38,8 @@ CatchChance:
   Witch: 100.0
   Bat: 100.0
   Horse: 100.0
+  Rabbit: 100.0
+  Guardian: 100.0
 VaultCost:
   Pig: 0.0
   Sheep: 0.0
@@ -63,6 +65,8 @@ VaultCost:
   Witch: 0.0
   Bat: 0.0
   Horse: 0.0
+  Rabbit: 0.0
+  Guardian: 0.0
 ItemCost:
   ItemId: 371
   ItemData: 0
@@ -91,6 +95,8 @@ ItemCost:
     Witch: 0
     Bat: 0
     Horse: 0
+    Rabbit: 0
+    Guardian: 0
 HealthPercentage:
   Pig: 100.0
   Sheep: 100.0
@@ -116,6 +122,8 @@ HealthPercentage:
   Witch: 100.0
   Bat: 100.0
   Horse: 100.0
+  Rabbit: 100.0
+  Guardian: 100.0
 Messages:
   PermissionFail: "You do not have permission to catch this mob!"
   VaultFail: "It costs %s dollars to catch this mob!"
