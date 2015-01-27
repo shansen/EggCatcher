@@ -58,8 +58,8 @@
 
     <repositories>
         <repository>
-            <id>bukkit-repo</id>
-            <url>http://repo.bukkit.org/content/groups/public/</url>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
             <id>vault-repo</id>
@@ -76,13 +76,13 @@
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.8-R0.1-SNAPSHOT</version>
-            <systemPath>${project.basedir}/lib/bukkit-1.8-R0.1-SNAPSHOT.jar</systemPath>
-            <scope>system</scope>
+            <type>jar</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
-            <version>1.4.2</version>
+            <version>1.5.0</version>
         </dependency>
         <dependency>
             <groupId>org.mcstats.bukkit</groupId>
