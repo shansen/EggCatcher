@@ -42,6 +42,7 @@ CatchChance:
   Endermite: 40.0
   Rabbit: 100.0
   Guardian: 10.0
+  ElderGuardian: 10.0
   Snowman: 40.0
   VillagerGolem: 40.0
   WitherBoss: 10.0
@@ -75,6 +76,7 @@ VaultCost:
   Endermite: 0.0
   Rabbit: 0.0
   Guardian: 0.0
+  ElderGuardian: 0.0
   Snowman: 0.0
   VillagerGolem: 0.0
   WitherBoss: 0.0
@@ -111,6 +113,7 @@ ItemCost:
     Endermite: 0
     Rabbit: 0
     Guardian: 0
+    ElderGuardian: 0
     Snowman: 0
     VillagerGolem: 0
     WitherBoss: 0
@@ -144,6 +147,7 @@ HealthPercentage:
   Endermite: 100.0
   Rabbit: 100.0
   Guardian: 100.0
+  ElderGuardian: 100.0
   Snowman: 100.0
   VillagerGolem: 100.0
   WitherBoss: 100.0

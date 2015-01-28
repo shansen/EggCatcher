@@ -35,13 +35,14 @@ import java.util.List;
 public class EggCatcher extends JavaPlugin {
     public static List<Egg> eggs = new ArrayList<Egg>();
     public static Economy economy = null;
+    public static PluginManager pm;
 
     public void onDisable() {
     }
 
     public void onEnable() {
        
-        PluginManager pm = this.getServer().getPluginManager();
+        pm = this.getServer().getPluginManager();
 
         final EggCatcherPlayerListener playerListener = new EggCatcherPlayerListener();
         final EggCatcherEntityListener entityListener = new EggCatcherEntityListener(this);
@@ -61,5 +62,16 @@ public class EggCatcher extends JavaPlugin {
             }
         }
     }
+    
+    // **************************** Specialized Support for Personal ElderGuardian Boss *****************************
+    /*
+    public static boolean isElderGuardianBoss()
+    {
+    	if (pm.isPluginEnabled("ElderGuardianBoss")) {
+			return true;
+		}
+		return false;
+    }
+    */
 
 }

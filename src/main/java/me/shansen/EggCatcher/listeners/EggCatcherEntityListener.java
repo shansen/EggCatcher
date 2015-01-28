@@ -14,6 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Ageable;
 import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Guardian;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Ocelot;
@@ -101,8 +102,146 @@ public class EggCatcherEntityListener
     else {}
   }
   
+  @SuppressWarnings("deprecation")
+	@EventHandler
+     public void onEntityStruckByEgg(EntityDamageByEntityEvent event)
+     {
+	     Player player = null;
+	     Entity entity = event.getEntity();
+	     EggType eggType = null;
+	     double vaultCost = 0.0;
+	  	 if(!(event.getDamager() instanceof Player))
+	  	 {
+	  		 return;
+	  	 }
+	  	 player = (Player)((EntityDamageByEntityEvent)event).getDamager();
+	  	 if(player.getItemInHand().getType() != Material.EGG)
+	  		 return;
+	  	eggType = EggType.getEggType(entity);
+	  	if (eggType == null) {
+            return;
+        }
+	  	ItemStack takeEgg = new ItemStack(Material.EGG, (player.getItemInHand().getAmount() - 1));
+        if (this.preventCatchingBabyAnimals) {
+            if (entity instanceof Ageable) {
+                if (!((Ageable) entity).isAdult()) {
+                    return;
+                }
+            }
+        }
 
+        if (this.preventCatchingTamedAnimals) {
+            if (entity instanceof Tameable) {
+                if (((Tameable) entity).isTamed()) {
+                    return;
+                }
+            }
+        }
 
+        if (this.preventCatchingShearedSheeps) {
+            if (entity instanceof Sheep) {
+                if (((Sheep) entity).isSheared()) {
+                    return;
+                }
+            }
+        }
+       if (this.usePermissions) {
+                if (!player.hasPermission("eggcatcher.catch." + eggType.getFriendlyName().toLowerCase())) {
+                    player.sendMessage(config.getString("Messages.PermissionFail"));
+                    if (!this.looseEggOnFail) {
+                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
+                    }
+                    return;
+                }
+            }
+
+            if (this.useHealthPercentage) {
+                double healthPercentage = config.getDouble("HealthPercentage." + eggType.getFriendlyName());
+                double currentHealth = ((LivingEntity) entity).getHealth() * 100.0 / ((LivingEntity) entity)
+                        .getMaxHealth();
+                if (healthPercentage < currentHealth) {
+                    if (this.healthPercentageFailMessage.length() > 0) {
+                        player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
+                    }
+                    if (!this.looseEggOnFail) {
+                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
+                    }
+                    return;
+                }
+            }
+
+            if (this.useCatchChance) {
+                double catchChance = config.getDouble("CatchChance." + eggType.getFriendlyName());
+                if (Math.random() * 100 <= catchChance) {
+                    if (this.catchChanceSuccessMessage.length() > 0) {
+                        player.sendMessage(catchChanceSuccessMessage);
+                    }
+                } else {
+                    if (this.catchChanceFailMessage.length() > 0) {
+                        player.sendMessage(this.catchChanceFailMessage);
+                    }
+                    if (!this.looseEggOnFail) {
+                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
+                    }
+                    return;
+                }
+            }
+            
+            boolean freeCatch = player.hasPermission("eggcatcher.free");
+
+            if (this.useVaultCost && !freeCatch) {
+                vaultCost = config.getDouble("VaultCost." + eggType.getFriendlyName());
+                if (!EggCatcher.economy.has(player.getName(), vaultCost)) {
+                    player.sendMessage(String.format(config.getString("Messages.VaultFail"), vaultCost));
+                    if (!this.looseEggOnFail) {
+                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
+                    }
+                    return;
+                } else {
+                    EggCatcher.economy.withdrawPlayer(player.getName(), vaultCost);
+
+                    if (!this.vaultTargetBankAccount.isEmpty()) {
+                        EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
+                    }
+                    player.sendMessage(String.format(config.getString("Messages.VaultSuccess"), vaultCost));
+                }
+            }
+
+            if (this.useItemCost && !freeCatch) {
+                int itemId = config.getInt("ItemCost.ItemId", 266);
+                int itemData = config.getInt("ItemCost.ItemData", 0);
+                int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
+                ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
+                if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
+                    player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
+                            String.valueOf(itemAmount)));
+                    player.getInventory().removeItem(itemStack);
+                } else {
+                    player.sendMessage(String.format(config.getString("Messages.ItemCostFail"),
+                            String.valueOf(itemAmount)));
+                    if (!this.looseEggOnFail) {
+                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
+                    }
+                    return;
+                }
+            }
+   entity.getWorld().dropItem(entity.getLocation(), makeEgg(eggType, entity));
+// **************************** Specialized Support for Personal ElderGuardian Boss *****************************
+//   killElderGuardian(entity);
+   entity.remove();
+   if (this.explosionEffect) {
+       entity.getWorld().createExplosion(entity.getLocation(), 0);
+   }
+   if (this.smokeEffect) {
+       entity.getWorld().playEffect(entity.getLocation(), Effect.SMOKE, 0);
+   }
+   if(takeEgg.getAmount() > 0){
+	   player.getInventory().setItemInHand(takeEgg);
+   }else{
+	   player.getInventory().setItemInHand(new ItemStack(Material.AIR));
+   }
+  }
+  
   @SuppressWarnings("deprecation")
  	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
      public void onEntityHitByEgg(EntityDamageEvent event) {
@@ -118,11 +257,13 @@ public class EggCatcherEntityListener
 
          damageEvent = (EntityDamageByEntityEvent) event;
 
-         if (!(damageEvent.getDamager() instanceof Egg)) {
+         if (!((damageEvent.getDamager() instanceof Egg))) {
              return;
          }
-
-         egg = (Egg) damageEvent.getDamager();
+         if((damageEvent.getDamager() instanceof Egg))
+         {
+        	 egg = (Egg) damageEvent.getDamager();
+         }
          eggType = EggType.getEggType(entity);
 
          if (eggType == null) {
@@ -165,8 +306,10 @@ public class EggCatcherEntityListener
          }
 
          if (egg.getShooter() instanceof Player) {
-             Player player = (Player) egg.getShooter();
-
+             Player player = null;
+        	 if(egg.getShooter() instanceof Player){
+        		 player = (Player) egg.getShooter();
+             }
              if (this.usePermissions) {
                  if (!player.hasPermission("eggcatcher.catch." + eggType.getFriendlyName().toLowerCase())) {
                      player.sendMessage(config.getString("Messages.PermissionFail"));
@@ -273,7 +416,21 @@ public class EggCatcherEntityListener
     if (this.smokeEffect) {
         entity.getWorld().playEffect(entity.getLocation(), Effect.SMOKE, 0);
     }
-    ItemStack eggStack = new ItemStack(383, 1, eggType.getCreatureId());
+    entity.getWorld().dropItem(entity.getLocation(), makeEgg(eggType, entity));
+ // **************************** Specialized Support for Personal ElderGuardian Boss *****************************
+ //   killElderGuardian(entity);
+    
+    if (!this.spawnChickenOnSuccess) {
+        if (!EggCatcher.eggs.contains(egg)) {
+            EggCatcher.eggs.add(egg);
+        	}
+    	}
+  	}
+  
+    @SuppressWarnings("deprecation")
+	public ItemStack makeEgg(EggType eggType, Entity entity)
+    {
+	ItemStack eggStack = new ItemStack(383, 1, eggType.getCreatureId());
     String customName = ((LivingEntity)entity).getCustomName();
     ItemMeta meta = eggStack.getItemMeta();
     ArrayList<String> lore = new ArrayList<String>();
@@ -358,6 +515,10 @@ public class EggCatcherEntityListener
       lore.add(ChatColor.BLUE + "Color: " + ChatColor.WHITE + ((Wolf)entity).getCollarColor().name());
     }
     
+    if((entity instanceof Guardian && ((Guardian)entity).isElder())) {
+    	lore.add(ChatColor.BLUE + "Variant: " + ChatColor.WHITE + "Elder");
+    }
+    
     if ((entity instanceof Horse))
     {
       if (((Horse)entity).getVariant() == Horse.Variant.HORSE) {
@@ -394,14 +555,9 @@ public class EggCatcherEntityListener
         lore.add(ChatColor.BLUE + "Tamed");
       }
     }
-    if (!this.spawnChickenOnSuccess) {
-        if (!EggCatcher.eggs.contains(egg)) {
-            EggCatcher.eggs.add(egg);
-        }
-    }
     meta.setLore(lore);
     eggStack.setItemMeta(meta);
-    entity.getWorld().dropItem(entity.getLocation(), eggStack);
+    return eggStack;
   }
   
   @EventHandler
@@ -410,4 +566,16 @@ public class EggCatcherEntityListener
       e.setCancelled(true);
     }
   }
+  
+//**************************** Specialized Support for Personal ElderGuardian Boss *****************************
+/*
+  public void killElderGuardian(Entity entity)
+  {
+	  if((entity instanceof Guardian && ((Guardian)entity).isElder())) {
+	    	if(EggCatcher.isElderGuardianBoss()){
+	    		io.hotmail.com.jacob_vejvoda.ElderGuardianBoss.ElderGuardianBoss.killBoss(entity);
+	    	}
+	    }
+  }
+*/
 }

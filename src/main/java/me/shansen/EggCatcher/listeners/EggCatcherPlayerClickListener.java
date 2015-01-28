@@ -62,6 +62,9 @@ public class EggCatcherPlayerClickListener implements org.bukkit.event.Listener
             if ((entity instanceof Skeleton)) {
               ((Skeleton)entity).setSkeletonType(Skeleton.SkeletonType.valueOf(l));
             }
+            if ((entity instanceof Guardian)){
+              ((Guardian)entity).setElder(true);	
+            }
           }
           if (s.contains("Age:")) {
             String l = s.replaceAll("§9", "");

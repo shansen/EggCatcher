@@ -50,6 +50,7 @@ public enum EggType {
     ENDERDRAGON(EntityType.ENDER_DRAGON, 63, "EnderDragon"),
     RABBIT(EntityType.RABBIT, 101, "Rabbit"),
     GUARDIAN(EntityType.GUARDIAN, 68, "Guardian"),
+    ELDERGUARDIAN(EntityType.GUARDIAN, 68, "ElderGuardian"),
     SNOWMAN(EntityType.SNOWMAN, 97, "Snowman"),
     IRON_GOLEM(EntityType.IRON_GOLEM, 99, "VillagerGolem"),
     WITHER(EntityType.WITHER, 64, "WitherBoss"),
