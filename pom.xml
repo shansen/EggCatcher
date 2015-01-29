@@ -85,13 +85,6 @@
             <version>1.5.0</version>
         </dependency>
         <dependency>
-            <groupId>io.hotmail.com.jacob_vejvoda</groupId>
-            <artifactId>ElderGuardianBoss</artifactId>
-            <version>0.2</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/ElderGuardianBoss.jar</systemPath>
-        </dependency>
-        <dependency>
             <groupId>org.mcstats.bukkit</groupId>
             <artifactId>metrics</artifactId>
             <version>R7</version>

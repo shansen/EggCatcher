@@ -3,7 +3,6 @@ version: 2.1.3
 description: This plugin allows you to catch mobs in eggs.
 author: shansen
 main: me.shansen.EggCatcher.EggCatcher
-softdepend: [ElderGuardianBoss]
 
 permissions:
     eggcatcher.catch.*:

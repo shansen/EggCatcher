@@ -9,9 +9,12 @@ import me.shansen.EggCatcher.events.EggCaptureEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Ageable;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Guardian;
@@ -21,6 +24,7 @@ import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Rabbit;
 import org.bukkit.entity.Sheep;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Tameable;
@@ -31,6 +35,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.HorseInventory;
 import org.bukkit.inventory.ItemStack;
@@ -103,25 +108,30 @@ public class EggCatcherEntityListener
   }
   
   @SuppressWarnings("deprecation")
-	@EventHandler
-     public void onEntityStruckByEgg(EntityDamageByEntityEvent event)
+  @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+     public void onEntityStruckByEgg(EntityDamageEvent event)
      {
 	     Player player = null;
 	     Entity entity = event.getEntity();
 	     EggType eggType = null;
 	     double vaultCost = 0.0;
-	  	 if(!(event.getDamager() instanceof Player))
+	     EntityDamageByEntityEvent damageEvent = null;
+	     if (!(event instanceof EntityDamageByEntityEvent)) {
+             return;
+         }
+	     damageEvent = (EntityDamageByEntityEvent) event;
+	  	 if(!(damageEvent.getDamager() instanceof Player))
 	  	 {
 	  		 return;
 	  	 }
-	  	 player = (Player)((EntityDamageByEntityEvent)event).getDamager();
+	  	 player = (Player)damageEvent.getDamager();
 	  	 if(player.getItemInHand().getType() != Material.EGG)
 	  		 return;
 	  	eggType = EggType.getEggType(entity);
 	  	if (eggType == null) {
             return;
         }
-	  	ItemStack takeEgg = new ItemStack(Material.EGG, (player.getItemInHand().getAmount() - 1));
+	  	takeEgg(player);
         if (this.preventCatchingBabyAnimals) {
             if (entity instanceof Ageable) {
                 if (!((Ageable) entity).isAdult()) {
@@ -226,20 +236,13 @@ public class EggCatcherEntityListener
                 }
             }
    entity.getWorld().dropItem(entity.getLocation(), makeEgg(eggType, entity));
-// **************************** Specialized Support for Personal ElderGuardian Boss *****************************
-//   killElderGuardian(entity);
-   entity.remove();
+   entity = killCatchedCreature(entity);
    if (this.explosionEffect) {
        entity.getWorld().createExplosion(entity.getLocation(), 0);
    }
    if (this.smokeEffect) {
        entity.getWorld().playEffect(entity.getLocation(), Effect.SMOKE, 0);
-   }
-   if(takeEgg.getAmount() > 0){
-	   player.getInventory().setItemInHand(takeEgg);
-   }else{
-	   player.getInventory().setItemInHand(new ItemStack(Material.AIR));
-   }
+   } 
   }
   
   @SuppressWarnings("deprecation")
@@ -408,8 +411,6 @@ public class EggCatcherEntityListener
                  }
              }
          }
-
-    entity.remove();
     if (this.explosionEffect) {
         entity.getWorld().createExplosion(entity.getLocation(), 0);
     }
@@ -417,8 +418,7 @@ public class EggCatcherEntityListener
         entity.getWorld().playEffect(entity.getLocation(), Effect.SMOKE, 0);
     }
     entity.getWorld().dropItem(entity.getLocation(), makeEgg(eggType, entity));
- // **************************** Specialized Support for Personal ElderGuardian Boss *****************************
- //   killElderGuardian(entity);
+    entity = killCatchedCreature(entity);
     
     if (!this.spawnChickenOnSuccess) {
         if (!EggCatcher.eggs.contains(egg)) {
@@ -426,6 +426,8 @@ public class EggCatcherEntityListener
         	}
     	}
   	}
+  
+    //******* Let's Seperate the Method for Creating the Eggs
   
     @SuppressWarnings("deprecation")
 	public ItemStack makeEgg(EggType eggType, Entity entity)
@@ -455,7 +457,10 @@ public class EggCatcherEntityListener
     {
       lore.add(ChatColor.BLUE + "Variant: " + ChatColor.WHITE + ((Ocelot)entity).getCatType().name());
     }
-    
+    if ((entity instanceof Creeper) && ((Creeper) entity).isPowered())
+    {
+      lore.add(ChatColor.BLUE + "Variant: " + ChatColor.WHITE + "Charged");
+    }
     if ((entity instanceof Ageable))
     {
       lore.add(ChatColor.BLUE + "Age: " + ChatColor.WHITE + ((Ageable)entity).getAge());
@@ -516,9 +521,35 @@ public class EggCatcherEntityListener
     }
     
     if((entity instanceof Guardian && ((Guardian)entity).isElder())) {
+    	meta = eggStack.getItemMeta();
+        meta.setDisplayName("Spawn Elder Guardian");
+        eggStack.setItemMeta(meta);
     	lore.add(ChatColor.BLUE + "Variant: " + ChatColor.WHITE + "Elder");
     }
-    
+
+    if((entity instanceof Rabbit)){
+    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.BLACK) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	}
+    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.BLACK_AND_WHITE) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	}
+    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.BROWN) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	}
+    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.GOLD) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	}
+    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.SALT_AND_PEPPER) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	}
+    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.THE_KILLER_BUNNY) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	}
+    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.WHITE) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	}
+    }
     if ((entity instanceof Horse))
     {
       if (((Horse)entity).getVariant() == Horse.Variant.HORSE) {
@@ -567,15 +598,59 @@ public class EggCatcherEntityListener
     }
   }
   
-//**************************** Specialized Support for Personal ElderGuardian Boss *****************************
-/*
-  public void killElderGuardian(Entity entity)
-  {
-	  if((entity instanceof Guardian && ((Guardian)entity).isElder())) {
-	    	if(EggCatcher.isElderGuardianBoss()){
-	    		io.hotmail.com.jacob_vejvoda.ElderGuardianBoss.ElderGuardianBoss.killBoss(entity);
-	    	}
-	    }
+  //Take the egg from the player when Striking the entity with the egg
+
+  public void takeEgg(Player player){
+	  ItemStack takeEgg = new ItemStack(Material.EGG, (player.getItemInHand().getAmount() - 1));  
+	  if(player.getGameMode() != GameMode.CREATIVE || player.getGameMode() != GameMode.SPECTATOR){
+		  if(takeEgg.getAmount() > 0){
+			  player.getInventory().setItemInHand(takeEgg);
+		  }else{
+			  player.getInventory().setItemInHand(new ItemStack(Material.AIR));
+		  }
+	  }
   }
-*/
+  
+  //Let's Kill these creatures properly to avoid bad plugin interactions
+  
+  public Entity killCatchedCreature(Entity entity)
+  {
+	  if(entity instanceof Damageable)
+	  {
+		  Damageable e = (Damageable)entity;
+		  entity.remove();
+		  e.setHealth(0);
+		  entity = (Entity)e;
+	  }
+	  return entity;
+  }
+  
+  // *************   Stop Creatures killed by EggCatcher from Dropping Normal Drops       *****************
+  
+  @EventHandler(priority = EventPriority.HIGH)
+  public void stopCaptureDrops(EntityDeathEvent event)
+  {
+	  Entity entity = event.getEntity();
+	  LivingEntity caught = null;
+	  Player player = null;
+	  ItemStack hand = null;
+	  if((entity instanceof LivingEntity && !(entity instanceof Player)))
+	  {
+		  caught = (LivingEntity)entity;
+	  }else{
+		  return;
+	  }
+	  if((caught.getKiller() != null) && (caught.getKiller() instanceof Player) || caught.getKiller() instanceof Egg)
+	  {
+		  if(caught.getKiller() instanceof Player){
+			  player = caught.getKiller();
+			  hand = player.getItemInHand();
+			  if(!(hand.getType() == Material.EGG))
+			  {
+				  return;
+			  }
+		  }
+		  event.getDrops().clear();
+	  }
+  }
 }

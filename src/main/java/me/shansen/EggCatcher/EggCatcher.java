@@ -62,16 +62,4 @@ public class EggCatcher extends JavaPlugin {
             }
         }
     }
-    
-    // **************************** Specialized Support for Personal ElderGuardian Boss *****************************
-    /*
-    public static boolean isElderGuardianBoss()
-    {
-    	if (pm.isPluginEnabled("ElderGuardianBoss")) {
-			return true;
-		}
-		return false;
-    }
-    */
-
 }

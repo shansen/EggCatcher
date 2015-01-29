@@ -38,8 +38,14 @@ public class EggCatcherPlayerClickListener implements org.bukkit.event.Listener
           }
         if (i.getItemMeta().getDisplayName() != null)
         {
-          entity.setCustomName(i.getItemMeta().getDisplayName());
-          entity.setCustomNameVisible(true);
+          String s = i.getItemMeta().getDisplayName();
+          if(s.contains("Spawn ")){
+        	  String l = s.replace("§f", ""); 
+        	  l = l.replace("Spawn ", "");
+        	  s = l;
+          }
+        	  entity.setCustomName(s);
+        	  entity.setCustomNameVisible(true);
         }
         for (String s : i.getItemMeta().getLore()) {
           if (s.contains("Health:")) {
@@ -64,6 +70,9 @@ public class EggCatcherPlayerClickListener implements org.bukkit.event.Listener
             }
             if ((entity instanceof Guardian)){
               ((Guardian)entity).setElder(true);	
+            }
+            if ((entity instanceof Creeper)){
+                ((Creeper)entity).setPowered(true);
             }
           }
           if (s.contains("Age:")) {
@@ -208,6 +217,14 @@ public class EggCatcherPlayerClickListener implements org.bukkit.event.Listener
             if ((entity instanceof Horse)) {
               ((Horse)entity).getInventory().setArmor(new ItemStack(Material.getMaterial(l)));
             }
+          }
+          if (s.contains("Type:")) {
+              String l = s.replaceAll("§9", "");
+              l = l.replaceAll("§f", "");
+              l = l.replaceAll("Type: ", "");
+              if ((entity instanceof Rabbit)) {
+                ((Rabbit)entity).setRabbitType(Rabbit.Type.valueOf(l));
+              }
           }
         }
       }
