@@ -14,3 +14,12 @@ target
 *.ipr
 *.iws
 dependency-reduced-pom.xml
+/target/
+*.class
+.project
+.classpath
+/.settings/
+
+/lib/
+.settings
+.git

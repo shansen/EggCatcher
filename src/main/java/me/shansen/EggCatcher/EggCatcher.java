@@ -19,62 +19,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package me.shansen.EggCatcher;
 
 import me.shansen.EggCatcher.listeners.EggCatcherEntityListener;
+import me.shansen.EggCatcher.listeners.EggCatcherPlayerClickListener;
 import me.shansen.EggCatcher.listeners.EggCatcherPlayerListener;
 import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.entity.Egg;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
-import java.io.IOException;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EggCatcher extends JavaPlugin {
     public static List<Egg> eggs = new ArrayList<Egg>();
     public static Economy economy = null;
+    public static PluginManager pm;
 
     public void onDisable() {
     }
 
     public void onEnable() {
-        this.CheckConfigurationFile();
-
-        if (this.getConfig().getBoolean("CheckForUpdates")) {
-            this.CheckUpdate();
-        }
-
-        PluginManager pm = this.getServer().getPluginManager();
+       
+        pm = this.getServer().getPluginManager();
 
         final EggCatcherPlayerListener playerListener = new EggCatcherPlayerListener();
         final EggCatcherEntityListener entityListener = new EggCatcherEntityListener(this);
+        final EggCatcherPlayerClickListener ecpl = new EggCatcherPlayerClickListener();
 
         pm.registerEvents(playerListener, this);
         pm.registerEvents(entityListener, this);
-
+        pm.registerEvents(ecpl, this);
+        if (!new File("./plugins/EggCatcher/config.yml").exists())
+            saveDefaultConfig();
+        reloadConfig();
         if (getServer().getPluginManager().getPlugin("Vault") != null) {
             RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration
                     (Economy.class);
             if (economyProvider != null) {
                 economy = economyProvider.getProvider();
             }
-        }
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException e) {
-        }
-    }
-
-    public void CheckUpdate() {
-        Updater updater = new Updater(this, 35664, this.getFile(), Updater.UpdateType.DEFAULT, false);
-    }
-
-    public void CheckConfigurationFile() {
-        double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-        if (configVersion != 2.00) {
-            this.saveResource("config.yml", true);
-            this.reloadConfig();
         }
     }
 }

@@ -45,8 +45,16 @@ public enum EggType {
     OCELOT(EntityType.OCELOT, 98, "Ocelot"),
     BAT(EntityType.BAT, 65, "Bat"),
     WITCH(EntityType.WITCH, 66, "Witch"),
-    HORSE(EntityType.HORSE, 100, "Horse");
-
+    HORSE(EntityType.HORSE, 100, "Horse"),
+    ENDERMITE(EntityType.ENDERMITE, 67, "Endermite"),
+    ENDERDRAGON(EntityType.ENDER_DRAGON, 63, "EnderDragon"),
+    RABBIT(EntityType.RABBIT, 101, "Rabbit"),
+    GUARDIAN(EntityType.GUARDIAN, 68, "Guardian"),
+    ELDERGUARDIAN(EntityType.GUARDIAN, 68, "ElderGuardian"),
+    SNOWMAN(EntityType.SNOWMAN, 97, "Snowman"),
+    IRON_GOLEM(EntityType.IRON_GOLEM, 99, "VillagerGolem"),
+    WITHER(EntityType.WITHER, 64, "WitherBoss"),
+    GIANT(EntityType.GIANT, 53, "Giant");
 
 
     private final EntityType entityType;
