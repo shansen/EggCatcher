@@ -20,6 +20,7 @@ package me.shansen.EggCatcher;
 
 import me.shansen.EggCatcher.listeners.EggCatcherEntityListener;
 import me.shansen.EggCatcher.listeners.EggCatcherPlayerListener;
+import net.gravitydevelopment.updater.Updater;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Egg;
 import org.bukkit.plugin.PluginManager;
