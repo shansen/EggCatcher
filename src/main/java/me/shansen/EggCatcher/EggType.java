@@ -47,7 +47,8 @@ public enum EggType {
     WITCH(EntityType.WITCH, 66, "Witch"),
     HORSE(EntityType.HORSE, 100, "Horse"),
     ENDERMITE(EntityType.ENDERMITE, 67, "Endermite"),
-    GUARDIAN(EntityType.GUARDIAN, 68, "Guardian");
+    GUARDIAN(EntityType.GUARDIAN, 68, "Guardian"),
+    RABBIT(EntityType.RABBIT, 101, "Rabbit");
 
 
 

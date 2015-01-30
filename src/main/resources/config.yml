@@ -40,6 +40,7 @@ CatchChance:
   Horse: 100.0
   Endermite: 100.0
   Guardian: 100.0
+  Rabbit: 100.0
 VaultCost:
   Pig: 0.0
   Sheep: 0.0
@@ -67,6 +68,7 @@ VaultCost:
   Horse: 0.0
   Endermite: 0.0
   Guardian: 0.0
+  Rabbit: 0.0
 ItemCost:
   ItemId: 371
   ItemData: 0
@@ -97,6 +99,7 @@ ItemCost:
     Horse: 0
     Endermite: 0
     Guardian: 0
+    Rabbit: 0
 HealthPercentage:
   Pig: 100.0
   Sheep: 100.0
@@ -124,6 +127,7 @@ HealthPercentage:
   Horse: 100.0
   Endermite: 100.0
   Guardian: 100.0
+  Rabbit: 100.0
 Messages:
   PermissionFail: "You do not have permission to catch this mob!"
   VaultFail: "It costs %s dollars to catch this mob!"
