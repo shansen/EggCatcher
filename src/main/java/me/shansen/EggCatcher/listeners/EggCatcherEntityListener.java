@@ -11,11 +11,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.PortalType;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Ageable;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Egg;
+import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Guardian;
 import org.bukkit.entity.Horse;
@@ -33,9 +35,11 @@ import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityCreatePortalEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.HorseInventory;
 import org.bukkit.inventory.ItemStack;
@@ -457,9 +461,13 @@ public class EggCatcherEntityListener
     {
       lore.add(ChatColor.BLUE + "Variant: " + ChatColor.WHITE + ((Ocelot)entity).getCatType().name());
     }
-    if ((entity instanceof Creeper) && ((Creeper) entity).isPowered())
+    if ((entity instanceof Creeper))
     {
-      lore.add(ChatColor.BLUE + "Variant: " + ChatColor.WHITE + "Charged");
+      Creeper c = (Creeper)entity;
+      if(c.isPowered()){
+    	  lore.add(ChatColor.BLUE + "Variant: " + ChatColor.WHITE + "Charged");
+    	  entity = (Entity)c;
+      } 
     }
     if ((entity instanceof Ageable))
     {
@@ -520,35 +528,41 @@ public class EggCatcherEntityListener
       lore.add(ChatColor.BLUE + "Color: " + ChatColor.WHITE + ((Wolf)entity).getCollarColor().name());
     }
     
-    if((entity instanceof Guardian && ((Guardian)entity).isElder())) {
-    	meta = eggStack.getItemMeta();
-        meta.setDisplayName("Spawn Elder Guardian");
-        eggStack.setItemMeta(meta);
-    	lore.add(ChatColor.BLUE + "Variant: " + ChatColor.WHITE + "Elder");
+    if(entity instanceof Guardian) {
+    	Guardian g = (Guardian)entity;
+    	if(g.isElder()){
+    		meta = eggStack.getItemMeta();
+        	meta.setDisplayName("Spawn Elder Guardian");
+        	eggStack.setItemMeta(meta);
+        	lore.add(ChatColor.BLUE + "Variant: " + ChatColor.WHITE + "Elder");
+        	entity = (Entity)g;
+    	}
     }
 
-    if((entity instanceof Rabbit)){
-    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.BLACK) {
-    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    if(entity instanceof Rabbit){
+    	Rabbit r = (Rabbit)entity;
+    	if (r.getRabbitType() == Rabbit.Type.BLACK) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + r.getRabbitType().toString());
     	}
-    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.BLACK_AND_WHITE) {
-    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	if (r.getRabbitType() == Rabbit.Type.BLACK_AND_WHITE) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + r.getRabbitType().toString());
     	}
-    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.BROWN) {
-    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	if (r.getRabbitType() == Rabbit.Type.BROWN) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + r.getRabbitType().toString());
     	}
-    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.GOLD) {
-    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	if (r.getRabbitType() == Rabbit.Type.GOLD) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + r.getRabbitType().toString());
     	}
-    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.SALT_AND_PEPPER) {
-    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	if (r.getRabbitType() == Rabbit.Type.SALT_AND_PEPPER) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + r.getRabbitType().toString());
     	}
-    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.THE_KILLER_BUNNY) {
-    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	if (r.getRabbitType() == Rabbit.Type.THE_KILLER_BUNNY) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + r.getRabbitType().toString());
     	}
-    	if (((Rabbit)entity).getRabbitType() == Rabbit.Type.WHITE) {
-    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + ((Rabbit)entity).getRabbitType().toString());
+    	if (r.getRabbitType() == Rabbit.Type.WHITE) {
+    		lore.add(ChatColor.BLUE + "Type: " + ChatColor.WHITE + r.getRabbitType().toString());
     	}
+    	entity = (Entity)r;
     }
     if ((entity instanceof Horse))
     {
@@ -625,9 +639,77 @@ public class EggCatcherEntityListener
 	  return entity;
   }
   
-  // *************   Stop Creatures killed by EggCatcher from Dropping Normal Drops       *****************
+  //If Entity is an EnderDragon, Cancel the Explode Effect; This technically shouldn't happen, but just in case.
   
   @EventHandler(priority = EventPriority.HIGH)
+  public void onEntityExplode(EntityExplodeEvent event){
+		if(event.getEntity() instanceof EnderDragon){
+			Entity entity = event.getEntity();
+			EnderDragon d = (EnderDragon) entity;
+			if(d.getHealth() <= 0)
+			{
+			  if((d.getKiller() instanceof Player || d.getKiller() instanceof Egg) && d.getKiller() != null)
+			  {
+				  if(d.getKiller() instanceof Egg)
+				  {
+					  event.setCancelled(true);
+				  }
+				  if(d.getKiller() instanceof Player)
+				  {
+					  Player p = d.getKiller();
+					  ItemStack hand = null;
+					  if(p.getItemInHand()!=null)
+					      hand = p.getItemInHand();
+					  if(hand.getType() == Material.EGG)
+					  {
+						  event.setCancelled(true);
+					  }
+				  }
+			  }
+		   }			 
+		}
+  }
+  
+  //If Entity is an EnderDragon, Cancel the EnderPortal Drops; This technically shouldn't happen, but just in case.
+  @EventHandler(priority = EventPriority.HIGH)
+  public void onEntityCreatePortal(EntityCreatePortalEvent event){
+	  if(event.getEntity() instanceof EnderDragon)
+	  {
+		  Entity entity = event.getEntity();
+			EnderDragon d = (EnderDragon) entity;
+			if(d.getHealth() <= 0)
+			{
+			  if((d.getKiller() instanceof Player || d.getKiller() instanceof Egg) && d.getKiller() != null)
+			  {
+				  if(d.getKiller() instanceof Egg)
+				  {
+					  if(event.getPortalType() != null && event.getPortalType() == PortalType.ENDER)
+					  {
+						  event.setCancelled(true);
+					  }
+				  }
+				  if(d.getKiller() instanceof Player)
+				  {
+					  Player p = d.getKiller();
+					  ItemStack hand = null;
+					  if(p.getItemInHand()!=null)
+					      hand = p.getItemInHand();
+					  if(hand.getType() == Material.EGG)
+					  {
+						  if(event.getPortalType() != null && event.getPortalType() == PortalType.ENDER)
+						  {
+							  event.setCancelled(true);
+						  }
+					  }
+				  }
+			  }
+		   }
+	  }
+  }
+  
+  // *************   Stop Creatures killed by EggCatcher from Dropping Normal Drops       *****************
+  
+  @EventHandler
   public void stopCaptureDrops(EntityDeathEvent event)
   {
 	  Entity entity = event.getEntity();
