@@ -138,4 +138,3 @@ Messages:
   CatchChanceSuccess: ""
   HealthPercentageFail: "The mob has more than %s percent health left and cannot be caught!"
 ConfigVersion: 2.2
-CheckForUpdates: true
