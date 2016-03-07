@@ -22,6 +22,7 @@ import me.shansen.EggCatcher.EggCatcher;
 import me.shansen.EggCatcher.EggType;
 import me.shansen.EggCatcher.events.EggCaptureEvent;
 
+import me.shansen.nbt.NbtReflection;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -254,6 +255,8 @@ public class EggCatcherEntityListener implements Listener {
         }
 
         ItemStack eggStack = new ItemStack(Material.MONSTER_EGG, 1, eggType.getCreatureId());
+
+        eggStack = NbtReflection.setNewEntityTag(eggStack, entity.getType().getName());
 
         String customName = ((LivingEntity) entity).getCustomName();
 
