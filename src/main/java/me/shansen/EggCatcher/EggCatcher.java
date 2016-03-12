@@ -64,8 +64,13 @@ public class EggCatcher extends JavaPlugin {
 
     public void CheckConfigurationFile() {
         double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-        if (configVersion == 2.2) {
+        if (configVersion == 2.5) {
             //
+            this.saveConfig();
+        } else if (configVersion == 2.2) {
+            this.getConfig().set("DeleteVillagerInventoryOnCatch", false);
+
+            this.getConfig().set("ConfigVersion", 2.5);
             this.saveConfig();
         } else if (configVersion == 2.0) {
             this.getConfig().set("CatchChance.Endermite", 100.0);
