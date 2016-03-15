@@ -11,6 +11,7 @@ This plugin allows the players to get spawn eggs by throwing regular eggs at mob
 * Configurable catch chance.
 * Configurable cost (vault support, or items).
 * Explosion effects.
+
 ## Installation and requirements ##
 **Vault is not required unless you intend to use it**
 
