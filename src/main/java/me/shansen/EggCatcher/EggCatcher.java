@@ -64,8 +64,14 @@ public class EggCatcher extends JavaPlugin {
 
     public void CheckConfigurationFile() {
         double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-        if (configVersion == 2.5) {
-            //
+        if (configVersion == 2.6) {
+            this.saveConfig();
+        } else if (configVersion == 2.5) {
+            this.getConfig().set("CatchChance.PolarBear", 100.0);
+            this.getConfig().set("VaultCost.PolarBear", 0);
+            this.getConfig().set("ItemCost.Amount.PolarBear", 0);
+            this.getConfig().set("HealthPercentage.PolarBear", 100.0);
+            this.getConfig().set("ConfigVersion", 2.6);
             this.saveConfig();
         } else if (configVersion == 2.2) {
             this.getConfig().set("DeleteVillagerInventoryOnCatch", false);

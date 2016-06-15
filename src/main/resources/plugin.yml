@@ -37,6 +37,7 @@ permissions:
             eggcatcher.catch.endermite: true
             eggcatcher.catch.guardian: true
             eggcatcher.catch.rabbit: true
+            eggcatcher.catch.polarbear: true
     eggcatcher.free:
         description: Makes catching a mob free.
         default: false

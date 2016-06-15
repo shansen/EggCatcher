@@ -42,6 +42,7 @@ CatchChance:
   Endermite: 100.0
   Guardian: 100.0
   Rabbit: 100.0
+  Polarbear: 100.0
 VaultCost:
   Pig: 0.0
   Sheep: 0.0
@@ -70,6 +71,7 @@ VaultCost:
   Endermite: 0.0
   Guardian: 0.0
   Rabbit: 0.0
+  Polarbear: 0.0
 ItemCost:
   ItemId: 371
   ItemData: 0
@@ -101,6 +103,7 @@ ItemCost:
     Endermite: 0
     Guardian: 0
     Rabbit: 0
+    Polarbear: 0
 HealthPercentage:
   Pig: 100.0
   Sheep: 100.0
@@ -129,6 +132,7 @@ HealthPercentage:
   Endermite: 100.0
   Guardian: 100.0
   Rabbit: 100.0
+  Polarbear: 100.0
 Messages:
   PermissionFail: "You do not have permission to catch this mob!"
   VaultFail: "It costs %s dollars to catch this mob!"
@@ -138,4 +142,4 @@ Messages:
   CatchChanceFail: "You failed to catch this mob!"
   CatchChanceSuccess: ""
   HealthPercentageFail: "The mob has more than %s percent health left and cannot be caught!"
-ConfigVersion: 2.5
+ConfigVersion: 2.6
