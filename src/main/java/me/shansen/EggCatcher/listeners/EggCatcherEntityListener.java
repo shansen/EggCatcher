@@ -1,32 +1,24 @@
-/*
-EggCatcher
-Copyright (C) 2012, 2013  me@shansen.me
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 package me.shansen.EggCatcher.listeners;
 
 import me.shansen.EggCatcher.EggCatcher;
 import me.shansen.EggCatcher.EggType;
 import me.shansen.EggCatcher.events.EggCaptureEvent;
-
 import me.shansen.nbt.NbtReflection;
+
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Ageable;
+import org.bukkit.entity.Egg;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Horse;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Pig;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Sheep;
+import org.bukkit.entity.Tameable;
+import org.bukkit.entity.Villager;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -37,8 +29,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class EggCatcherEntityListener implements Listener {
-
+public class EggCatcherEntityListener
+implements Listener {
     private final boolean usePermissions;
     private final boolean useCatchChance;
     private final boolean useHealthPercentage;
@@ -85,220 +77,227 @@ public class EggCatcherEntityListener implements Listener {
         this.deleteVillagerInventoryOnCatch = this.config.getBoolean("DeleteVillagerInventoryOnCatch", false);
     }
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    /*
+     * Enabled aggressive block sorting
+     * Lifted jumps to return sites
+     */
+    @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
     public void onEntityHitByEgg(EntityDamageEvent event) {
+    	//GTN added Booleans
+    	Boolean playerHasFunds = false;
+    	Boolean playerHasItems = false;
         EntityDamageByEntityEvent damageEvent = null;
         Egg egg = null;
         EggType eggType = null;
         double vaultCost = 0.0;
         Entity entity = event.getEntity();
-
         if (!(event instanceof EntityDamageByEntityEvent)) {
             return;
         }
-
-        damageEvent = (EntityDamageByEntityEvent) event;
-
+        damageEvent = (EntityDamageByEntityEvent)event;
         if (!(damageEvent.getDamager() instanceof Egg)) {
             return;
         }
-
-        egg = (Egg) damageEvent.getDamager();
+        egg = (Egg)damageEvent.getDamager();
         eggType = EggType.getEggType(entity);
-
         if (eggType == null) {
             return;
         }
-
         if (!this.spawnChickenOnFail) {
             EggCatcher.eggs.add(egg);
         }
-
-        if (this.preventCatchingBabyAnimals) {
-            if (entity instanceof Ageable) {
-                if (!((Ageable) entity).isAdult()) {
-                    return;
-                }
-            }
+        if (this.preventCatchingBabyAnimals && entity instanceof Ageable && !((Ageable)entity).isAdult()) {
+            return;
         }
-
-        if (this.preventCatchingTamedAnimals) {
-            if (entity instanceof Tameable) {
-                if (((Tameable) entity).isTamed()) {
-                    return;
-                }
-            }
+        if (this.preventCatchingTamedAnimals && entity instanceof Tameable && ((Tameable)entity).isTamed()) {
+            return;
         }
-
-        if (this.preventCatchingShearedSheeps) {
-            if (entity instanceof Sheep) {
-                if (((Sheep) entity).isSheared()) {
-                    return;
-                }
-            }
+        if (this.preventCatchingShearedSheeps && entity instanceof Sheep && ((Sheep)entity).isSheared()) {
+            return;
         }
-
-
         EggCaptureEvent eggCaptureEvent = new EggCaptureEvent(entity, egg);
-        this.plugin.getServer().getPluginManager().callEvent(eggCaptureEvent);
+        this.plugin.getServer().getPluginManager().callEvent((Event)eggCaptureEvent);
         if (eggCaptureEvent.isCancelled()) {
             return;
         }
-
         if (egg.getShooter() instanceof Player) {
-            Player player = (Player) egg.getShooter();
-
-            if (this.usePermissions) {
-                if (!player.hasPermission("eggcatcher.catch." + eggType.getFriendlyName().toLowerCase())) {
-                    player.sendMessage(config.getString("Messages.PermissionFail"));
-                    if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                }
+            double currentHealth;
+            double healthPercentage;
+            Player player = (Player)egg.getShooter();
+            if (this.usePermissions && !player.hasPermission("eggcatcher.catch." + eggType.getFriendlyName().toLowerCase())) {
+                player.sendMessage(this.config.getString("Messages.PermissionFail"));
+                if (this.looseEggOnFail) return;
+                player.getInventory().addItem(new ItemStack[]{new ItemStack(Material.EGG, 1)});
+                EggCatcher.eggs.add(egg);
+                return;
             }
-
-            if (this.useHealthPercentage) {
-                double healthPercentage = config.getDouble("HealthPercentage." + eggType.getFriendlyName());
-                double currentHealth = ((LivingEntity) entity).getHealth() * 100.0 / ((LivingEntity) entity)
-                        .getMaxHealth();
-                if (healthPercentage < currentHealth) {
-                    if (this.healthPercentageFailMessage.length() > 0) {
-                        player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
-                    }
-                    if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
+            if (this.useHealthPercentage && (healthPercentage = this.config.getDouble("HealthPercentage." + eggType.getFriendlyName())) < (currentHealth = ((LivingEntity)entity).getHealth() * 100.0 / ((LivingEntity)entity).getMaxHealth())) {
+                if (this.healthPercentageFailMessage.length() > 0) {
+                    player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
                 }
+                if (this.looseEggOnFail) return;
+                player.getInventory().addItem(new ItemStack[]{new ItemStack(Material.EGG, 1)});
+                EggCatcher.eggs.add(egg);
+                return;
             }
-
             if (this.useCatchChance) {
-                double catchChance = config.getDouble("CatchChance." + eggType.getFriendlyName());
-                if (Math.random() * 100 <= catchChance) {
+                double catchChance = this.config.getDouble("CatchChance." + eggType.getFriendlyName());
+                if (Math.random() * 100.0 <= catchChance) {
                     if (this.catchChanceSuccessMessage.length() > 0) {
-                        player.sendMessage(catchChanceSuccessMessage);
+                        player.sendMessage(this.catchChanceSuccessMessage);
                     }
                 } else {
                     if (this.catchChanceFailMessage.length() > 0) {
                         player.sendMessage(this.catchChanceFailMessage);
                     }
-                    if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
+                    if (this.looseEggOnFail) return;
+                    player.getInventory().addItem(new ItemStack[]{new ItemStack(Material.EGG, 1)});
+                    EggCatcher.eggs.add(egg);
                     return;
                 }
+            }
+            boolean freeCatch = player.hasPermission("eggcatcher.free");
+//GTN The structure of the plugin makes it so that
+//GTN The catch cost for Vault and Item are seperate
+//GTN so the charge must be either/or NOT both!
+            
+//GTN Let me restructure this as a solution!
+//GTN so we have 'useVaultCost', 'useItemCost', 'freeCatch'
+//GTN proposed structure
+//GTN Use a Boolean of playerHasFunds
+//GTN Use a Boolean of playerHasItems
+//GTN process as normal but delay the PAYMENT
+//GTN Use three PAYMENT methods of 'VaultOnly' or 'ItemOnly' or 'Both'
+//GTN *** check if playerHasFunds
+            if (this.useVaultCost && !freeCatch) {
+            	//GTN testing  player.sendMessage(String.format("You have %s", EggCatcher.economy.format(EggCatcher.economy.getBalance(player))));//.getBalance(player.getName()))));
+                vaultCost = this.config.getDouble("VaultCost." + eggType.getFriendlyName());
+                //GTN was if (!EggCatcher.economy.has(player.getName(), vaultCost)) {
+                //GTN replaced with
+                if (EggCatcher.economy.getBalance(player) < vaultCost) {
+                    player.sendMessage(String.format(this.config.getString("Messages.VaultFail"), vaultCost));
+                    if (this.looseEggOnFail) return;
+                    player.getInventory().addItem(new ItemStack[]{new ItemStack(Material.EGG, 1)});
+                    EggCatcher.eggs.add(egg);
+                    return;
+                }
+//GTN Move this to take payment
+                playerHasFunds = true;
+                //GTN was EggCatcher.economy.withdrawPlayer(player.getName(), vaultCost);
+                //GTN replaced with
+                //EggCatcher.economy.withdrawPlayer(player, vaultCost);
+                //if (!this.vaultTargetBankAccount.isEmpty()) {
+                //    EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
+                //}
+                //player.sendMessage(String.format(this.config.getString("Messages.VaultSuccess"), vaultCost));
+            }
+//GTN *** check if playerHasItems as MATERIAL
+            if (this.useItemCost && !freeCatch) {
+            	//GTN Replaced static value of 'Gold_Ingot' (266) with configured ItemId.MATERIAL
+            	//GTN was int itemId = this.config.getInt("ItemCost.ItemId", 266);
+            	//GTN replaced with
+            	
+                String itemId = this.config.getString("ItemCost.ItemId");
+                int itemData = this.config.getInt("ItemCost.ItemData", 0);
+                int itemAmount = this.config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
+                
+                //GTN was ItemStack itemStack = new ItemStack(itemId, itemAmount, (short)itemData);
+                //GTN replaced with
+                ItemStack itemStack = new ItemStack(Material.getMaterial(itemId), itemAmount, (short)itemData);
+//GTN the problem is that Vault has already taken money but what happens if there are not enough items?
+                if (!player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
+                    player.sendMessage(String.format(this.config.getString("Messages.ItemCostFail"), String.valueOf(itemAmount)));
+                    if (this.looseEggOnFail) return;
+                    player.getInventory().addItem(new ItemStack[]{new ItemStack(Material.EGG, 1)});
+                    EggCatcher.eggs.add(egg);
+                    return;
+                }
+//GTN Move this to take payment
+                playerHasItems = true;
+                //player.sendMessage(String.format(this.config.getString("Messages.ItemCostSuccess"), String.valueOf(itemAmount)));
+                //player.getInventory().removeItem(new ItemStack[]{itemStack});
+            }
+//GTN **** TAKE PAYMENT HERE
+            if (!freeCatch) {
+            	//vaultCost only
+            	if (this.useVaultCost && playerHasFunds && !this.useItemCost) {
+            		EggCatcher.economy.withdrawPlayer(player, vaultCost);
+            		if (!this.vaultTargetBankAccount.isEmpty()) {
+            			EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
+            		}
+            		player.sendMessage(String.format(this.config.getString("Messages.VaultSuccess"), vaultCost));
+            	}
+            	//itemCost only
+            	if (this.useItemCost && playerHasItems && !this.useVaultCost) {
+            		String itemId = this.config.getString("ItemCost.ItemId");
+            		int itemData = this.config.getInt("ItemCost.ItemData", 0);
+            		int itemAmount = this.config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
+            		ItemStack itemStack = new ItemStack(Material.getMaterial(itemId), itemAmount, (short)itemData);
+            		player.sendMessage(String.format(this.config.getString("Messages.ItemCostSuccess"), String.valueOf(itemAmount)));
+                	player.getInventory().removeItem(new ItemStack[]{itemStack});
+            	}
+            	//Both vaultCost and itemCost
+            	if (this.useVaultCost && playerHasFunds && this.useItemCost && playerHasItems) {
+            		EggCatcher.economy.withdrawPlayer(player, vaultCost);
+            		if (!this.vaultTargetBankAccount.isEmpty()) {
+            			EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
+            		}
+            		player.sendMessage(String.format(this.config.getString("Messages.VaultSuccess"), vaultCost));
+            		String itemId = this.config.getString("ItemCost.ItemId");
+            		int itemData = this.config.getInt("ItemCost.ItemData", 0);
+            		int itemAmount = this.config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
+            		ItemStack itemStack = new ItemStack(Material.getMaterial(itemId), itemAmount, (short)itemData);
+            		player.sendMessage(String.format(this.config.getString("Messages.ItemCostSuccess"), String.valueOf(itemAmount)));
+                	player.getInventory().removeItem(new ItemStack[]{itemStack});
+            	}
             }
             
-            boolean freeCatch = player.hasPermission("eggcatcher.free");
-
-            if (this.useVaultCost && !freeCatch) {
-                vaultCost = config.getDouble("VaultCost." + eggType.getFriendlyName());
-                if (!EggCatcher.economy.has(player.getName(), vaultCost)) {
-                    player.sendMessage(String.format(config.getString("Messages.VaultFail"), vaultCost));
-                    if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                } else {
-                    EggCatcher.economy.withdrawPlayer(player.getName(), vaultCost);
-
-                    if (!this.vaultTargetBankAccount.isEmpty()) {
-                        EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
-                    }
-
-                    player.sendMessage(String.format(config.getString("Messages.VaultSuccess"), vaultCost));
-                }
-            }
-
-            if (this.useItemCost && !freeCatch) {
-                int itemId = config.getInt("ItemCost.ItemId", 266);
-                int itemData = config.getInt("ItemCost.ItemData", 0);
-                int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
-                @SuppressWarnings("deprecation")
-				ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
-                if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
-                    player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
-                            String.valueOf(itemAmount)));
-                    player.getInventory().removeItem(itemStack);
-                } else {
-                    player.sendMessage(String.format(config.getString("Messages.ItemCostFail"),
-                            String.valueOf(itemAmount)));
-                    if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                }
-            }
+//GTN *** END OF TAKE PAYMENT
         } else {
-            // Dispenser
             if (!this.nonPlayerCatching) {
                 return;
             }
             if (this.useCatchChance) {
-                double catchChance = config.getDouble("CatchChance." + eggType.getFriendlyName());
-                if (Math.random() * 100 > catchChance) {
+                double catchChance = this.config.getDouble("CatchChance." + eggType.getFriendlyName());
+                if (Math.random() * 100.0 > catchChance) {
                     return;
                 }
             }
         }
-
         entity.remove();
         if (this.explosionEffect) {
-            entity.getWorld().createExplosion(entity.getLocation(), 0);
+            entity.getWorld().createExplosion(entity.getLocation(), 0.0f);
         }
         if (this.smokeEffect) {
             entity.getWorld().playEffect(entity.getLocation(), Effect.SMOKE, 0);
         }
-
         ItemStack eggStack = new ItemStack(Material.MONSTER_EGG, 1, eggType.getCreatureId());
-
+        //GTN was eggStack = NbtReflection.setNewEntityTag(eggStack, entity.getType().name());
+        //GTN replaced with
         eggStack = NbtReflection.setNewEntityTag(eggStack, entity.getType().getName());
-
-        String customName = ((LivingEntity) entity).getCustomName();
-
+        String customName = ((LivingEntity)entity).getCustomName();
         if (customName != null) {
-            // Entity had custom name
             ItemMeta meta = eggStack.getItemMeta();
             meta.setDisplayName(customName);
             eggStack.setItemMeta(meta);
         }
-
-        if(entity instanceof Pig) {
-            if(((Pig)entity).hasSaddle()) {
-                entity.getWorld().dropItem(entity.getLocation(), new ItemStack(Material.SADDLE, 1));
+        if (entity instanceof Pig && ((Pig)entity).hasSaddle()) {
+            entity.getWorld().dropItem(entity.getLocation(), new ItemStack(Material.SADDLE, 1));
+        }
+        if (entity instanceof Horse && ((Horse)entity).isCarryingChest()) {
+            entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.CHEST));
+        }
+        if (entity instanceof Villager && !this.deleteVillagerInventoryOnCatch || !(entity instanceof Villager) && entity instanceof InventoryHolder) {
+            ItemStack[] items;
+            for (ItemStack itemStack : items = ((InventoryHolder)entity).getInventory().getContents()) {
+                if (itemStack == null) continue;
+                entity.getWorld().dropItemNaturally(entity.getLocation(), itemStack);
             }
         }
-
-        if(entity instanceof Horse) {
-            if(((Horse) entity).isCarryingChest()){
-                entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.CHEST));
-            }
-        }
-
-        if((entity instanceof Villager && !this.deleteVillagerInventoryOnCatch) ||
-                (!(entity instanceof Villager) && entity instanceof InventoryHolder)) {
-
-            ItemStack[] items = ((InventoryHolder) entity).getInventory().getContents();
-
-            for(ItemStack itemStack : items) {
-                if(itemStack!=null){
-                    entity.getWorld().dropItemNaturally(entity.getLocation(), itemStack);
-                }
-            }
-        }
-
         entity.getWorld().dropItem(entity.getLocation(), eggStack);
-
-        if (!this.spawnChickenOnSuccess) {
-            if (!EggCatcher.eggs.contains(egg)) {
-                EggCatcher.eggs.add(egg);
-            }
-        }
+        if (this.spawnChickenOnSuccess) return;
+        if (EggCatcher.eggs.contains((Object)egg)) return;
+        EggCatcher.eggs.add(egg);
     }
 }
+

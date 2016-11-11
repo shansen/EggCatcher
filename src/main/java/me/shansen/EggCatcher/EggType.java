@@ -1,21 +1,3 @@
-/*
-EggCatcher
-Copyright (C) 2012, 2013  me@shansen.me
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 package me.shansen.EggCatcher;
 
 import org.bukkit.entity.Entity;
@@ -49,15 +31,14 @@ public enum EggType {
     ENDERMITE(EntityType.ENDERMITE, 67, "Endermite"),
     GUARDIAN(EntityType.GUARDIAN, 68, "Guardian"),
     RABBIT(EntityType.RABBIT, 101, "Rabbit"),
-    POLAR_BEAR(EntityType.POLAR_BEAR, 102, "PolarBear");
-
-
-
+    POLAR_BEAR(EntityType.POLAR_BEAR, 102, "PolarBear"),
+    IRON_GOLEM(EntityType.IRON_GOLEM, 99, "IronGolem");
+    
     private final EntityType entityType;
     private final Integer creatureId;
     private final String friendlyName;
 
-    EggType(EntityType entityType, Integer creatureId, String friendlyName) {
+    private EggType(EntityType entityType, Integer creatureId, String friendlyName) {
         this.entityType = entityType;
         this.creatureId = creatureId;
         this.friendlyName = friendlyName;
@@ -77,11 +58,10 @@ public enum EggType {
 
     public static EggType getEggType(Entity entity) {
         for (EggType eggType : EggType.values()) {
-            if (!eggType.getCreatureType().getEntityClass().isInstance(entity)) {
-                continue;
-            }
+            if (!eggType.getCreatureType().getEntityClass().isInstance((Object)entity)) continue;
             return eggType;
         }
         return null;
     }
 }
+
