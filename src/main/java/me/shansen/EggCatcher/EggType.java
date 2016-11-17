@@ -51,8 +51,6 @@ public enum EggType {
     RABBIT(EntityType.RABBIT, 101, "Rabbit"),
     POLAR_BEAR(EntityType.POLAR_BEAR, 102, "PolarBear");
 
-
-
     private final EntityType entityType;
     private final Integer creatureId;
     private final String friendlyName;
