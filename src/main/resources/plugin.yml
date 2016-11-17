@@ -10,34 +10,48 @@ permissions:
         description: Gives access to catch all types of mobs.
         default: op
         children:
-            eggcatcher.catch.pig: true
-            eggcatcher.catch.sheep: true
-            eggcatcher.catch.cow: true
-            eggcatcher.catch.chicken: true
-            eggcatcher.catch.squid: true
-            eggcatcher.catch.wolf: true
-            eggcatcher.catch.mushroomCow: true
-            eggcatcher.catch.creeper: true
-            eggcatcher.catch.skeleton: true
-            eggcatcher.catch.spider: true
-            eggcatcher.catch.zombie: true
-            eggcatcher.catch.slime: true
-            eggcatcher.catch.ghast: true
-            eggcatcher.catch.pigzombie: true
-            eggcatcher.catch.enderman: true
-            eggcatcher.catch.cavespider: true
-            eggcatcher.catch.silverfish: true
-            eggcatcher.catch.blaze: true
-            eggcatcher.catch.magmacube: true
-            eggcatcher.catch.villager: true
-            eggcatcher.catch.ocelot: true
             eggcatcher.catch.bat: true
-            eggcatcher.catch.witch: true
-            eggcatcher.catch.horse: true
+            eggcatcher.catch.blaze: true
+            eggcatcher.catch.cavespider: true
+            eggcatcher.catch.chicken: true
+            eggcatcher.catch.cow: true
+            eggcatcher.catch.creeper: true
+            eggcatcher.catch.donkey: true
+            eggcatcher.catch.elderguardian: true
+            eggcatcher.catch.enderman: true
             eggcatcher.catch.endermite: true
+            eggcatcher.catch.evoker: true
+            eggcatcher.catch.ghast: true
             eggcatcher.catch.guardian: true
-            eggcatcher.catch.rabbit: true
+            eggcatcher.catch.horse: true
+            eggcatcher.catch.husk: true
+            eggcatcher.catch.llama: true
+            eggcatcher.catch.magmacube: true
+            eggcatcher.catch.mule: true
+            eggcatcher.catch.mushroomcow: true
+            eggcatcher.catch.ocelot: true
+            eggcatcher.catch.pig: true
+            eggcatcher.catch.pigzombie: true
             eggcatcher.catch.polarbear: true
+            eggcatcher.catch.rabbit: true
+            eggcatcher.catch.sheep: true
+            eggcatcher.catch.shulker: true
+            eggcatcher.catch.silverfish: true
+            eggcatcher.catch.skeleton: true
+            eggcatcher.catch.skeletonhorse: true
+            eggcatcher.catch.slime: true
+            eggcatcher.catch.spider: true
+            eggcatcher.catch.squid: true
+            eggcatcher.catch.stray: true
+            eggcatcher.catch.vex: true
+            eggcatcher.catch.villager: true
+            eggcatcher.catch.vindicator: true
+            eggcatcher.catch.witch: true
+            eggcatcher.catch.witherskeleton: true
+            eggcatcher.catch.wolf: true
+            eggcatcher.catch.zombie: true
+            eggcatcher.catch.zombiehorse: true
+            eggcatcher.catch.zombievillager: true
     eggcatcher.free:
         description: Makes catching a mob free.
         default: false
