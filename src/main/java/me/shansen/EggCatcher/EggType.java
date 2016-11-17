@@ -22,13 +22,20 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
 public enum EggType {
+    EVOKER(EntityType.EVOKER, 34, "Evoker"),
+    VEX(EntityType.VEX, 35, "Vex"),
+    VINDICATOR(EntityType.VINDICATOR, 36, "Vindicator"),
     PIG_ZOMBIE(EntityType.PIG_ZOMBIE, 57, "PigZombie"),
     MAGMA_CUBE(EntityType.MAGMA_CUBE, 62, "MagmaCube"),
     CAVE_SPIDER(EntityType.CAVE_SPIDER, 59, "CaveSpider"),
     MUSHROOM_COW(EntityType.MUSHROOM_COW, 96, "MushroomCow"),
     CREEPER(EntityType.CREEPER, 50, "Creeper"),
+    WITHER_SKELETON(EntityType.WITHER_SKELETON, 5, "WitherSkeleton"),
+    STRAY(EntityType.STRAY, 6, "Stray"),
     SKELETON(EntityType.SKELETON, 51, "Skeleton"),
     SPIDER(EntityType.SPIDER, 52, "Spider"),
+    HUSK(EntityType.HUSK, 23, "Husk"),
+    ZOMBIE_VILLAGER(EntityType.ZOMBIE_VILLAGER, 27, "ZombieVillager"),
     ZOMBIE(EntityType.ZOMBIE, 54, "Zombie"),
     SLIME(EntityType.SLIME, 55, "Slime"),
     GHAST(EntityType.GHAST, 56, "Ghast"),
@@ -45,11 +52,18 @@ public enum EggType {
     OCELOT(EntityType.OCELOT, 98, "Ocelot"),
     BAT(EntityType.BAT, 65, "Bat"),
     WITCH(EntityType.WITCH, 66, "Witch"),
+    ZOMBIE_HORSE(EntityType.ZOMBIE_HORSE, 29, "ZombieHorse"),
+    SKELETON_HORSE(EntityType.SKELETON_HORSE, 28, "SkeletonHorse"),
+    LLAMA(EntityType.LLAMA, 103, "Llama"),
+    DONKEY(EntityType.DONKEY, 31, "Donkey"),
+    MULE(EntityType.MULE, 32, "Mule"),
     HORSE(EntityType.HORSE, 100, "Horse"),
     ENDERMITE(EntityType.ENDERMITE, 67, "Endermite"),
+    ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN, 4, "ElderGuardian"),
     GUARDIAN(EntityType.GUARDIAN, 68, "Guardian"),
     RABBIT(EntityType.RABBIT, 101, "Rabbit"),
-    POLAR_BEAR(EntityType.POLAR_BEAR, 102, "PolarBear");
+    POLAR_BEAR(EntityType.POLAR_BEAR, 102, "PolarBear"),
+    SHULKER(EntityType.SHULKER, 69, "Shulker");
 
     private final EntityType entityType;
     private final Integer creatureId;
