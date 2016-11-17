@@ -15,124 +15,180 @@ SpawnChickenOnFail: true
 VaultTargetBankAccount: ""
 DeleteVillagerInventoryOnCatch: false
 CatchChance:
-  Pig: 100.0
-  Sheep: 100.0
-  MushroomCow: 100.0
-  Cow: 100.0
-  Chicken: 100.0
-  Squid: 100.0
-  Wolf: 100.0
-  Creeper: 0.0
-  Skeleton: 100.0
-  CaveSpider: 100.0
-  Spider: 100.0
-  PigZombie: 100.0
-  Zombie: 100.0
-  MagmaCube: 100.0
-  Slime: 100.0
-  Ghast: 0.0
-  Enderman: 100.0
-  Silverfish: 100.0
-  Blaze: 0.0
-  Villager: 100.0
-  Ocelot: 100.0
-  Witch: 100.0
   Bat: 100.0
-  Horse: 100.0
+  Blaze: 100.0
+  CaveSpider: 100.0
+  Chicken: 100.0
+  Cow: 100.0
+  Creeper: 100.0
+  Donkey: 100.0
+  ElderGuardian: 100.0
+  Enderman: 100.0
   Endermite: 100.0
+  Evoker: 100.0
+  Ghast: 100.0
   Guardian: 100.0
-  Rabbit: 100.0
+  Horse: 100.0
+  Husk: 100.0
+  Llama: 100.0
+  MagmaCube: 100.0
+  Mule: 100.0
+  MushroomCow: 100.0
+  Ocelot: 100.0
+  Pig: 100.0
+  PigZombie: 100.0
   PolarBear: 100.0
+  Rabbit: 100.0
+  Sheep: 100.0
+  Shulker: 100.0
+  Silverfish: 100.0
+  Skeleton: 100.0
+  SkeletonHorse: 100.0
+  Slime: 100.0
+  Spider: 100.0
+  Squid: 100.0
+  Stray: 100.0
+  Vex: 100.0
+  Villager: 100.0
+  Vindicator: 100.0
+  Witch: 100.0
+  WitherSkeleton: 100.0
+  Wolf: 100.0
+  Zombie: 100.0
+  ZombieHorse: 100.0
+  ZombieVillager: 100.0
 VaultCost:
-  Pig: 0.0
-  Sheep: 0.0
-  MushroomCow: 0.0
-  Cow: 0.0
-  Chicken: 0.0
-  Squid: 0.0
-  Wolf: 0.0
-  Creeper: 0.0
-  Skeleton: 0.0
-  CaveSpider: 0.0
-  Spider: 0.0
-  PigZombie: 0.0
-  Zombie: 0.0
-  MagmaCube: 0.0
-  Slime: 0.0
-  Ghast: 0.0
-  Enderman: 0.0
-  Silverfish: 0.0
-  Blaze: 0.0
-  Villager: 0.0
-  Ocelot: 0.0
-  Witch: 0.0
   Bat: 0.0
-  Horse: 0.0
+  Blaze: 0.0
+  CaveSpider: 0.0
+  Chicken: 0.0
+  Cow: 0.0
+  Creeper: 0.0
+  Donkey: 0.0
+  ElderGuardian: 0.0
+  Enderman: 0.0
   Endermite: 0.0
+  Evoker: 0.0
+  Ghast: 0.0
   Guardian: 0.0
-  Rabbit: 0.0
+  Horse: 0.0
+  Husk: 0.0
+  Llama: 0.0
+  MagmaCube: 0.0
+  Mule: 0.0
+  MushroomCow: 0.0
+  Ocelot: 0.0
+  Pig: 0.0
+  PigZombie: 0.0
   PolarBear: 0.0
+  Rabbit: 0.0
+  Sheep: 0.0
+  Shulker: 0.0
+  Silverfish: 0.0
+  Skeleton: 0.0
+  SkeletonHorse: 0.0
+  Slime: 0.0
+  Spider: 0.0
+  Squid: 0.0
+  Stray: 0.0
+  Vex: 0.0
+  Villager: 0.0
+  Vindicator: 0.0
+  Witch: 0.0
+  WitherSkeleton: 0.0
+  Wolf: 0.0
+  Zombie: 0.0
+  ZombieHorse: 0.0
+  ZombieVillager: 0.0
 ItemCost:
   ItemId: 371
   ItemData: 0
   Amount:
-    Pig: 0
-    Sheep: 0
-    MushroomCow: 0
-    Cow: 0
-    Chicken: 0
-    Squid: 0
-    Wolf: 0
-    Creeper: 0
-    Skeleton: 0
-    CaveSpider: 0
-    Spider: 0
-    PigZombie: 0
-    Zombie: 0
-    MagmaCube: 0
-    Slime: 0
-    Ghast: 0
-    Enderman: 0
-    Silverfish: 0
-    Blaze: 0
-    Villager: 0
-    Ocelot: 0
-    Witch: 0
-    Bat: 0
-    Horse: 0
-    Endermite: 0
-    Guardian: 0
-    Rabbit: 0
-    PolarBear: 0
+    Bat: 0.0
+    Blaze: 0.0
+    CaveSpider: 0.0
+    Chicken: 0.0
+    Cow: 0.0
+    Creeper: 0.0
+    Donkey: 0.0
+    ElderGuardian: 0.0
+    Enderman: 0.0
+    Endermite: 0.0
+    Evoker: 0.0
+    Ghast: 0.0
+    Guardian: 0.0
+    Horse: 0.0
+    Husk: 0.0
+    Llama: 0.0
+    MagmaCube: 0.0
+    Mule: 0.0
+    MushroomCow: 0.0
+    Ocelot: 0.0
+    Pig: 0.0
+    PigZombie: 0.0
+    PolarBear: 0.0
+    Rabbit: 0.0
+    Sheep: 0.0
+    Shulker: 0.0
+    Silverfish: 0.0
+    Skeleton: 0.0
+    SkeletonHorse: 0.0
+    Slime: 0.0
+    Spider: 0.0
+    Squid: 0.0
+    Stray: 0.0
+    Vex: 0.0
+    Villager: 0.0
+    Vindicator: 0.0
+    Witch: 0.0
+    WitherSkeleton: 0.0
+    Wolf: 0.0
+    Zombie: 0.0
+    ZombieHorse: 0.0
+    ZombieVillager: 0.0
 HealthPercentage:
-  Pig: 100.0
-  Sheep: 100.0
-  MushroomCow: 100.0
-  Cow: 100.0
-  Chicken: 100.0
-  Squid: 100.0
-  Wolf: 100.0
-  Creeper: 100.0
-  Skeleton: 100.0
-  CaveSpider: 100.0
-  Spider: 100.0
-  PigZombie: 100.0
-  Zombie: 100.0
-  MagmaCube: 100.0
-  Slime: 100.0
-  Ghast: 100.0
-  Enderman: 100.0
-  Silverfish: 100.0
-  Blaze: 100.0
-  Villager: 100.0
-  Ocelot: 100.0
-  Witch: 100.0
   Bat: 100.0
-  Horse: 100.0
+  Blaze: 100.0
+  CaveSpider: 100.0
+  Chicken: 100.0
+  Cow: 100.0
+  Creeper: 100.0
+  Donkey: 100.0
+  ElderGuardian: 100.0
+  Enderman: 100.0
   Endermite: 100.0
+  Evoker: 100.0
+  Ghast: 100.0
   Guardian: 100.0
-  Rabbit: 100.0
+  Horse: 100.0
+  Husk: 100.0
+  Llama: 100.0
+  MagmaCube: 100.0
+  Mule: 100.0
+  MushroomCow: 100.0
+  Ocelot: 100.0
+  Pig: 100.0
+  PigZombie: 100.0
   PolarBear: 100.0
+  Rabbit: 100.0
+  Sheep: 100.0
+  Shulker: 100.0
+  Silverfish: 100.0
+  Skeleton: 100.0
+  SkeletonHorse: 100.0
+  Slime: 100.0
+  Spider: 100.0
+  Squid: 100.0
+  Stray: 100.0
+  Vex: 100.0
+  Villager: 100.0
+  Vindicator: 100.0
+  Witch: 100.0
+  WitherSkeleton: 100.0
+  Wolf: 100.0
+  Zombie: 100.0
+  ZombieHorse: 100.0
+  ZombieVillager: 100.0
 Messages:
   PermissionFail: "You do not have permission to catch this mob!"
   VaultFail: "It costs %s dollars to catch this mob!"
@@ -142,4 +198,4 @@ Messages:
   CatchChanceFail: "You failed to catch this mob!"
   CatchChanceSuccess: ""
   HealthPercentageFail: "The mob has more than %s percent health left and cannot be caught!"
-ConfigVersion: 2.6
+ConfigVersion: 3.0
