@@ -13,7 +13,7 @@ This plugin allows the players to get spawn eggs by throwing regular eggs at mob
 * Explosion effects.
 
 ## Installation and requirements ##
-**Vault is not required unless you intend to use it**
+**Vault is supported but not required**
 
 Download the jar file and the [configuration](http://dev.bukkit.org/server-mods/eggcatcher/pages/configuration/) file will be generated on the first startup.
 
