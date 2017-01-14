@@ -14,6 +14,7 @@ SpawnChickenOnSuccess: false
 SpawnChickenOnFail: true
 VaultTargetBankAccount: ""
 DeleteVillagerInventoryOnCatch: false
+LogEggCaptures: false
 CatchChance:
   Bat: 100.0
   Blaze: 100.0

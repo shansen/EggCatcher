@@ -19,10 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package me.shansen.EggCatcher.listeners;
 
 import me.shansen.EggCatcher.EggCatcher;
+import me.shansen.EggCatcher.EggCatcherLogger;
 import me.shansen.EggCatcher.EggType;
 import me.shansen.EggCatcher.events.EggCaptureEvent;
 
 import me.shansen.nbt.NbtReflection;
+
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -36,6 +38,8 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 public class EggCatcherEntityListener implements Listener {
 
@@ -58,8 +62,12 @@ public class EggCatcherEntityListener implements Listener {
     private final boolean spawnChickenOnFail;
     private final boolean spawnChickenOnSuccess;
     private final boolean deleteVillagerInventoryOnCatch;
+    private final boolean logCaptures;
     FileConfiguration config;
     JavaPlugin plugin;
+	private final File captureLogFile;
+	private final EggCatcherLogger captureLogger;
+
 
     public EggCatcherEntityListener(JavaPlugin plugin) {
         this.config = plugin.getConfig();
@@ -83,7 +91,10 @@ public class EggCatcherEntityListener implements Listener {
         this.spawnChickenOnSuccess = this.config.getBoolean("SpawnChickenOnSuccess", false);
         this.vaultTargetBankAccount = this.config.getString("VaultTargetBankAccount", "");
         this.deleteVillagerInventoryOnCatch = this.config.getBoolean("DeleteVillagerInventoryOnCatch", false);
-    }
+        this.logCaptures = this.config.getBoolean("LogEggCaptures", false);
+		this.captureLogFile = new File(plugin.getDataFolder(), "captures.txt");
+		this.captureLogger = new EggCatcherLogger(captureLogFile);
+	}
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onEntityHitByEgg(EntityDamageEvent event) {
@@ -299,6 +310,10 @@ public class EggCatcherEntityListener implements Listener {
             if (!EggCatcher.eggs.contains(egg)) {
                 EggCatcher.eggs.add(egg);
             }
+        }
+        
+        if (this.logCaptures){
+			captureLogger.logToFile("Player " + ((Player) egg.getShooter()).getName() + " caught " + entity.getType() + " at X" + Math.round(entity.getLocation().getX()) + ",Y" + Math.round(entity.getLocation().getY()) + ",Z" + Math.round(entity.getLocation().getZ()));
         }
     }
 }
