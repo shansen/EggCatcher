@@ -30,6 +30,7 @@ permissions:
             eggcatcher.catch.mule: true
             eggcatcher.catch.mushroomcow: true
             eggcatcher.catch.ocelot: true
+            eggcatcher.catch.parrot: true
             eggcatcher.catch.pig: true
             eggcatcher.catch.pigzombie: true
             eggcatcher.catch.polarbear: true
