@@ -33,12 +33,6 @@
                             <exclude>net.milkbowl.vault:Vault</exclude>
                         </excludes>
                     </artifactSet>
-                    <relocations>
-                        <relocation>
-                            <pattern>org.mcstats</pattern>
-                            <shadedPattern>me.shansen.EggCatcher.mcstats</shadedPattern>
-                        </relocation>
-                    </relocations>
                 </configuration>
                 <executions>
                     <execution>
@@ -65,10 +59,6 @@
             <id>vault-repo</id>
             <url>http://nexus.hc.to/content/repositories/pub_releases</url>
         </repository>
-        <repository>
-            <id>Plugin Metrics</id>
-            <url>http://repo.mcstats.org/content/repositories/public</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -83,12 +73,6 @@
             <artifactId>Vault</artifactId>
             <version>1.5.6</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mcstats.bukkit</groupId>
-            <artifactId>metrics</artifactId>
-            <version>R8-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

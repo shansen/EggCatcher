@@ -25,8 +25,6 @@ import org.bukkit.entity.Egg;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,11 +52,6 @@ public class EggCatcher extends JavaPlugin {
             if (economyProvider != null) {
                 economy = economyProvider.getProvider();
             }
-        }
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException e) {
         }
     }
 
