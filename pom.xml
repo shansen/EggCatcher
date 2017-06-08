@@ -27,12 +27,21 @@
                 <configuration>
                     <minimizeJar>true</minimizeJar>
                     <artifactSet>
+                        <includes>
+                            <include>org.bstats:*</include>
+                        </includes>
                         <excludes>
                             <exclude>org.bukkit:bukkit</exclude>
                             <exclude>org.yaml:snakeyaml</exclude>
                             <exclude>net.milkbowl.vault:Vault</exclude>
                         </excludes>
                     </artifactSet>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>me.shansen.EggCatcher.bstats</shadedPattern>
+                        </relocation>
+                    </relocations>
                 </configuration>
                 <executions>
                     <execution>
@@ -59,6 +68,10 @@
             <id>vault-repo</id>
             <url>http://nexus.hc.to/content/repositories/pub_releases</url>
         </repository>
+        <repository>
+            <id>bstats-repo</id>
+            <url>http://repo.bstats.org/content/repositories/releases/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -73,6 +86,11 @@
             <artifactId>VaultAPI</artifactId>
             <version>1.6</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>1.1</version>
         </dependency>
     </dependencies>
 </project>

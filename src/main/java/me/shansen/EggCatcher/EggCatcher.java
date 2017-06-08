@@ -25,6 +25,7 @@ import org.bukkit.entity.Egg;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bstats.Metrics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,8 @@ public class EggCatcher extends JavaPlugin {
                 economy = economyProvider.getProvider();
             }
         }
+
+        Metrics metrics = new Metrics(this);
     }
 
     public void CheckConfigurationFile() {
