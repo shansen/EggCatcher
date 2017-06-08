@@ -63,7 +63,8 @@ public enum EggType {
     GUARDIAN(EntityType.GUARDIAN, 68, "Guardian"),
     RABBIT(EntityType.RABBIT, 101, "Rabbit"),
     POLAR_BEAR(EntityType.POLAR_BEAR, 102, "PolarBear"),
-    SHULKER(EntityType.SHULKER, 69, "Shulker");
+    SHULKER(EntityType.SHULKER, 69, "Shulker"),
+    PARROT(EntityType.PARROT, 105, "Parrot");
 
     private final EntityType entityType;
     private final Integer creatureId;
