@@ -36,6 +36,7 @@ CatchChance:
   Mule: 100.0
   MushroomCow: 100.0
   Ocelot: 100.0
+  Parrot: 100.0
   Pig: 100.0
   PigZombie: 100.0
   PolarBear: 100.0
@@ -79,6 +80,7 @@ VaultCost:
   Mule: 0.0
   MushroomCow: 0.0
   Ocelot: 0.0
+  Parrot: 0.0
   Pig: 0.0
   PigZombie: 0.0
   PolarBear: 0.0
@@ -125,6 +127,7 @@ ItemCost:
     Mule: 0.0
     MushroomCow: 0.0
     Ocelot: 0.0
+    Parrot: 0.0
     Pig: 0.0
     PigZombie: 0.0
     PolarBear: 0.0
@@ -168,6 +171,7 @@ HealthPercentage:
   Mule: 100.0
   MushroomCow: 100.0
   Ocelot: 100.0
+  Parrot: 100.0
   Pig: 100.0
   PigZombie: 100.0
   PolarBear: 100.0
