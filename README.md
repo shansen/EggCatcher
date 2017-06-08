@@ -22,6 +22,6 @@ Download the jar file and the [configuration](http://dev.bukkit.org/server-mods/
 * [Configuration](http://dev.bukkit.org/server-mods/eggcatcher/pages/configuration/)
 
 ## Video ##
-[![ScreenShot](http://dl.dropbox.com/u/456896/eggcatcgervideo.png)](http://youtu.be/k1Wcj8Cvmsc)
+[![ScreenShot](https://www.dropbox.com/s/uujjrmat555j707/eggcatchervideo.png?raw=1)](http://youtu.be/k1Wcj8Cvmsc)
 
 Video credits: [VariationVault](http://www.youtube.com/user/VariationVault)
