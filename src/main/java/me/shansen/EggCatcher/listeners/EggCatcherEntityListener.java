@@ -68,8 +68,8 @@ public class EggCatcherEntityListener implements Listener {
     private final boolean logCaptures;
     FileConfiguration config;
     JavaPlugin plugin;
-	private final File captureLogFile;
-	private final EggCatcherLogger captureLogger;
+    private final File captureLogFile;
+    private final EggCatcherLogger captureLogger;
 
 
     public EggCatcherEntityListener(JavaPlugin plugin) {
@@ -95,9 +95,9 @@ public class EggCatcherEntityListener implements Listener {
         this.vaultTargetBankAccount = this.config.getString("VaultTargetBankAccount", "");
         this.deleteVillagerInventoryOnCatch = this.config.getBoolean("DeleteVillagerInventoryOnCatch", false);
         this.logCaptures = this.config.getBoolean("LogEggCaptures", false);
-		this.captureLogFile = new File(plugin.getDataFolder(), "captures.txt");
-		this.captureLogger = new EggCatcherLogger(captureLogFile);
-	}
+        this.captureLogFile = new File(plugin.getDataFolder(), "captures.txt");
+        this.captureLogger = new EggCatcherLogger(captureLogFile);
+    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onEntityHitByEgg(EntityDamageEvent event) {
@@ -189,17 +189,17 @@ public class EggCatcherEntityListener implements Listener {
             eggStack.setItemMeta(meta);
         }
 
-        if(entity instanceof Pig && ((Pig) entity).hasSaddle()) {
+        if (entity instanceof Pig && ((Pig) entity).hasSaddle()) {
             entity.getWorld().dropItem(entity.getLocation(), new ItemStack(Material.SADDLE, 1));
         } else if (entity instanceof ChestedHorse && ((ChestedHorse) entity).isCarryingChest()) {
             entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.CHEST));
-        } else if((entity instanceof Villager && !this.deleteVillagerInventoryOnCatch) ||
+        } else if ((entity instanceof Villager && !this.deleteVillagerInventoryOnCatch) ||
                 (!(entity instanceof Villager) && entity instanceof InventoryHolder)) {
 
             ItemStack[] items = ((InventoryHolder) entity).getInventory().getContents();
 
-            for(ItemStack itemStack : items) {
-                if(itemStack!=null){
+            for (ItemStack itemStack : items) {
+                if (itemStack != null) {
                     entity.getWorld().dropItemNaturally(entity.getLocation(), itemStack);
                 }
             }
@@ -213,15 +213,29 @@ public class EggCatcherEntityListener implements Listener {
             }
         }
 
-        if (this.logCaptures){
-            captureLogger.logToFile("Player " + ((Player) egg.getShooter()).getName() + " caught " + entity.getType() + " at X" + Math.round(entity.getLocation().getX()) + ",Y" + Math.round(entity.getLocation().getY()) + ",Z" + Math.round(entity.getLocation().getZ()));
+        if (this.logCaptures) {
+            captureLogger.logToFile(String.format("Player %s caught %s at X%d,Y%d,Z%d",
+                    ((Player) egg.getShooter()).getName(),
+                    entity.getType().toString(),
+                    Math.round(entity.getLocation().getX()),
+                    Math.round(entity.getLocation().getY()),
+                    Math.round(entity.getLocation().getZ())));
         }
     }
 
+    /**
+     * Check that the player satisfies requirements necessary to capture mob
+     *
+     * @param event     egg capture event
+     * @param player    player causing event
+     * @param vaultCost economy cost to capture mob
+     * @param itemCost  item cost to capture mob
+     * @return if player should catch the mob
+     */
     private boolean playerHasRequirements(EggCaptureEvent event, Player player, double vaultCost, ItemStack itemCost) {
         LivingEntity entity = (LivingEntity) event.getEntity();
         String eggType = Objects.requireNonNull(EggType.getEggType(event.getEntity())).getFriendlyName();
-        double entityHealthRequirement = getEntityHealthRequirement(entity, eggType);
+        double entityHealthRequirement = getEntityHealthRequirement(eggType);
 
         String message = null;
         boolean hasRequirements = true;
@@ -260,10 +274,24 @@ public class EggCatcherEntityListener implements Listener {
         return hasRequirements;
     }
 
+    /**
+     * Get the vault (economy) cost of capturing the given egg mob
+     *
+     * @param p       player attempting to capture mob
+     * @param eggType friendly name of the mob egg being caught
+     * @return vault cost of capturing the mob egg
+     */
     private double getVaultCost(Player p, String eggType) {
         return this.useVaultCost && !p.hasPermission("eggcatcher.free") ? config.getDouble("VaultCost." + eggType) : 0;
     }
 
+    /**
+     * Get the item cost of catching a mob egg
+     *
+     * @param p       player attempting to capture mob
+     * @param eggType friendly name of the mob egg being caught
+     * @return item cost of capturing the mob egg
+     */
     private ItemStack getItemCost(Player p, String eggType) {
         if (this.useItemCost && !p.hasPermission("eggcatcher.free")) {
             int itemId = config.getInt("ItemCost.ItemId", 266);
@@ -274,25 +302,49 @@ public class EggCatcherEntityListener implements Listener {
         return null;
     }
 
-    private double getEntityHealthRequirement(LivingEntity entity, String eggType) {
+    /**
+     * Get the required health percentage to catch given mob egg
+     *
+     * @param eggType friendly name of mob egg type being caught
+     * @return required health percentage to catch given mob egg
+     */
+    private double getEntityHealthRequirement(String eggType) {
         return this.useHealthPercentage ? config.getDouble("HealthPercentage." + eggType) : 0;
     }
 
+    /**
+     * Get the current percentage of max health an entity currently has
+     *
+     * @param entity Entity to get health percentage of
+     * @return current percentage of max health an entity currently has
+     */
     private double getEntityHealthPercentage(LivingEntity entity) {
         return entity.getHealth() * 100.0 / entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
     }
 
+    /**
+     * Check that the EntityDamageByEntityEvent is damage done by a valid egg to a valid egg-able mob
+     *
+     * @param e EntityDamageByEntityEvent
+     * @return if this event is a valid egg capture
+     */
     private boolean checkIsEggEvent(EntityDamageByEntityEvent e) {
         return e.getDamager() instanceof Egg && EggType.getEggType(e.getEntity()) != null;
     }
 
+    /**
+     * Check that the entity being damaged satisfies the configured baby/tamed/sheared restrictions
+     *
+     * @param e entity damage by entity event
+     * @return if the entity being damated satisfies the restrictions
+     */
     private boolean checkAnimalRestrictions(EntityDamageByEntityEvent e) {
         Entity entity = e.getEntity();
 
         return !(
                 (this.preventCatchingBabyAnimals && entity instanceof Ageable && !((Ageable) entity).isAdult()) ||
-                (this.preventCatchingTamedAnimals && entity instanceof Tameable && ((Tameable) entity).isTamed()) ||
-                (this.preventCatchingShearedSheeps && entity instanceof Sheep && ((Sheep) entity).isSheared())
+                        (this.preventCatchingTamedAnimals && entity instanceof Tameable && ((Tameable) entity).isTamed()) ||
+                        (this.preventCatchingShearedSheeps && entity instanceof Sheep && ((Sheep) entity).isSheared())
         );
     }
 }
