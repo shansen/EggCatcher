@@ -40,6 +40,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Optional;
 
 public class EggCatcherEntityListener implements Listener {
 
@@ -98,63 +99,25 @@ public class EggCatcherEntityListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onEntityHitByEgg(EntityDamageEvent event) {
-        EntityDamageByEntityEvent damageEvent = null;
-        Egg egg = null;
-        EggType eggType = null;
-        double vaultCost = 0.0;
+        final Entity entity = event.getEntity();
+
+        Optional.of(event)
+                // only capture entity damage by other entities, don't care about block damage
+                .filter(EntityDamageByEntityEvent.class::isInstance)
+                .map(EntityDamageByEntityEvent.class::cast)
+
+                // egg catcher event restrictions
+                .filter(this::checkIsEggEvent)
+                .filter(this::checkAnimalRestrictions)
+                .map(entityEvent -> new EggCaptureEvent(entity, (Egg) entityEvent.getDamager()))
+                .ifPresent(eggEvent -> this.plugin.getServer().getPluginManager().callEvent(eggEvent));
+    }
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
+    public void onEggCaptureEvent(EggCaptureEvent event) {
+        Egg egg = event.getEgg();
         Entity entity = event.getEntity();
-
-        if (!(event instanceof EntityDamageByEntityEvent)) {
-            return;
-        }
-
-        damageEvent = (EntityDamageByEntityEvent) event;
-
-        if (!(damageEvent.getDamager() instanceof Egg)) {
-            return;
-        }
-
-        egg = (Egg) damageEvent.getDamager();
-        eggType = EggType.getEggType(entity);
-
-        if (eggType == null) {
-            return;
-        }
-
-        if (!this.spawnChickenOnFail) {
-            EggCatcher.eggs.add(egg);
-        }
-
-        if (this.preventCatchingBabyAnimals) {
-            if (entity instanceof Ageable) {
-                if (!((Ageable) entity).isAdult()) {
-                    return;
-                }
-            }
-        }
-
-        if (this.preventCatchingTamedAnimals) {
-            if (entity instanceof Tameable) {
-                if (((Tameable) entity).isTamed()) {
-                    return;
-                }
-            }
-        }
-
-        if (this.preventCatchingShearedSheeps) {
-            if (entity instanceof Sheep) {
-                if (((Sheep) entity).isSheared()) {
-                    return;
-                }
-            }
-        }
-
-
-        EggCaptureEvent eggCaptureEvent = new EggCaptureEvent(entity, egg);
-        this.plugin.getServer().getPluginManager().callEvent(eggCaptureEvent);
-        if (eggCaptureEvent.isCancelled()) {
-            return;
-        }
+        EggType eggType = EggType.getEggType(entity);
 
         if (egg.getShooter() instanceof Player) {
             Player player = (Player) egg.getShooter();
@@ -203,11 +166,11 @@ public class EggCatcherEntityListener implements Listener {
                     return;
                 }
             }
-            
+
             boolean freeCatch = player.hasPermission("eggcatcher.free");
 
             if (this.useVaultCost && !freeCatch) {
-                vaultCost = config.getDouble("VaultCost." + eggType.getFriendlyName());
+                double vaultCost = config.getDouble("VaultCost." + eggType.getFriendlyName());
                 if (!EggCatcher.economy.has(player.getName(), vaultCost)) {
                     player.sendMessage(String.format(config.getString("Messages.VaultFail"), vaultCost));
                     if (!this.looseEggOnFail) {
@@ -231,7 +194,7 @@ public class EggCatcherEntityListener implements Listener {
                 int itemData = config.getInt("ItemCost.ItemData", 0);
                 int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
                 @SuppressWarnings("deprecation")
-				ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
+                ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
                 if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
                     player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
                             String.valueOf(itemAmount)));
@@ -311,9 +274,23 @@ public class EggCatcherEntityListener implements Listener {
                 EggCatcher.eggs.add(egg);
             }
         }
-        
+
         if (this.logCaptures){
-			captureLogger.logToFile("Player " + ((Player) egg.getShooter()).getName() + " caught " + entity.getType() + " at X" + Math.round(entity.getLocation().getX()) + ",Y" + Math.round(entity.getLocation().getY()) + ",Z" + Math.round(entity.getLocation().getZ()));
+            captureLogger.logToFile("Player " + ((Player) egg.getShooter()).getName() + " caught " + entity.getType() + " at X" + Math.round(entity.getLocation().getX()) + ",Y" + Math.round(entity.getLocation().getY()) + ",Z" + Math.round(entity.getLocation().getZ()));
         }
+    }
+
+    private boolean checkIsEggEvent(EntityDamageByEntityEvent e) {
+        return e.getDamager() instanceof Egg && EggType.getEggType(e.getEntity()) != null;
+    }
+
+    private boolean checkAnimalRestrictions(EntityDamageByEntityEvent e) {
+        Entity entity = e.getEntity();
+
+        return !(
+                (this.preventCatchingBabyAnimals && entity instanceof Ageable && !((Ageable) entity).isAdult()) ||
+                (this.preventCatchingTamedAnimals && entity instanceof Tameable && ((Tameable) entity).isTamed()) ||
+                (this.preventCatchingShearedSheeps && entity instanceof Sheep && ((Sheep) entity).isSheared())
+        );
     }
 }
