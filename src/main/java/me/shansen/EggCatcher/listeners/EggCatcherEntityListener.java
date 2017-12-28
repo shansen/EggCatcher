@@ -27,6 +27,7 @@ import me.shansen.nbt.NbtReflection;
 
 import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -40,6 +41,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.Optional;
 
 public class EggCatcherEntityListener implements Listener {
@@ -119,95 +121,41 @@ public class EggCatcherEntityListener implements Listener {
         Entity entity = event.getEntity();
         EggType eggType = EggType.getEggType(entity);
 
+        if (!this.spawnChickenOnFail) {
+            EggCatcher.eggs.add(egg);
+        }
+
         if (egg.getShooter() instanceof Player) {
             Player player = (Player) egg.getShooter();
+            double vaultCost = getVaultCost(player, Objects.requireNonNull(eggType).getFriendlyName());
+            ItemStack itemCost = getItemCost(player, eggType.getFriendlyName());
 
-            if (this.usePermissions) {
-                if (!player.hasPermission("eggcatcher.catch." + eggType.getFriendlyName().toLowerCase())) {
-                    player.sendMessage(config.getString("Messages.PermissionFail"));
-                    if (!this.loseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                }
+            // check that the player can actually catch this mob
+            if (!playerHasRequirements(event, player, vaultCost, itemCost)) {
+                return;
             }
 
-            if (this.useHealthPercentage) {
-                double healthPercentage = config.getDouble("HealthPercentage." + eggType.getFriendlyName());
-                double currentHealth = ((LivingEntity) entity).getHealth() * 100.0 / ((LivingEntity) entity)
-                        .getMaxHealth();
-                if (healthPercentage < currentHealth) {
-                    if (this.healthPercentageFailMessage.length() > 0) {
-                        player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
-                    }
-                    if (!this.loseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                }
+            // send chance success message
+            if (this.useCatchChance && this.catchChanceSuccessMessage.length() != 0) {
+                player.sendMessage(this.catchChanceSuccessMessage);
             }
 
-            if (this.useCatchChance) {
-                double catchChance = config.getDouble("CatchChance." + eggType.getFriendlyName());
-                if (Math.random() * 100 <= catchChance) {
-                    if (this.catchChanceSuccessMessage.length() > 0) {
-                        player.sendMessage(catchChanceSuccessMessage);
-                    }
-                } else {
-                    if (this.catchChanceFailMessage.length() > 0) {
-                        player.sendMessage(this.catchChanceFailMessage);
-                    }
-                    if (!this.loseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
+            // withdraw money
+            if (vaultCost > 0) {
+                EggCatcher.economy.withdrawPlayer(player, vaultCost);
+
+                if (!this.vaultTargetBankAccount.isEmpty()) {
+                    EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
                 }
+
+                player.sendMessage(String.format(config.getString("Messages.VaultSuccess"), vaultCost));
             }
 
-            boolean freeCatch = player.hasPermission("eggcatcher.free");
-
-            if (this.useVaultCost && !freeCatch) {
-                double vaultCost = config.getDouble("VaultCost." + eggType.getFriendlyName());
-                if (!EggCatcher.economy.has(player.getName(), vaultCost)) {
-                    player.sendMessage(String.format(config.getString("Messages.VaultFail"), vaultCost));
-                    if (!this.loseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                } else {
-                    EggCatcher.economy.withdrawPlayer(player.getName(), vaultCost);
-
-                    if (!this.vaultTargetBankAccount.isEmpty()) {
-                        EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
-                    }
-
-                    player.sendMessage(String.format(config.getString("Messages.VaultSuccess"), vaultCost));
-                }
-            }
-
-            if (this.useItemCost && !freeCatch) {
-                int itemId = config.getInt("ItemCost.ItemId", 266);
-                int itemData = config.getInt("ItemCost.ItemData", 0);
-                int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
-                @SuppressWarnings("deprecation")
-                ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
-                if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
-                    player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
-                            String.valueOf(itemAmount)));
-                    player.getInventory().removeItem(itemStack);
-                } else {
-                    player.sendMessage(String.format(config.getString("Messages.ItemCostFail"),
-                            String.valueOf(itemAmount)));
-                    if (!this.loseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                }
+            // withdraw items
+            if (itemCost != null) {
+                player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
+                        String.valueOf(itemCost.getAmount())));
+                player.getInventory().removeItem(itemCost);
             }
         } else {
             // Dispenser
@@ -231,10 +179,8 @@ public class EggCatcherEntityListener implements Listener {
         }
 
         ItemStack eggStack = new ItemStack(Material.MONSTER_EGG, 1, eggType.getCreatureId());
-
         eggStack = NbtReflection.setNewEntityTag(eggStack, entity.getType().getName());
-
-        String customName = ((LivingEntity) entity).getCustomName();
+        String customName = entity.getCustomName();
 
         if (customName != null) {
             // Entity had custom name
@@ -243,19 +189,11 @@ public class EggCatcherEntityListener implements Listener {
             eggStack.setItemMeta(meta);
         }
 
-        if(entity instanceof Pig) {
-            if(((Pig)entity).hasSaddle()) {
-                entity.getWorld().dropItem(entity.getLocation(), new ItemStack(Material.SADDLE, 1));
-            }
-        }
-
-        if(entity instanceof Horse) {
-            if(((Horse) entity).isCarryingChest()){
-                entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.CHEST));
-            }
-        }
-
-        if((entity instanceof Villager && !this.deleteVillagerInventoryOnCatch) ||
+        if(entity instanceof Pig && ((Pig) entity).hasSaddle()) {
+            entity.getWorld().dropItem(entity.getLocation(), new ItemStack(Material.SADDLE, 1));
+        } else if (entity instanceof ChestedHorse && ((ChestedHorse) entity).isCarryingChest()) {
+            entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.CHEST));
+        } else if((entity instanceof Villager && !this.deleteVillagerInventoryOnCatch) ||
                 (!(entity instanceof Villager) && entity instanceof InventoryHolder)) {
 
             ItemStack[] items = ((InventoryHolder) entity).getInventory().getContents();
@@ -278,6 +216,70 @@ public class EggCatcherEntityListener implements Listener {
         if (this.logCaptures){
             captureLogger.logToFile("Player " + ((Player) egg.getShooter()).getName() + " caught " + entity.getType() + " at X" + Math.round(entity.getLocation().getX()) + ",Y" + Math.round(entity.getLocation().getY()) + ",Z" + Math.round(entity.getLocation().getZ()));
         }
+    }
+
+    private boolean playerHasRequirements(EggCaptureEvent event, Player player, double vaultCost, ItemStack itemCost) {
+        LivingEntity entity = (LivingEntity) event.getEntity();
+        String eggType = Objects.requireNonNull(EggType.getEggType(event.getEntity())).getFriendlyName();
+        double entityHealthRequirement = getEntityHealthRequirement(entity, eggType);
+
+        String message = null;
+        boolean hasRequirements = true;
+
+        // perform player egg capture validations
+        if (this.usePermissions && !player.hasPermission("eggcatcher.catch." + eggType.toLowerCase())) {
+            hasRequirements = false;
+            message = config.getString("Messages.PermissionFail");
+        } else if (entityHealthRequirement > 0 && entityHealthRequirement < getEntityHealthPercentage(entity)) {
+            hasRequirements = false;
+            if (this.healthPercentageFailMessage.length() > 0) {
+                message = String.format(this.healthPercentageFailMessage, entityHealthRequirement);
+            }
+        } else if (this.useCatchChance && Math.random() * 100 > config.getDouble("CatchChance." + eggType)) {
+            hasRequirements = false;
+            message = this.catchChanceFailMessage;
+        } else if (vaultCost > 0 && !EggCatcher.economy.has(player, vaultCost)) {
+            hasRequirements = false;
+            message = String.format(config.getString("Messages.VaultFail"), vaultCost);
+        } else if (itemCost != null && !player.getInventory().containsAtLeast(itemCost, itemCost.getAmount())) {
+            hasRequirements = false;
+            message = String.format(config.getString("Messages.ItemCostFail"), String.valueOf(itemCost.getAmount()));
+        }
+
+        if (message != null && message.length() != 0) {
+            player.sendMessage(message);
+        }
+
+        if (!hasRequirements) {
+            if (!this.loseEggOnFail) {
+                player.getInventory().addItem(new ItemStack(Material.EGG, 1));
+                EggCatcher.eggs.add(event.getEgg());
+            }
+        }
+
+        return hasRequirements;
+    }
+
+    private double getVaultCost(Player p, String eggType) {
+        return this.useVaultCost && !p.hasPermission("eggcatcher.free") ? config.getDouble("VaultCost." + eggType) : 0;
+    }
+
+    private ItemStack getItemCost(Player p, String eggType) {
+        if (this.useItemCost && !p.hasPermission("eggcatcher.free")) {
+            int itemId = config.getInt("ItemCost.ItemId", 266);
+            int itemData = config.getInt("ItemCost.ItemData", 0);
+            int itemAmount = config.getInt("ItemCost.Amount." + eggType, 0);
+            return new ItemStack(itemId, itemAmount, (short) itemData);
+        }
+        return null;
+    }
+
+    private double getEntityHealthRequirement(LivingEntity entity, String eggType) {
+        return this.useHealthPercentage ? config.getDouble("HealthPercentage." + eggType) : 0;
+    }
+
+    private double getEntityHealthPercentage(LivingEntity entity) {
+        return entity.getHealth() * 100.0 / entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
     }
 
     private boolean checkIsEggEvent(EntityDamageByEntityEvent e) {
