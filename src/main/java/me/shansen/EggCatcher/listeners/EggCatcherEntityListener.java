@@ -47,7 +47,7 @@ public class EggCatcherEntityListener implements Listener {
     private final boolean usePermissions;
     private final boolean useCatchChance;
     private final boolean useHealthPercentage;
-    private final boolean looseEggOnFail;
+    private final boolean loseEggOnFail;
     private final boolean useVaultCost;
     private final boolean useItemCost;
     private final boolean explosionEffect;
@@ -76,7 +76,7 @@ public class EggCatcherEntityListener implements Listener {
         this.usePermissions = this.config.getBoolean("UsePermissions", true);
         this.useCatchChance = this.config.getBoolean("UseCatchChance", true);
         this.useHealthPercentage = this.config.getBoolean("UseHealthPercentage", false);
-        this.looseEggOnFail = this.config.getBoolean("LooseEggOnFail", true);
+        this.loseEggOnFail = this.config.getBoolean("LooseEggOnFail", true);
         this.useVaultCost = this.config.getBoolean("UseVaultCost", false);
         this.useItemCost = this.config.getBoolean("UseItemCost", false);
         this.explosionEffect = this.config.getBoolean("ExplosionEffect", true);
@@ -125,7 +125,7 @@ public class EggCatcherEntityListener implements Listener {
             if (this.usePermissions) {
                 if (!player.hasPermission("eggcatcher.catch." + eggType.getFriendlyName().toLowerCase())) {
                     player.sendMessage(config.getString("Messages.PermissionFail"));
-                    if (!this.looseEggOnFail) {
+                    if (!this.loseEggOnFail) {
                         player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                         EggCatcher.eggs.add(egg);
                     }
@@ -141,7 +141,7 @@ public class EggCatcherEntityListener implements Listener {
                     if (this.healthPercentageFailMessage.length() > 0) {
                         player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
                     }
-                    if (!this.looseEggOnFail) {
+                    if (!this.loseEggOnFail) {
                         player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                         EggCatcher.eggs.add(egg);
                     }
@@ -159,7 +159,7 @@ public class EggCatcherEntityListener implements Listener {
                     if (this.catchChanceFailMessage.length() > 0) {
                         player.sendMessage(this.catchChanceFailMessage);
                     }
-                    if (!this.looseEggOnFail) {
+                    if (!this.loseEggOnFail) {
                         player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                         EggCatcher.eggs.add(egg);
                     }
@@ -173,7 +173,7 @@ public class EggCatcherEntityListener implements Listener {
                 double vaultCost = config.getDouble("VaultCost." + eggType.getFriendlyName());
                 if (!EggCatcher.economy.has(player.getName(), vaultCost)) {
                     player.sendMessage(String.format(config.getString("Messages.VaultFail"), vaultCost));
-                    if (!this.looseEggOnFail) {
+                    if (!this.loseEggOnFail) {
                         player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                         EggCatcher.eggs.add(egg);
                     }
@@ -202,7 +202,7 @@ public class EggCatcherEntityListener implements Listener {
                 } else {
                     player.sendMessage(String.format(config.getString("Messages.ItemCostFail"),
                             String.valueOf(itemAmount)));
-                    if (!this.looseEggOnFail) {
+                    if (!this.loseEggOnFail) {
                         player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                         EggCatcher.eggs.add(egg);
                     }
