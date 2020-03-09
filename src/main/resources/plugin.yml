@@ -12,16 +12,22 @@ permissions:
         default: op
         children:
             eggcatcher.catch.bat: true
+            eggcatcher.catch.bee: true
             eggcatcher.catch.blaze: true
+            eggcatcher.catch.cat: true
             eggcatcher.catch.cavespider: true
             eggcatcher.catch.chicken: true
+            eggcatcher.catch.cod: true
             eggcatcher.catch.cow: true
             eggcatcher.catch.creeper: true
+            eggcatcher.catch.dolphin: true
             eggcatcher.catch.donkey: true
+            eggcatcher.catch.drowned: true
             eggcatcher.catch.elderguardian: true
             eggcatcher.catch.enderman: true
             eggcatcher.catch.endermite: true
             eggcatcher.catch.evoker: true
+            eggcatcher.catch.fox: true
             eggcatcher.catch.ghast: true
             eggcatcher.catch.guardian: true
             eggcatcher.catch.horse: true
@@ -31,11 +37,17 @@ permissions:
             eggcatcher.catch.mule: true
             eggcatcher.catch.mushroomcow: true
             eggcatcher.catch.ocelot: true
+            eggcatcher.catch.panda: true
             eggcatcher.catch.parrot: true
+            eggcatcher.catch.phantom: true
             eggcatcher.catch.pig: true
             eggcatcher.catch.pigzombie: true
+            eggcatcher.catch.pillager: true
             eggcatcher.catch.polarbear: true
+            eggcatcher.catch.pufferfish: true
             eggcatcher.catch.rabbit: true
+            eggcatcher.catch.ravager: true
+            eggcatcher.catch.salmon: true
             eggcatcher.catch.sheep: true
             eggcatcher.catch.shulker: true
             eggcatcher.catch.silverfish: true
@@ -45,9 +57,13 @@ permissions:
             eggcatcher.catch.spider: true
             eggcatcher.catch.squid: true
             eggcatcher.catch.stray: true
+            eggcatcher.catch.traderllama: true
+            eggcatcher.catch.tropicalfish: true
+            eggcatcher.catch.turtle: true
             eggcatcher.catch.vex: true
             eggcatcher.catch.villager: true
             eggcatcher.catch.vindicator: true
+            eggcatcher.catch.wanderingtrader: true
             eggcatcher.catch.witch: true
             eggcatcher.catch.witherskeleton: true
             eggcatcher.catch.wolf: true
