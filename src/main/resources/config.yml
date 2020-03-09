@@ -267,4 +267,4 @@ Messages:
   CatchChanceFail: "You failed to catch this mob!"
   CatchChanceSuccess: ""
   HealthPercentageFail: "The mob has more than %s percent health left and cannot be caught!"
-ConfigVersion: 3.1
+ConfigVersion: 5.0
