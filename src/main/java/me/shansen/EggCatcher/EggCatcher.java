@@ -25,7 +25,7 @@ import org.bukkit.entity.Egg;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bstats.Metrics;
+import org.bstats.bukkit.Metrics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class EggCatcher extends JavaPlugin {
             }
         }
 
-        Metrics metrics = new Metrics(this);
+        Metrics metrics = new Metrics(this, 894);
     }
 
     public void CheckConfigurationFile() {
