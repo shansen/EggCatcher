@@ -136,7 +136,7 @@ VaultCost:
   ZombieHorse: 0.0
   ZombieVillager: 0.0
 ItemCost:
-  ItemId: 371
+  ItemId: gold_nugget
   ItemData: 0
   Amount:
     Bat: 0.0
