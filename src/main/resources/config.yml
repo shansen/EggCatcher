@@ -17,16 +17,22 @@ DeleteVillagerInventoryOnCatch: false
 LogEggCaptures: false
 CatchChance:
   Bat: 100.0
+  Bee: 100.0
   Blaze: 100.0
+  Cat: 100.0
   CaveSpider: 100.0
   Chicken: 100.0
+  Cod: 100.0
   Cow: 100.0
   Creeper: 100.0
+  Dolphin: 100.0
   Donkey: 100.0
+  Drowned: 100.0
   ElderGuardian: 100.0
   Enderman: 100.0
   Endermite: 100.0
   Evoker: 100.0
+  Fox: 100.0
   Ghast: 100.0
   Guardian: 100.0
   Horse: 100.0
@@ -36,11 +42,17 @@ CatchChance:
   Mule: 100.0
   MushroomCow: 100.0
   Ocelot: 100.0
+  Panda: 100.0
   Parrot: 100.0
+  Phantom: 100.0
   Pig: 100.0
   PigZombie: 100.0
+  Pillager: 100.0
   PolarBear: 100.0
+  Pufferfish: 100.0
   Rabbit: 100.0
+  Ravager: 100.0
+  Salmon: 100.0
   Sheep: 100.0
   Shulker: 100.0
   Silverfish: 100.0
@@ -50,9 +62,13 @@ CatchChance:
   Spider: 100.0
   Squid: 100.0
   Stray: 100.0
+  TraderLlama: 100.0
+  TropicalFish: 100.0
+  Turtle: 100.0
   Vex: 100.0
   Villager: 100.0
   Vindicator: 100.0
+  WanderingTrader: 100.0
   Witch: 100.0
   WitherSkeleton: 100.0
   Wolf: 100.0
@@ -61,16 +77,22 @@ CatchChance:
   ZombieVillager: 100.0
 VaultCost:
   Bat: 0.0
+  Bee: 0.0
   Blaze: 0.0
+  Cat: 0.0
   CaveSpider: 0.0
   Chicken: 0.0
+  Cod: 0.0
   Cow: 0.0
   Creeper: 0.0
+  Dolphin: 0.0
   Donkey: 0.0
+  Drowned: 0.0
   ElderGuardian: 0.0
   Enderman: 0.0
   Endermite: 0.0
   Evoker: 0.0
+  Fox: 0.0
   Ghast: 0.0
   Guardian: 0.0
   Horse: 0.0
@@ -80,11 +102,17 @@ VaultCost:
   Mule: 0.0
   MushroomCow: 0.0
   Ocelot: 0.0
+  Panda: 0.0
   Parrot: 0.0
+  Phantom: 0.0
   Pig: 0.0
   PigZombie: 0.0
+  Pillager: 0.0
   PolarBear: 0.0
+  Pufferfish: 0.0
   Rabbit: 0.0
+  Ravager: 0.0
+  Salmon: 0.0
   Sheep: 0.0
   Shulker: 0.0
   Silverfish: 0.0
@@ -94,9 +122,13 @@ VaultCost:
   Spider: 0.0
   Squid: 0.0
   Stray: 0.0
+  TraderLlama: 0.0
+  TropicalFish: 0.0
+  Turtle: 0.0
   Vex: 0.0
   Villager: 0.0
   Vindicator: 0.0
+  WanderingTrader: 0.0
   Witch: 0.0
   WitherSkeleton: 0.0
   Wolf: 0.0
@@ -108,16 +140,22 @@ ItemCost:
   ItemData: 0
   Amount:
     Bat: 0.0
+    Bee: 0.0
     Blaze: 0.0
+    Cat: 0.0
     CaveSpider: 0.0
     Chicken: 0.0
+    Cod: 0.0
     Cow: 0.0
     Creeper: 0.0
+    Dolphin: 0.0
     Donkey: 0.0
+    Drowned: 0.0
     ElderGuardian: 0.0
     Enderman: 0.0
     Endermite: 0.0
     Evoker: 0.0
+    Fox: 0.0
     Ghast: 0.0
     Guardian: 0.0
     Horse: 0.0
@@ -127,11 +165,17 @@ ItemCost:
     Mule: 0.0
     MushroomCow: 0.0
     Ocelot: 0.0
+    Panda: 0.0
     Parrot: 0.0
+    Phantom: 0.0
     Pig: 0.0
     PigZombie: 0.0
+    Pillager: 0.0
     PolarBear: 0.0
+    Pufferfish: 0.0
     Rabbit: 0.0
+    Ravager: 0.0
+    Salmon: 0.0
     Sheep: 0.0
     Shulker: 0.0
     Silverfish: 0.0
@@ -141,9 +185,13 @@ ItemCost:
     Spider: 0.0
     Squid: 0.0
     Stray: 0.0
+    TraderLlama: 0.0
+    TropicalFish: 0.0
+    Turtle: 0.0
     Vex: 0.0
     Villager: 0.0
     Vindicator: 0.0
+    WanderingTrader: 0.0
     Witch: 0.0
     WitherSkeleton: 0.0
     Wolf: 0.0
@@ -152,16 +200,22 @@ ItemCost:
     ZombieVillager: 0.0
 HealthPercentage:
   Bat: 100.0
+  Bee: 100.0
   Blaze: 100.0
+  Cat: 100.0
   CaveSpider: 100.0
   Chicken: 100.0
+  Cod: 100.0
   Cow: 100.0
   Creeper: 100.0
+  Dolphin: 100.0
   Donkey: 100.0
+  Drowned: 100.0
   ElderGuardian: 100.0
   Enderman: 100.0
   Endermite: 100.0
   Evoker: 100.0
+  Fox: 100.0
   Ghast: 100.0
   Guardian: 100.0
   Horse: 100.0
@@ -171,11 +225,17 @@ HealthPercentage:
   Mule: 100.0
   MushroomCow: 100.0
   Ocelot: 100.0
+  Panda: 100.0
   Parrot: 100.0
+  Phantom: 100.0
   Pig: 100.0
   PigZombie: 100.0
+  Pillager: 100.0
   PolarBear: 100.0
+  Pufferfish: 100.0
   Rabbit: 100.0
+  Ravager: 100.0
+  Salmon: 100.0
   Sheep: 100.0
   Shulker: 100.0
   Silverfish: 100.0
@@ -185,9 +245,13 @@ HealthPercentage:
   Spider: 100.0
   Squid: 100.0
   Stray: 100.0
+  TraderLlama: 100.0
+  TropicalFish: 100.0
+  Turtle: 100.0
   Vex: 100.0
   Villager: 100.0
   Vindicator: 100.0
+  WanderingTrader: 100.0
   Witch: 100.0
   WitherSkeleton: 100.0
   Wolf: 100.0
