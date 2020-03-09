@@ -18,66 +18,79 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package me.shansen.EggCatcher;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
 public enum EggType {
-    EVOKER(EntityType.EVOKER, 34, "Evoker"),
-    VEX(EntityType.VEX, 35, "Vex"),
-    VINDICATOR(EntityType.VINDICATOR, 36, "Vindicator"),
-    PIG_ZOMBIE(EntityType.PIG_ZOMBIE, 57, "PigZombie"),
-    MAGMA_CUBE(EntityType.MAGMA_CUBE, 62, "MagmaCube"),
-    CAVE_SPIDER(EntityType.CAVE_SPIDER, 59, "CaveSpider"),
-    MUSHROOM_COW(EntityType.MUSHROOM_COW, 96, "MushroomCow"),
-    CREEPER(EntityType.CREEPER, 50, "Creeper"),
-    WITHER_SKELETON(EntityType.WITHER_SKELETON, 5, "WitherSkeleton"),
-    STRAY(EntityType.STRAY, 6, "Stray"),
-    SKELETON(EntityType.SKELETON, 51, "Skeleton"),
-    SPIDER(EntityType.SPIDER, 52, "Spider"),
-    HUSK(EntityType.HUSK, 23, "Husk"),
-    ZOMBIE_VILLAGER(EntityType.ZOMBIE_VILLAGER, 27, "ZombieVillager"),
-    ZOMBIE(EntityType.ZOMBIE, 54, "Zombie"),
-    SLIME(EntityType.SLIME, 55, "Slime"),
-    GHAST(EntityType.GHAST, 56, "Ghast"),
-    ENDERMAN(EntityType.ENDERMAN, 58, "Enderman"),
-    SILVERFISH(EntityType.SILVERFISH, 60, "Silverfish"),
-    BLAZE(EntityType.BLAZE, 61, "Blaze"),
-    PIG(EntityType.PIG, 90, "Pig"),
-    SHEEP(EntityType.SHEEP, 91, "Sheep"),
-    COW(EntityType.COW, 92, "Cow"),
-    CHICKEN(EntityType.CHICKEN, 93, "Chicken"),
-    SQUID(EntityType.SQUID, 94, "Squid"),
-    WOLF(EntityType.WOLF, 95, "Wolf"),
-    VILLAGER(EntityType.VILLAGER, 120, "Villager"),
-    OCELOT(EntityType.OCELOT, 98, "Ocelot"),
-    BAT(EntityType.BAT, 65, "Bat"),
-    WITCH(EntityType.WITCH, 66, "Witch"),
-    ZOMBIE_HORSE(EntityType.ZOMBIE_HORSE, 29, "ZombieHorse"),
-    SKELETON_HORSE(EntityType.SKELETON_HORSE, 28, "SkeletonHorse"),
-    LLAMA(EntityType.LLAMA, 103, "Llama"),
-    DONKEY(EntityType.DONKEY, 31, "Donkey"),
-    MULE(EntityType.MULE, 32, "Mule"),
-    HORSE(EntityType.HORSE, 100, "Horse"),
-    ENDERMITE(EntityType.ENDERMITE, 67, "Endermite"),
-    ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN, 4, "ElderGuardian"),
-    GUARDIAN(EntityType.GUARDIAN, 68, "Guardian"),
-    RABBIT(EntityType.RABBIT, 101, "Rabbit"),
-    POLAR_BEAR(EntityType.POLAR_BEAR, 102, "PolarBear"),
-    SHULKER(EntityType.SHULKER, 69, "Shulker"),
-    PARROT(EntityType.PARROT, 105, "Parrot");
+    DROWNED(EntityType.DROWNED, "Drowned", Material.DROWNED_SPAWN_EGG),
+    EVOKER(EntityType.EVOKER,"Evoker", Material.EVOKER_SPAWN_EGG),
+    VEX(EntityType.VEX, "Vex", Material.VEX_SPAWN_EGG),
+    VINDICATOR(EntityType.VINDICATOR, "Vindicator", Material.VINDICATOR_SPAWN_EGG),
+    PIG_ZOMBIE(EntityType.PIG_ZOMBIE, "PigZombie", Material.ZOMBIE_PIGMAN_SPAWN_EGG),
+    MAGMA_CUBE(EntityType.MAGMA_CUBE, "MagmaCube", Material.MAGMA_CUBE_SPAWN_EGG),
+    CAVE_SPIDER(EntityType.CAVE_SPIDER, "CaveSpider", Material.CAVE_SPIDER_SPAWN_EGG),
+    MUSHROOM_COW(EntityType.MUSHROOM_COW, "MushroomCow", Material.MOOSHROOM_SPAWN_EGG),
+    CREEPER(EntityType.CREEPER,"Creeper", Material.CREEPER_SPAWN_EGG),
+    WITHER_SKELETON(EntityType.WITHER_SKELETON, "WitherSkeleton", Material.WITHER_SKELETON_SPAWN_EGG),
+    STRAY(EntityType.STRAY, "Stray", Material.STRAY_SPAWN_EGG),
+    SKELETON(EntityType.SKELETON, "Skeleton", Material.SKELETON_SPAWN_EGG),
+    SPIDER(EntityType.SPIDER, "Spider", Material.SPIDER_SPAWN_EGG),
+    HUSK(EntityType.HUSK, "Husk", Material.HUSK_SPAWN_EGG),
+    ZOMBIE_VILLAGER(EntityType.ZOMBIE_VILLAGER, "ZombieVillager", Material.ZOMBIE_VILLAGER_SPAWN_EGG),
+    ZOMBIE(EntityType.ZOMBIE, "Zombie", Material.ZOMBIE_SPAWN_EGG),
+    SLIME(EntityType.SLIME, "Slime", Material.SLIME_SPAWN_EGG),
+    GHAST(EntityType.GHAST, "Ghast", Material.GHAST_SPAWN_EGG),
+    ENDERMAN(EntityType.ENDERMAN, "Enderman", Material.ENDERMAN_SPAWN_EGG),
+    SILVERFISH(EntityType.SILVERFISH, "Silverfish", Material.SILVERFISH_SPAWN_EGG),
+    BLAZE(EntityType.BLAZE, "Blaze", Material.BLAZE_SPAWN_EGG),
+    PIG(EntityType.PIG, "Pig", Material.PIG_SPAWN_EGG),
+    SHEEP(EntityType.SHEEP, "Sheep", Material.SHEEP_SPAWN_EGG),
+    COW(EntityType.COW, "Cow", Material.COW_SPAWN_EGG),
+    CHICKEN(EntityType.CHICKEN, "Chicken", Material.CHICKEN_SPAWN_EGG),
+    SQUID(EntityType.SQUID, "Squid", Material.SQUID_SPAWN_EGG),
+    WOLF(EntityType.WOLF, "Wolf", Material.WOLF_SPAWN_EGG),
+    VILLAGER(EntityType.VILLAGER, "Villager", Material.VILLAGER_SPAWN_EGG),
+    OCELOT(EntityType.OCELOT, "Ocelot", Material.OCELOT_SPAWN_EGG),
+    BAT(EntityType.BAT, "Bat", Material.BAT_SPAWN_EGG),
+    WITCH(EntityType.WITCH, "Witch", Material.WITCH_SPAWN_EGG),
+    ZOMBIE_HORSE(EntityType.ZOMBIE_HORSE, "ZombieHorse", Material.ZOMBIE_HORSE_SPAWN_EGG),
+    SKELETON_HORSE(EntityType.SKELETON_HORSE, "SkeletonHorse", Material.SKELETON_HORSE_SPAWN_EGG),
+    TRADER_LLAMA(EntityType.TRADER_LLAMA, "TraderLlama", Material.TRADER_LLAMA_SPAWN_EGG),
+    LLAMA(EntityType.LLAMA, "Llama", Material.LLAMA_SPAWN_EGG),
+    DONKEY(EntityType.DONKEY, "Donkey", Material.DONKEY_SPAWN_EGG),
+    MULE(EntityType.MULE, "Mule", Material.MULE_SPAWN_EGG),
+    HORSE(EntityType.HORSE, "Horse", Material.HORSE_SPAWN_EGG),
+    ENDERMITE(EntityType.ENDERMITE, "Endermite", Material.ENDERMITE_SPAWN_EGG),
+    ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN, "ElderGuardian", Material.ELDER_GUARDIAN_SPAWN_EGG),
+    GUARDIAN(EntityType.GUARDIAN, "Guardian", Material.GUARDIAN_SPAWN_EGG),
+    RABBIT(EntityType.RABBIT, "Rabbit", Material.RABBIT_SPAWN_EGG),
+    POLAR_BEAR(EntityType.POLAR_BEAR, "PolarBear", Material.POLAR_BEAR_SPAWN_EGG),
+    SHULKER(EntityType.SHULKER, "Shulker", Material.SHULKER_SPAWN_EGG),
+    PARROT(EntityType.PARROT, "Parrot", Material.PARROT_SPAWN_EGG),
+    BEE(EntityType.BEE, "Bee", Material.BEE_SPAWN_EGG),
+    CAT(EntityType.CAT, "Cat", Material.CAT_SPAWN_EGG),
+    COD(EntityType.COD, "Cod", Material.COD_SPAWN_EGG),
+    DOLPHIN(EntityType.DOLPHIN, "Dolphin", Material.DOLPHIN_SPAWN_EGG),
+    FOX(EntityType.FOX, "Fox", Material.FOX_SPAWN_EGG),
+    PANDA(EntityType.PANDA, "Panda", Material.PANDA_SPAWN_EGG),
+    PHANTOM(EntityType.PHANTOM, "Phantom", Material.PHANTOM_SPAWN_EGG),
+    PILLAGER(EntityType.PILLAGER, "Pillager", Material.PILLAGER_SPAWN_EGG),
+    PUFFERFISH(EntityType.PUFFERFISH, "Pufferfish", Material.PUFFERFISH_SPAWN_EGG),
+    RAVAGER(EntityType.RAVAGER, "Ravager", Material.RAVAGER_SPAWN_EGG),
+    SALMON(EntityType.SALMON, "Salmon", Material.SALMON_SPAWN_EGG),
+    TROPICAL_FISH(EntityType.TROPICAL_FISH, "TropicalFish", Material.TROPICAL_FISH_SPAWN_EGG),
+    TURTLE(EntityType.TURTLE, "Turtle", Material.TURTLE_SPAWN_EGG),
+    WANDERING_TRADER(EntityType.WANDERING_TRADER, "WanderingTrader", Material.WANDERING_TRADER_SPAWN_EGG);
 
     private final EntityType entityType;
-    private final Integer creatureId;
     private final String friendlyName;
+    private final Material material;
 
-    EggType(EntityType entityType, Integer creatureId, String friendlyName) {
+    EggType(EntityType entityType, String friendlyName, Material material) {
         this.entityType = entityType;
-        this.creatureId = creatureId;
         this.friendlyName = friendlyName;
-    }
-
-    public short getCreatureId() {
-        return this.creatureId.shortValue();
+        this.material = material;
     }
 
     public EntityType getCreatureType() {
@@ -86,6 +99,10 @@ public enum EggType {
 
     public String getFriendlyName() {
         return this.friendlyName;
+    }
+
+    public Material getMaterial() {
+        return this.material;
     }
 
     public static EggType getEggType(Entity entity) {

@@ -23,8 +23,6 @@ import me.shansen.EggCatcher.EggCatcherLogger;
 import me.shansen.EggCatcher.EggType;
 import me.shansen.EggCatcher.events.EggCaptureEvent;
 
-import me.shansen.nbt.NbtReflection;
-
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -267,9 +265,7 @@ public class EggCatcherEntityListener implements Listener {
             entity.getWorld().playEffect(entity.getLocation(), Effect.SMOKE, 0);
         }
 
-        ItemStack eggStack = new ItemStack(Material.MONSTER_EGG, 1, eggType.getCreatureId());
-
-        eggStack = NbtReflection.setNewEntityTag(eggStack, entity.getType().getName());
+        ItemStack eggStack = new ItemStack(eggType.getMaterial(), 1);
 
         String customName = ((LivingEntity) entity).getCustomName();
 
