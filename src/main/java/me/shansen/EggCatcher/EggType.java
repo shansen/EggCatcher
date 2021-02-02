@@ -27,7 +27,7 @@ public enum EggType {
     EVOKER(EntityType.EVOKER,"Evoker", Material.EVOKER_SPAWN_EGG),
     VEX(EntityType.VEX, "Vex", Material.VEX_SPAWN_EGG),
     VINDICATOR(EntityType.VINDICATOR, "Vindicator", Material.VINDICATOR_SPAWN_EGG),
-    PIG_ZOMBIE(EntityType.PIG_ZOMBIE, "PigZombie", Material.ZOMBIE_PIGMAN_SPAWN_EGG),
+    PIG_ZOMBIE(EntityType.ZOMBIFIED_PIGLIN, "PigZombie", Material.ZOMBIFIED_PIGLIN_SPAWN_EGG),
     MAGMA_CUBE(EntityType.MAGMA_CUBE, "MagmaCube", Material.MAGMA_CUBE_SPAWN_EGG),
     CAVE_SPIDER(EntityType.CAVE_SPIDER, "CaveSpider", Material.CAVE_SPIDER_SPAWN_EGG),
     MUSHROOM_COW(EntityType.MUSHROOM_COW, "MushroomCow", Material.MOOSHROOM_SPAWN_EGG),
@@ -81,6 +81,11 @@ public enum EggType {
     SALMON(EntityType.SALMON, "Salmon", Material.SALMON_SPAWN_EGG),
     TROPICAL_FISH(EntityType.TROPICAL_FISH, "TropicalFish", Material.TROPICAL_FISH_SPAWN_EGG),
     TURTLE(EntityType.TURTLE, "Turtle", Material.TURTLE_SPAWN_EGG),
+    HOGLIN(EntityType.HOGLIN, "Hoglin", Material.HOGLIN_SPAWN_EGG),
+    PIGLIN(EntityType.PIGLIN, "Piglin", Material.PIGLIN_SPAWN_EGG),
+    PIGLIN_BRUTE(EntityType.PIGLIN_BRUTE, "PiglinBrute", Material.PIGLIN_BRUTE_SPAWN_EGG),
+    STRIDER(EntityType.STRIDER, "Strider", Material.STRIDER_SPAWN_EGG),
+    ZOGLIN(EntityType.ZOGLIN, "Zoglin", Material.ZOGLIN_SPAWN_EGG),
     WANDERING_TRADER(EntityType.WANDERING_TRADER, "WanderingTrader", Material.WANDERING_TRADER_SPAWN_EGG);
 
     private final EntityType entityType;

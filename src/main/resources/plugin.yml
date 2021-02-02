@@ -1,8 +1,8 @@
 name: EggCatcher
-version: 5.0
+version: 5.1
 description: This plugin allows you to catch mobs in eggs.
-author: shansen
-api-version: 1.15
+author: Blockminers
+api-version: 1.16
 
 main: me.shansen.EggCatcher.EggCatcher
 
@@ -30,6 +30,7 @@ permissions:
             eggcatcher.catch.fox: true
             eggcatcher.catch.ghast: true
             eggcatcher.catch.guardian: true
+            eggcatcher.catch.hoglin: true
             eggcatcher.catch.horse: true
             eggcatcher.catch.husk: true
             eggcatcher.catch.llama: true
@@ -41,6 +42,8 @@ permissions:
             eggcatcher.catch.parrot: true
             eggcatcher.catch.phantom: true
             eggcatcher.catch.pig: true
+            eggcatcher.catch.piglin: true
+            eggcatcher.catch.piglinbrute: true
             eggcatcher.catch.pigzombie: true
             eggcatcher.catch.pillager: true
             eggcatcher.catch.polarbear: true
@@ -57,6 +60,7 @@ permissions:
             eggcatcher.catch.spider: true
             eggcatcher.catch.squid: true
             eggcatcher.catch.stray: true
+            eggcatcher.catch.strider: true
             eggcatcher.catch.traderllama: true
             eggcatcher.catch.tropicalfish: true
             eggcatcher.catch.turtle: true
@@ -67,6 +71,7 @@ permissions:
             eggcatcher.catch.witch: true
             eggcatcher.catch.witherskeleton: true
             eggcatcher.catch.wolf: true
+            eggcatcher.catch.zoglin: true
             eggcatcher.catch.zombie: true
             eggcatcher.catch.zombiehorse: true
             eggcatcher.catch.zombievillager: true
