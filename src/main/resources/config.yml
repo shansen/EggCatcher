@@ -16,6 +16,7 @@ VaultTargetBankAccount: ""
 DeleteVillagerInventoryOnCatch: false
 LogEggCaptures: false
 CatchChance:
+  Axolotl: 100.0
   Bat: 100.0
   Bee: 100.0
   Blaze: 100.0
@@ -34,7 +35,10 @@ CatchChance:
   Evoker: 100.0
   Fox: 100.0
   Ghast: 100.0
+  GlowSquid: 100.0
+  Goat: 100.0
   Guardian: 100.0
+  Hoglin: 100.0
   Horse: 100.0
   Husk: 100.0
   Llama: 100.0
@@ -46,6 +50,8 @@ CatchChance:
   Parrot: 100.0
   Phantom: 100.0
   Pig: 100.0
+  Piglin: 100.0
+  PiglinBrute: 100.0
   PigZombie: 100.0
   Pillager: 100.0
   PolarBear: 100.0
@@ -59,6 +65,7 @@ CatchChance:
   Skeleton: 100.0
   SkeletonHorse: 100.0
   Slime: 100.0
+  Strider: 100.0
   Spider: 100.0
   Squid: 100.0
   Stray: 100.0
@@ -72,10 +79,13 @@ CatchChance:
   Witch: 100.0
   WitherSkeleton: 100.0
   Wolf: 100.0
+  Zoglin: 100.0
   Zombie: 100.0
   ZombieHorse: 100.0
   ZombieVillager: 100.0
+  ZombifiedPiglin: 100.0
 VaultCost:
+  Axolotl: 0.0
   Bat: 0.0
   Bee: 0.0
   Blaze: 0.0
@@ -94,7 +104,10 @@ VaultCost:
   Evoker: 0.0
   Fox: 0.0
   Ghast: 0.0
+  GlowSquid: 0.0
+  Goat: 0.0
   Guardian: 0.0
+  Hoglin: 0.0
   Horse: 0.0
   Husk: 0.0
   Llama: 0.0
@@ -106,6 +119,8 @@ VaultCost:
   Parrot: 0.0
   Phantom: 0.0
   Pig: 0.0
+  Piglin: 0.0
+  PiglinBrute: 0.0
   PigZombie: 0.0
   Pillager: 0.0
   PolarBear: 0.0
@@ -122,6 +137,7 @@ VaultCost:
   Spider: 0.0
   Squid: 0.0
   Stray: 0.0
+  Strider: 0.0
   TraderLlama: 0.0
   TropicalFish: 0.0
   Turtle: 0.0
@@ -132,13 +148,16 @@ VaultCost:
   Witch: 0.0
   WitherSkeleton: 0.0
   Wolf: 0.0
+  Zoglin: 0.0
   Zombie: 0.0
   ZombieHorse: 0.0
   ZombieVillager: 0.0
+  ZombifiedPiglin: 0.0
 ItemCost:
   ItemId: gold_nugget
   ItemData: 0
   Amount:
+    Axolotl: 0.0
     Bat: 0.0
     Bee: 0.0
     Blaze: 0.0
@@ -157,7 +176,10 @@ ItemCost:
     Evoker: 0.0
     Fox: 0.0
     Ghast: 0.0
+    GlowSquid: 0.0
+    Goat: 0.0
     Guardian: 0.0
+    Hoglin: 0.0
     Horse: 0.0
     Husk: 0.0
     Llama: 0.0
@@ -169,6 +191,8 @@ ItemCost:
     Parrot: 0.0
     Phantom: 0.0
     Pig: 0.0
+    Piglin: 0.0
+    PiglinBrute: 0.0
     PigZombie: 0.0
     Pillager: 0.0
     PolarBear: 0.0
@@ -185,6 +209,7 @@ ItemCost:
     Spider: 0.0
     Squid: 0.0
     Stray: 0.0
+    Strider: 0.0
     TraderLlama: 0.0
     TropicalFish: 0.0
     Turtle: 0.0
@@ -195,10 +220,13 @@ ItemCost:
     Witch: 0.0
     WitherSkeleton: 0.0
     Wolf: 0.0
+    Zoglin: 0.0
     Zombie: 0.0
     ZombieHorse: 0.0
     ZombieVillager: 0.0
+    ZombifiedPiglin: 0.0
 HealthPercentage:
+  Axolotl: 100.0
   Bat: 100.0
   Bee: 100.0
   Blaze: 100.0
@@ -217,7 +245,10 @@ HealthPercentage:
   Evoker: 100.0
   Fox: 100.0
   Ghast: 100.0
+  GlowSquid: 100.0
+  Goat: 100.0
   Guardian: 100.0
+  Hoglin: 100.0
   Horse: 100.0
   Husk: 100.0
   Llama: 100.0
@@ -229,6 +260,8 @@ HealthPercentage:
   Parrot: 100.0
   Phantom: 100.0
   Pig: 100.0
+  Piglin: 100.0
+  PiglinBrute: 100.0
   PigZombie: 100.0
   Pillager: 100.0
   PolarBear: 100.0
@@ -245,6 +278,7 @@ HealthPercentage:
   Spider: 100.0
   Squid: 100.0
   Stray: 100.0
+  Strider: 100.0
   TraderLlama: 100.0
   TropicalFish: 100.0
   Turtle: 100.0
@@ -255,9 +289,11 @@ HealthPercentage:
   Witch: 100.0
   WitherSkeleton: 100.0
   Wolf: 100.0
+  Zoglin: 100.0
   Zombie: 100.0
   ZombieHorse: 100.0
   ZombieVillager: 100.0
+  ZombiefiedPiglin: 100.0
 Messages:
   PermissionFail: "You do not have permission to catch this mob!"
   VaultFail: "It costs %s dollars to catch this mob!"
@@ -267,4 +303,4 @@ Messages:
   CatchChanceFail: "You failed to catch this mob!"
   CatchChanceSuccess: ""
   HealthPercentageFail: "The mob has more than %s percent health left and cannot be caught!"
-ConfigVersion: 5.0
+ConfigVersion: 5.2
