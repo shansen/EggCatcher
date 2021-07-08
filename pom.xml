@@ -4,7 +4,7 @@
 
     <groupId>me.shansen</groupId>
     <artifactId>EggCatcher</artifactId>
-    <version>1.2-BLOCKMINERS_RULES</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>EggCatcher</name>
