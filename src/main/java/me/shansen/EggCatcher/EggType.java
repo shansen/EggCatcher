@@ -22,6 +22,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
+
 public enum EggType {
     DROWNED(EntityType.DROWNED, "Drowned", Material.DROWNED_SPAWN_EGG),
     EVOKER(EntityType.EVOKER,"Evoker", Material.EVOKER_SPAWN_EGG),
@@ -48,6 +49,7 @@ public enum EggType {
     SHEEP(EntityType.SHEEP, "Sheep", Material.SHEEP_SPAWN_EGG),
     COW(EntityType.COW, "Cow", Material.COW_SPAWN_EGG),
     CHICKEN(EntityType.CHICKEN, "Chicken", Material.CHICKEN_SPAWN_EGG),
+    GLOW_SQUID(EntityType.GLOW_SQUID, "GlowSquid", Material.GLOW_SQUID_SPAWN_EGG),
     SQUID(EntityType.SQUID, "Squid", Material.SQUID_SPAWN_EGG),
     WOLF(EntityType.WOLF, "Wolf", Material.WOLF_SPAWN_EGG),
     VILLAGER(EntityType.VILLAGER, "Villager", Material.VILLAGER_SPAWN_EGG),
@@ -88,9 +90,8 @@ public enum EggType {
     ZOGLIN(EntityType.ZOGLIN, "Zoglin", Material.ZOGLIN_SPAWN_EGG),
     WANDERING_TRADER(EntityType.WANDERING_TRADER, "WanderingTrader", Material.WANDERING_TRADER_SPAWN_EGG),
     AXOLOTL(EntityType.AXOLOTL, "Axolotl", Material.AXOLOTL_SPAWN_EGG),
-    GLOW_SQUID(EntityType.GLOW_SQUID, "Glow Squid", Material.GLOW_SQUID_SPAWN_EGG),
     GOAT(EntityType.GOAT, "Goat", Material.GOAT_SPAWN_EGG),
-    ZOMBIFIED_PIGLIN(EntityType.ZOMBIFIED_PIGLIN, "Zombied Piglin", Material.ZOMBIFIED_PIGLIN_SPAWN_EGG);
+    ZOMBIFIED_PIGLIN(EntityType.ZOMBIFIED_PIGLIN, "ZombifiedPiglin", Material.ZOMBIFIED_PIGLIN_SPAWN_EGG);
 
     private final EntityType entityType;
     private final String friendlyName;
