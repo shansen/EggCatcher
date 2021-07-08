@@ -86,7 +86,11 @@ public enum EggType {
     PIGLIN_BRUTE(EntityType.PIGLIN_BRUTE, "PiglinBrute", Material.PIGLIN_BRUTE_SPAWN_EGG),
     STRIDER(EntityType.STRIDER, "Strider", Material.STRIDER_SPAWN_EGG),
     ZOGLIN(EntityType.ZOGLIN, "Zoglin", Material.ZOGLIN_SPAWN_EGG),
-    WANDERING_TRADER(EntityType.WANDERING_TRADER, "WanderingTrader", Material.WANDERING_TRADER_SPAWN_EGG);
+    WANDERING_TRADER(EntityType.WANDERING_TRADER, "WanderingTrader", Material.WANDERING_TRADER_SPAWN_EGG),
+    AXOLOTL(EntityType.AXOLOTL, "Axolotl", Material.AXOLOTL_SPAWN_EGG),
+    GLOW_SQUID(EntityType.GLOW_SQUID, "Glow Squid", Material.GLOW_SQUID_SPAWN_EGG),
+    GOAT(EntityType.GOAT, "Goat", Material.GOAT_SPAWN_EGG),
+    ZOMBIFIED_PIGLIN(EntityType.ZOMBIFIED_PIGLIN, "Zombied Piglin", Material.ZOMBIFIED_PIGLIN_SPAWN_EGG);
 
     private final EntityType entityType;
     private final String friendlyName;

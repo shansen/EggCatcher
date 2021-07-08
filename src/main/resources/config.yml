@@ -16,6 +16,7 @@ VaultTargetBankAccount: ""
 DeleteVillagerInventoryOnCatch: false
 LogEggCaptures: false
 CatchChance:
+  Axolotl: 100.0
   Bat: 100.0
   Bee: 100.0
   Blaze: 100.0
@@ -34,6 +35,8 @@ CatchChance:
   Evoker: 100.0
   Fox: 100.0
   Ghast: 100.0
+  GlowSquid: 100.0
+  Goat: 100.0
   Guardian: 100.0
   Hoglin: 100.0
   Horse: 100.0
@@ -80,7 +83,9 @@ CatchChance:
   Zombie: 100.0
   ZombieHorse: 100.0
   ZombieVillager: 100.0
+  ZombifiedPiglin: 100.0
 VaultCost:
+  Axolotl: 0.0
   Bat: 0.0
   Bee: 0.0
   Blaze: 0.0
@@ -99,6 +104,8 @@ VaultCost:
   Evoker: 0.0
   Fox: 0.0
   Ghast: 0.0
+  GlowSquid: 0.0
+  Goat: 0.0
   Guardian: 0.0
   Hoglin: 0.0
   Horse: 0.0
@@ -145,10 +152,12 @@ VaultCost:
   Zombie: 0.0
   ZombieHorse: 0.0
   ZombieVillager: 0.0
+  ZombifiedPiglin: 0.0
 ItemCost:
   ItemId: gold_nugget
   ItemData: 0
   Amount:
+    Axolotl: 0.0
     Bat: 0.0
     Bee: 0.0
     Blaze: 0.0
@@ -167,6 +176,8 @@ ItemCost:
     Evoker: 0.0
     Fox: 0.0
     Ghast: 0.0
+    GlowSquid: 0.0
+    Goat: 0.0
     Guardian: 0.0
     Hoglin: 0.0
     Horse: 0.0
@@ -213,7 +224,9 @@ ItemCost:
     Zombie: 0.0
     ZombieHorse: 0.0
     ZombieVillager: 0.0
+    ZombifiedPiglin: 0.0
 HealthPercentage:
+  Axolotl: 100.0
   Bat: 100.0
   Bee: 100.0
   Blaze: 100.0
@@ -232,6 +245,8 @@ HealthPercentage:
   Evoker: 100.0
   Fox: 100.0
   Ghast: 100.0
+  GlowSquid: 100.0
+  Goat: 100.0
   Guardian: 100.0
   Hoglin: 100.0
   Horse: 100.0
@@ -278,6 +293,7 @@ HealthPercentage:
   Zombie: 100.0
   ZombieHorse: 100.0
   ZombieVillager: 100.0
+  ZombiefiedPiglin: 100.0
 Messages:
   PermissionFail: "You do not have permission to catch this mob!"
   VaultFail: "It costs %s dollars to catch this mob!"
@@ -287,4 +303,4 @@ Messages:
   CatchChanceFail: "You failed to catch this mob!"
   CatchChanceSuccess: ""
   HealthPercentageFail: "The mob has more than %s percent health left and cannot be caught!"
-ConfigVersion: 5.1
+ConfigVersion: 5.2

@@ -4,7 +4,7 @@
 
     <groupId>me.shansen</groupId>
     <artifactId>EggCatcher</artifactId>
-    <version>1.1-BLOCKMINERS_RULES</version>
+    <version>1.2-BLOCKMINERS_RULES</version>
     <packaging>jar</packaging>
 
     <name>EggCatcher</name>
@@ -78,7 +78,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
