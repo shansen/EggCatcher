@@ -1,4 +1,4 @@
-package me.shansen.nbt;
+package com.minecraftheads.nbt;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;

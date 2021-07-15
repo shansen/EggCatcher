@@ -16,12 +16,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package me.shansen.EggCatcher.listeners;
+package com.minecraftheads.EggCatcher.listeners;
 
-import me.shansen.EggCatcher.EggCatcher;
-import me.shansen.EggCatcher.EggCatcherLogger;
-import me.shansen.EggCatcher.EggType;
-import me.shansen.EggCatcher.events.EggCaptureEvent;
+import com.minecraftheads.EggCatcher.EggCatcherLogger;
+import com.minecraftheads.EggCatcher.EggType;
+import com.minecraftheads.EggCatcher.EggCatcher;
+import com.minecraftheads.EggCatcher.events.EggCaptureEvent;
 
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -36,6 +36,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.attribute.Attribute;
 
 import java.io.File;
 
@@ -169,9 +170,9 @@ public class EggCatcherEntityListener implements Listener {
             }
 
             if (this.useHealthPercentage) {
-                double healthPercentage = config.getDouble("HealthPercentage." + eggType.getFriendlyName());
+                double healthPercentage = config.getDouble("Entity." + eggType.getFriendlyName() + ".HealthPercentage");
                 double currentHealth = ((LivingEntity) entity).getHealth() * 100.0 / ((LivingEntity) entity)
-                        .getMaxHealth();
+                        .getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
                 if (healthPercentage < currentHealth) {
                     if (this.healthPercentageFailMessage.length() > 0) {
                         player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
@@ -185,7 +186,7 @@ public class EggCatcherEntityListener implements Listener {
             }
 
             if (this.useCatchChance) {
-                double catchChance = config.getDouble("CatchChance." + eggType.getFriendlyName());
+                double catchChance = config.getDouble("Entity." + eggType.getFriendlyName() + ".CatchChance");
                 if (Math.random() * 100 <= catchChance) {
                     if (this.catchChanceSuccessMessage.length() > 0) {
                         player.sendMessage(catchChanceSuccessMessage);
@@ -205,8 +206,8 @@ public class EggCatcherEntityListener implements Listener {
             boolean freeCatch = player.hasPermission("eggcatcher.free");
 
             if (this.useVaultCost && !freeCatch) {
-                vaultCost = config.getDouble("VaultCost." + eggType.getFriendlyName());
-                if (!EggCatcher.economy.has(player.getName(), vaultCost)) {
+                vaultCost = config.getDouble("Entity." + eggType.getFriendlyName() + ".VaultCost");
+                if (!EggCatcher.economy.has(player, vaultCost)) {
                     player.sendMessage(String.format(config.getString("Messages.VaultFail"), vaultCost));
                     if (!this.looseEggOnFail) {
                         player.getInventory().addItem(new ItemStack(Material.EGG, 1));
@@ -214,7 +215,7 @@ public class EggCatcherEntityListener implements Listener {
                     }
                     return;
                 } else {
-                    EggCatcher.economy.withdrawPlayer(player.getName(), vaultCost);
+                    EggCatcher.economy.withdrawPlayer(player, vaultCost);
 
                     if (!this.vaultTargetBankAccount.isEmpty()) {
                         EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
@@ -225,11 +226,10 @@ public class EggCatcherEntityListener implements Listener {
             }
 
             if (this.useItemCost && !freeCatch) {
-                Material itemMaterial = Material.matchMaterial(config.getString("ItemCost.ItemId", "gold_nugget"));
-                int itemData = config.getInt("ItemCost.ItemData", 0);
-                int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
-                @SuppressWarnings("deprecation")
-				ItemStack itemStack = new ItemStack(itemMaterial, itemAmount, (short) itemData);
+                Material itemMaterial = Material.matchMaterial(config.getString("Entity." + eggType.getFriendlyName() + ".ItemCost.ItemName", "gold_nugget"));
+                int itemData = config.getInt("Entity." + eggType.getFriendlyName() + ".ItemCost.ItemData", 0);
+                int itemAmount = config.getInt("Entity." + eggType.getFriendlyName() + ".ItemCost.Amount", 0);
+				ItemStack itemStack = new ItemStack(itemMaterial, itemAmount);
                 if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
                     player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
                             String.valueOf(itemAmount)));
@@ -250,7 +250,7 @@ public class EggCatcherEntityListener implements Listener {
                 return;
             }
             if (this.useCatchChance) {
-                double catchChance = config.getDouble("CatchChance." + eggType.getFriendlyName());
+                double catchChance = config.getDouble("Entity." + eggType.getFriendlyName() + ".CatchChance");
                 if (Math.random() * 100 > catchChance) {
                     return;
                 }

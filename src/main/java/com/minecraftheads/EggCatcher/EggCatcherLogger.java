@@ -1,4 +1,4 @@
-package me.shansen.EggCatcher;
+package com.minecraftheads.EggCatcher;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-//Created 11/11/2016 2:21 AM
 public class EggCatcherLogger{
 	private final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private File file;
