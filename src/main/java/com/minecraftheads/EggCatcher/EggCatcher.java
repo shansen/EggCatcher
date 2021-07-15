@@ -4,17 +4,12 @@ import com.minecraftheads.EggCatcher.listeners.EggCatcherEntityListener;
 import com.minecraftheads.EggCatcher.listeners.EggCatcherPlayerListener;
 import com.minecraftheads.EggCatcher.listeners.EggCatcherSpawnListener;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.configuration.file.YamlConstructor;
 import org.bukkit.entity.Egg;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
