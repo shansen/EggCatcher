@@ -49,6 +49,7 @@ public class EggCatcher extends JavaPlugin {
         if (configVersion < 6.0) {
             MigrateConfigFile();
             this.saveConfig();
+            this.reloadConfig();
             return;
         }
         if (configVersion == 6.0) {
@@ -65,50 +66,38 @@ public class EggCatcher extends JavaPlugin {
         String[] keysWithStringValue = {"VaultTargetBankAccount"};
         String[] entitiesInConfig = {"Axolotl", "Bat", "Bee", "Blaze", "Cat", "CaveSpider", "Chicken", "Cod", "Cow", "Creeper", "Dolphin", "Donkey", "Drowned", "ElderGuardian", "Enderman", "Endermite", "Evoker", "Fox", "Ghast", "GlowSquid", "Goat", "Guardian", "Hoglin", "Horse", "Husk", "Llama", "MagmaCube", "Mule", "MushroomCow", "Ocelot", "Panda", "Parrot", "Phantom", "Pig", "Piglin", "PiglinBrute", "PigZombie", "Pillager", "PolarBear", "Pufferfish", "Rabbit", "Ravager", "Salmon", "Sheep", "Shulker", "Silverfish", "Skeleton", "SkeletonHorse", "Slime", "Spider", "Squid", "Stray", "Strider", "TraderLlama", "TropicalFish", "Turtle", "Vex", "Villager", "Vindicator", "WanderingTrader", "Witch", "WitherSkeleton", "Wolf", "Zoglin", "Zombie", "ZombieHorse", "ZombieVillager", "ZombifiedPiglin"};
 
-
         FileConfiguration config = this.getConfig();
 
         HashMap <String, HashMap> entityList = new HashMap<>();
 
-        for (int i = 0; i < keysWithBoolValue.length; i++) {
-            config.set(keysWithBoolValue[i], config.getBoolean(keysWithBoolValue[i], true));
+        for (String value : keysWithBoolValue) {
+            config.set(value, config.getBoolean(value, true));
 
         }
-        for (int i = 0; i < keysWithStringValue.length; i++) {
-            config.set(keysWithStringValue[i], config.getString(keysWithStringValue[i], ""));
+        for (String s : keysWithStringValue) {
+            config.set(s, config.getString(s, ""));
         }
 
-        for (int i = 0; i < entitiesInConfig.length; i++) {
-            HashMap<String, HashMap> entity = new HashMap<>();
-            HashMap<String, Double> HealthPercentage = new HashMap<String, Double>();
-            HashMap<String, Double> CatchChance = new HashMap<>();
-            HashMap<String, Double> VaultCost = new HashMap<>();
-            HashMap<String, HashMap> ItemCost = new HashMap<>();
-            HashMap<String, Double> ItemAmount = new HashMap<>();
-            HashMap<String, String> ItemName = new HashMap<>();
+        for (String s : entitiesInConfig) {
+            HashMap<String, Object> entity = new HashMap<String, Object>();
+            HashMap<String, Object> ItemCost = new HashMap<String, Object>();
 
             // generate ItemCost
-            ItemName.put("ItemName", config.getString("ItemCost.ItemId", "gold_nugget"));
-            ItemAmount.put("Amount", config.getDouble("ItemCost.Amount." + entitiesInConfig[i], 0.0));
-            ItemCost.put("ItemCost", ItemAmount);
-            ItemCost.put("ItemCost", ItemName);
+            ItemCost.put("ItemName", config.getString("ItemCost.ItemId", "gold_nugget"));
+            ItemCost.put("Amount", config.getDouble("ItemCost.Amount." + s, 0.0));
+            entity.put("ItemCost", ItemCost);
 
             //  generate VaultCost
-            VaultCost.put("VaultCost", config.getDouble("VaultCost." + entitiesInConfig[i], 0.0));
+            entity.put("VaultCost", config.getDouble("VaultCost." + s, 0.0));
 
             // generate CatchChance
-            CatchChance.put("CatchChance", config.getDouble("CatchChance." + entitiesInConfig[i], 0.0));
+            entity.put("CatchChance", config.getDouble("CatchChance." + s, 0.0));
 
             // generate HealthPercentage
-            HealthPercentage.put("HealthPercentage", config.getDouble("HealthPercentage." + entitiesInConfig[i], 0.0));
+            entity.put("HealthPercentage", config.getDouble("HealthPercentage." + s, 0.0));
 
-            // Build new Config Hash for entity
-            entity.put(entitiesInConfig[i], ItemCost);
-            entity.put(entitiesInConfig[i], VaultCost);
-            entity.put(entitiesInConfig[i], HealthPercentage);
-            entity.put(entitiesInConfig[i], CatchChance);
 
-            entityList.put(entitiesInConfig[i], entity);
+            entityList.put(s, entity);
         }
         config.set("Entity", entityList);
         config.set("ConfigVersion", 6.0);

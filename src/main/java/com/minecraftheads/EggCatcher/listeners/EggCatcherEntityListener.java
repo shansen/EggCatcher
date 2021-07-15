@@ -158,92 +158,31 @@ public class EggCatcherEntityListener implements Listener {
         if (egg.getShooter() instanceof Player) {
             Player player = (Player) egg.getShooter();
 
-            if (this.usePermissions) {
-                if (!player.hasPermission("eggcatcher.catch." + eggType.getFriendlyName().toLowerCase())) {
-                    player.sendMessage(config.getString("Messages.PermissionFail"));
-                    if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
+            // check if player meets all requirements
+            if (!playerHasRequirements(entity, player, egg, eggType.getFriendlyName())) {
+                if (!this.looseEggOnFail) {
+                    player.getInventory().addItem(new ItemStack(Material.EGG, 1));
+                    EggCatcher.eggs.add(egg);
                 }
+                return;
             }
 
-            if (this.useHealthPercentage) {
-                double healthPercentage = config.getDouble("Entity." + eggType.getFriendlyName() + ".HealthPercentage");
-                double currentHealth = ((LivingEntity) entity).getHealth() * 100.0 / ((LivingEntity) entity)
-                        .getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
-                if (healthPercentage < currentHealth) {
-                    if (this.healthPercentageFailMessage.length() > 0) {
-                        player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
-                    }
-                    if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                }
+            // Withdraw money
+            vaultCost = config.getDouble("Entity." + eggType.getFriendlyName() + ".VaultCost");
+            EggCatcher.economy.withdrawPlayer(player, vaultCost);
+            if (!this.vaultTargetBankAccount.isEmpty()) {
+                EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
             }
+            player.sendMessage(String.format(config.getString("Messages.VaultSuccess"), vaultCost));
 
-            if (this.useCatchChance) {
-                double catchChance = config.getDouble("Entity." + eggType.getFriendlyName() + ".CatchChance");
-                if (Math.random() * 100 <= catchChance) {
-                    if (this.catchChanceSuccessMessage.length() > 0) {
-                        player.sendMessage(catchChanceSuccessMessage);
-                    }
-                } else {
-                    if (this.catchChanceFailMessage.length() > 0) {
-                        player.sendMessage(this.catchChanceFailMessage);
-                    }
-                    if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                }
-            }
-            
-            boolean freeCatch = player.hasPermission("eggcatcher.free");
+            // Take Items
+            Material itemMaterial = Material.matchMaterial(config.getString("Entity." + eggType.getFriendlyName() + ".ItemCost.ItemName", "gold_nugget"));
+            int itemAmount = config.getInt("Entity." + eggType.getFriendlyName() + ".ItemCost.Amount", 0);
+            ItemStack itemStack = new ItemStack(itemMaterial, itemAmount);
+            player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
+                    String.valueOf(itemAmount)));
+            player.getInventory().removeItem(itemStack);
 
-            if (this.useVaultCost && !freeCatch) {
-                vaultCost = config.getDouble("Entity." + eggType.getFriendlyName() + ".VaultCost");
-                if (!EggCatcher.economy.has(player, vaultCost)) {
-                    player.sendMessage(String.format(config.getString("Messages.VaultFail"), vaultCost));
-                    if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                } else {
-                    EggCatcher.economy.withdrawPlayer(player, vaultCost);
-
-                    if (!this.vaultTargetBankAccount.isEmpty()) {
-                        EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
-                    }
-
-                    player.sendMessage(String.format(config.getString("Messages.VaultSuccess"), vaultCost));
-                }
-            }
-
-            if (this.useItemCost && !freeCatch) {
-                Material itemMaterial = Material.matchMaterial(config.getString("Entity." + eggType.getFriendlyName() + ".ItemCost.ItemName", "gold_nugget"));
-                int itemData = config.getInt("Entity." + eggType.getFriendlyName() + ".ItemCost.ItemData", 0);
-                int itemAmount = config.getInt("Entity." + eggType.getFriendlyName() + ".ItemCost.Amount", 0);
-				ItemStack itemStack = new ItemStack(itemMaterial, itemAmount);
-                if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
-                    player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
-                            String.valueOf(itemAmount)));
-                    player.getInventory().removeItem(itemStack);
-                } else {
-                    player.sendMessage(String.format(config.getString("Messages.ItemCostFail"),
-                            String.valueOf(itemAmount)));
-                    if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                }
-            }
         } else {
             // Dispenser
             if (!this.nonPlayerCatching) {
@@ -311,5 +250,69 @@ public class EggCatcherEntityListener implements Listener {
         if (this.logCaptures){
 			captureLogger.logToFile("Player " + ((Player) egg.getShooter()).getName() + " caught " + entity.getType() + " at X" + Math.round(entity.getLocation().getX()) + ",Y" + Math.round(entity.getLocation().getY()) + ",Z" + Math.round(entity.getLocation().getZ()));
         }
+    }
+
+    private boolean playerHasRequirements(Entity entity, Player player, Egg egg, String eggtype) {
+        boolean hasRequirements = true;
+        double vaultCost = 0.0;
+        boolean freeCatch = player.hasPermission("eggcatcher.free");
+
+        if (this.usePermissions) {
+            if (!player.hasPermission("eggcatcher.catch." + eggtype.toLowerCase())) {
+                player.sendMessage(config.getString("Messages.PermissionFail"));
+
+                hasRequirements = false;
+            }
+        }
+        if (this.useHealthPercentage) {
+            double healthPercentage = config.getDouble("Entity." + eggtype + ".HealthPercentage");
+            double currentHealth = ((LivingEntity) entity).getHealth() * 100.0 / ((LivingEntity) entity)
+                    .getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+            if (healthPercentage < currentHealth) {
+                if (this.healthPercentageFailMessage.length() > 0) {
+                    player.sendMessage(String.format(this.healthPercentageFailMessage, healthPercentage));
+                }
+
+                hasRequirements = false;
+            }
+        }
+
+        if (this.useCatchChance) {
+            double catchChance = config.getDouble("Entity." + eggtype + ".CatchChance");
+            if (Math.random() * 100 <= catchChance) {
+                if (this.catchChanceSuccessMessage.length() > 0) {
+                    player.sendMessage(catchChanceSuccessMessage);
+                }
+            } else {
+                if (this.catchChanceFailMessage.length() > 0) {
+                    player.sendMessage(this.catchChanceFailMessage);
+                }
+
+                hasRequirements = false;
+            }
+        }
+
+        if (this.useVaultCost && !freeCatch) {
+            vaultCost = config.getDouble("Entity." + eggtype + ".VaultCost");
+            if (!EggCatcher.economy.has(player, vaultCost)) {
+                player.sendMessage(String.format(config.getString("Messages.VaultFail"), vaultCost));
+
+                hasRequirements = false;
+            }
+        }
+
+        if (this.useItemCost && !freeCatch) {
+            Material itemMaterial = Material.matchMaterial(config.getString("Entity." + eggtype + ".ItemCost.ItemName", "gold_nugget"));
+            int itemAmount = config.getInt("Entity." + eggtype + ".ItemCost.Amount", 0);
+            ItemStack itemStack = new ItemStack(itemMaterial, itemAmount);
+            if (!player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
+                player.sendMessage(String.format(config.getString("Messages.ItemCostFail"),
+                        String.valueOf(itemAmount)));
+
+                hasRequirements = false;
+            }
+        }
+
+        return hasRequirements;
     }
 }
