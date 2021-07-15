@@ -48,6 +48,8 @@ public class EggCatcher extends JavaPlugin {
         double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
         if (configVersion < 6.0) {
             MigrateConfigFile();
+            this.saveConfig();
+            return;
         }
         if (configVersion == 6.0) {
             this.saveConfig();
@@ -109,7 +111,7 @@ public class EggCatcher extends JavaPlugin {
             entityList.put(entitiesInConfig[i], entity);
         }
         config.set("Entity", entityList);
-        config.set("Version", 6.0);
+        config.set("ConfigVersion", 6.0);
         config.set("VaultCost", null);
         config.set("HealthPercentage", null);
         config.set("CatchChance", null);
