@@ -46,7 +46,7 @@ public class EggCatcher extends JavaPlugin {
 
     public void CheckConfigurationFile() {
         double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-        if (configVersion > 6.0) {
+        if (configVersion < 6.0) {
             MigrateConfigFile();
         }
         if (configVersion == 6.0) {
