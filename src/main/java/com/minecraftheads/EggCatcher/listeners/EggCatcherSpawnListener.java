@@ -22,7 +22,7 @@ public class EggCatcherSpawnListener implements Listener {
         this.setPersistence = this.config.getBoolean("setPersistence", true);
 	}
 
-    @EventHandler(ignoreCancelled = false, priority = EventPriority.HIGH)
+    @EventHandler(ignoreCancelled = false, priority = EventPriority.MONITOR)
     public void onEntitySpawnedByEgg(CreatureSpawnEvent event) {
         if (setPersistence) {
             if (!(event instanceof CreatureSpawnEvent)) {

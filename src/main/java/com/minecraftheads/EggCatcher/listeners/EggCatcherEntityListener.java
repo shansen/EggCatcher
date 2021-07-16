@@ -159,7 +159,7 @@ public class EggCatcherEntityListener implements Listener {
             Player player = (Player) egg.getShooter();
 
             // check if player meets all requirements
-            if (!playerHasRequirements(entity, player, egg, eggType.getFriendlyName())) {
+            if (!playerHasRequirements(entity, player, eggType.getFriendlyName())) {
                 if (!this.looseEggOnFail) {
                     player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                     EggCatcher.eggs.add(egg);
@@ -221,10 +221,8 @@ public class EggCatcherEntityListener implements Listener {
             }
         }
 
-        if(entity instanceof Horse) {
-            if(((Horse) entity).isCarryingChest()){
-                entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.CHEST));
-            }
+        if(entity instanceof ChestedHorse) {
+            entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.CHEST));
         }
 
         if((entity instanceof Villager && !this.deleteVillagerInventoryOnCatch) ||
@@ -252,7 +250,7 @@ public class EggCatcherEntityListener implements Listener {
         }
     }
 
-    private boolean playerHasRequirements(Entity entity, Player player, Egg egg, String eggtype) {
+    private boolean playerHasRequirements(Entity entity, Player player, String eggtype) {
         boolean hasRequirements = true;
         double vaultCost = 0.0;
         boolean freeCatch = player.hasPermission("eggcatcher.free");
@@ -261,7 +259,7 @@ public class EggCatcherEntityListener implements Listener {
             if (!player.hasPermission("eggcatcher.catch." + eggtype.toLowerCase())) {
                 player.sendMessage(config.getString("Messages.PermissionFail"));
 
-                hasRequirements = false;
+                return false;
             }
         }
         if (this.useHealthPercentage) {
