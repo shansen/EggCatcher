@@ -4,17 +4,16 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
-
 public enum EggType {
     DROWNED(EntityType.DROWNED, "Drowned", Material.DROWNED_SPAWN_EGG),
-    EVOKER(EntityType.EVOKER,"Evoker", Material.EVOKER_SPAWN_EGG),
+    EVOKER(EntityType.EVOKER, "Evoker", Material.EVOKER_SPAWN_EGG),
     VEX(EntityType.VEX, "Vex", Material.VEX_SPAWN_EGG),
     VINDICATOR(EntityType.VINDICATOR, "Vindicator", Material.VINDICATOR_SPAWN_EGG),
     PIG_ZOMBIE(EntityType.ZOMBIFIED_PIGLIN, "PigZombie", Material.ZOMBIFIED_PIGLIN_SPAWN_EGG),
     MAGMA_CUBE(EntityType.MAGMA_CUBE, "MagmaCube", Material.MAGMA_CUBE_SPAWN_EGG),
     CAVE_SPIDER(EntityType.CAVE_SPIDER, "CaveSpider", Material.CAVE_SPIDER_SPAWN_EGG),
     MUSHROOM_COW(EntityType.MUSHROOM_COW, "MushroomCow", Material.MOOSHROOM_SPAWN_EGG),
-    CREEPER(EntityType.CREEPER,"Creeper", Material.CREEPER_SPAWN_EGG),
+    CREEPER(EntityType.CREEPER, "Creeper", Material.CREEPER_SPAWN_EGG),
     WITHER_SKELETON(EntityType.WITHER_SKELETON, "WitherSkeleton", Material.WITHER_SKELETON_SPAWN_EGG),
     STRAY(EntityType.STRAY, "Stray", Material.STRAY_SPAWN_EGG),
     SKELETON(EntityType.SKELETON, "Skeleton", Material.SKELETON_SPAWN_EGG),
@@ -79,7 +78,7 @@ public enum EggType {
     private final String friendlyName;
     private final Material material;
 
-    EggType(EntityType entityType, String friendlyName, Material material) {
+    private EggType(EntityType entityType, String friendlyName, Material material) {
         this.entityType = entityType;
         this.friendlyName = friendlyName;
         this.material = material;
@@ -98,12 +97,16 @@ public enum EggType {
     }
 
     public static EggType getEggType(Entity entity) {
-        for (EggType eggType : EggType.values()) {
-            if (!eggType.getCreatureType().getEntityClass().isInstance(entity)) {
-                continue;
+        EggType[] var1 = values();
+        int var2 = var1.length;
+
+        for(int var3 = 0; var3 < var2; ++var3) {
+            EggType eggType = var1[var3];
+            if (eggType.getCreatureType().getEntityClass().isInstance(entity)) {
+                return eggType;
             }
-            return eggType;
         }
+
         return null;
     }
 }

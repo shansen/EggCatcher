@@ -7,7 +7,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityEvent;
 
 public class EggCaptureEvent extends EntityEvent implements Cancellable {
-
     private static final HandlerList handlers = new HandlerList();
     boolean cancelled = false;
     Egg egg;

@@ -6,13 +6,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
-
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class EggCatcherSpawnListener implements Listener {
-
     private final boolean setPersistence;
-
     FileConfiguration config;
     JavaPlugin plugin;
 
@@ -20,11 +17,14 @@ public class EggCatcherSpawnListener implements Listener {
         this.config = plugin.getConfig();
         this.plugin = plugin;
         this.setPersistence = this.config.getBoolean("setPersistence", true);
-	}
+    }
 
-    @EventHandler(ignoreCancelled = false, priority = EventPriority.MONITOR)
+    @EventHandler(
+            ignoreCancelled = false,
+            priority = EventPriority.MONITOR
+    )
     public void onEntitySpawnedByEgg(CreatureSpawnEvent event) {
-        if (setPersistence) {
+        if (this.setPersistence) {
             if (!(event instanceof CreatureSpawnEvent)) {
                 return;
             }
@@ -33,5 +33,6 @@ public class EggCatcherSpawnListener implements Listener {
                 event.getEntity().setRemoveWhenFarAway(false);
             }
         }
+
     }
 }

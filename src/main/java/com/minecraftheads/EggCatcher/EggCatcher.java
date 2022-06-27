@@ -3,6 +3,9 @@ package com.minecraftheads.EggCatcher;
 import com.minecraftheads.EggCatcher.listeners.EggCatcherEntityListener;
 import com.minecraftheads.EggCatcher.listeners.EggCatcherPlayerListener;
 import com.minecraftheads.EggCatcher.listeners.EggCatcherSpawnListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Egg;
@@ -10,102 +13,97 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public class EggCatcher extends JavaPlugin {
-    public static List<Egg> eggs = new ArrayList<Egg>();
+    public static List<Egg> eggs = new ArrayList();
     public static Economy economy = null;
+
+    public EggCatcher() {
+    }
 
     public void onDisable() {
     }
 
     public void onEnable() {
         this.CheckConfigurationFile();
-
         PluginManager pm = this.getServer().getPluginManager();
-
-        final EggCatcherPlayerListener playerListener = new EggCatcherPlayerListener();
-        final EggCatcherEntityListener entityListener = new EggCatcherEntityListener(this);
-        final EggCatcherSpawnListener spawnListener = new EggCatcherSpawnListener(this);
-
+        EggCatcherPlayerListener playerListener = new EggCatcherPlayerListener();
+        EggCatcherEntityListener entityListener = new EggCatcherEntityListener(this);
+        EggCatcherSpawnListener spawnListener = new EggCatcherSpawnListener(this);
         pm.registerEvents(playerListener, this);
         pm.registerEvents(entityListener, this);
         pm.registerEvents(spawnListener, this);
-
-        if (getServer().getPluginManager().getPlugin("Vault") != null) {
-            RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration
-                    (Economy.class);
+        if (this.getServer().getPluginManager().getPlugin("Vault") != null) {
+            RegisteredServiceProvider<Economy> economyProvider = this.getServer().getServicesManager().getRegistration(Economy.class);
             if (economyProvider != null) {
-                economy = economyProvider.getProvider();
+                economy = (Economy)economyProvider.getProvider();
             }
         }
 
     }
 
     public void CheckConfigurationFile() {
-        double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-        if (configVersion < 6.0) {
-            MigrateConfigFile();
+        double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0D);
+        if (configVersion < 6.0D) {
+            this.MigrateConfigFile();
             this.saveConfig();
             this.reloadConfig();
-            return;
-        }
-        if (configVersion == 6.0) {
-            this.saveConfig();
         } else {
-            this.saveResource("config.yml", true);
-            this.reloadConfig();
+            if (configVersion == 6.0D) {
+                this.saveConfig();
+            } else {
+                this.saveResource("config.yml", true);
+                this.reloadConfig();
+            }
+
         }
     }
 
-    // This is a ugly piece if shit but i want to make the transition as smooth as possible
     public boolean MigrateConfigFile() {
-        String[] keysWithBoolValue = {"UsePermissions", "UseCatchChance", "LooseEggOnFail", "UseVaultCost", "UseItemCost", "UseHealthPercentage", "ExplosionEffect", "SmokeEffect", "NonPlayerCatching", "PreventCatchingBabyAnimals", "PreventCatchingTamedAnimals", "PreventCatchingShearedSheeps", "SpawnChickenOnSuccess", "SpawnChickenOnFail", "DeleteVillagerInventoryOnCatch", "LogEggCaptures", "setPersistence"};
-        String[] keysWithStringValue = {"VaultTargetBankAccount"};
-        String[] entitiesInConfig = {"Axolotl", "Bat", "Bee", "Blaze", "Cat", "CaveSpider", "Chicken", "Cod", "Cow", "Creeper", "Dolphin", "Donkey", "Drowned", "ElderGuardian", "Enderman", "Endermite", "Evoker", "Fox", "Ghast", "GlowSquid", "Goat", "Guardian", "Hoglin", "Horse", "Husk", "Llama", "MagmaCube", "Mule", "MushroomCow", "Ocelot", "Panda", "Parrot", "Phantom", "Pig", "Piglin", "PiglinBrute", "PigZombie", "Pillager", "PolarBear", "Pufferfish", "Rabbit", "Ravager", "Salmon", "Sheep", "Shulker", "Silverfish", "Skeleton", "SkeletonHorse", "Slime", "Spider", "Squid", "Stray", "Strider", "TraderLlama", "TropicalFish", "Turtle", "Vex", "Villager", "Vindicator", "WanderingTrader", "Witch", "WitherSkeleton", "Wolf", "Zoglin", "Zombie", "ZombieHorse", "ZombieVillager", "ZombifiedPiglin"};
-
+        String[] keysWithBoolValue = new String[]{"UsePermissions", "UseCatchChance", "LooseEggOnFail", "UseVaultCost", "UseItemCost", "UseHealthPercentage", "ExplosionEffect", "SmokeEffect", "NonPlayerCatching", "PreventCatchingBabyAnimals", "PreventCatchingTamedAnimals", "PreventCatchingShearedSheeps", "SpawnChickenOnSuccess", "SpawnChickenOnFail", "DeleteVillagerInventoryOnCatch", "LogEggCaptures", "setPersistence"};
+        String[] keysWithStringValue = new String[]{"VaultTargetBankAccount"};
+        String[] entitiesInConfig = new String[]{"Axolotl", "Bat", "Bee", "Blaze", "Cat", "CaveSpider", "Chicken", "Cod", "Cow", "Creeper", "Dolphin", "Donkey", "Drowned", "ElderGuardian", "Enderman", "Endermite", "Evoker", "Fox", "Ghast", "GlowSquid", "Goat", "Guardian", "Hoglin", "Horse", "Husk", "Llama", "MagmaCube", "Mule", "MushroomCow", "Ocelot", "Panda", "Parrot", "Phantom", "Pig", "Piglin", "PiglinBrute", "PigZombie", "Pillager", "PolarBear", "Pufferfish", "Rabbit", "Ravager", "Salmon", "Sheep", "Shulker", "Silverfish", "Skeleton", "SkeletonHorse", "Slime", "Spider", "Squid", "Stray", "Strider", "TraderLlama", "TropicalFish", "Turtle", "Vex", "Villager", "Vindicator", "WanderingTrader", "Witch", "WitherSkeleton", "Wolf", "Zoglin", "Zombie", "ZombieHorse", "ZombieVillager", "ZombifiedPiglin"};
         FileConfiguration config = this.getConfig();
+        HashMap<String, HashMap> entityList = new HashMap();
+        String[] var6 = keysWithBoolValue;
+        int var7 = keysWithBoolValue.length;
 
-        HashMap <String, HashMap> entityList = new HashMap<>();
-
-        for (String value : keysWithBoolValue) {
-            config.set(value, config.getBoolean(value, true));
-
+        int var8;
+        String s;
+        for(var8 = 0; var8 < var7; ++var8) {
+            s = var6[var8];
+            config.set(s, config.getBoolean(s, true));
         }
-        for (String s : keysWithStringValue) {
+
+        var6 = keysWithStringValue;
+        var7 = keysWithStringValue.length;
+
+        for(var8 = 0; var8 < var7; ++var8) {
+            s = var6[var8];
             config.set(s, config.getString(s, ""));
         }
 
-        for (String s : entitiesInConfig) {
-            HashMap<String, Object> entity = new HashMap<String, Object>();
-            HashMap<String, Object> ItemCost = new HashMap<String, Object>();
+        var6 = entitiesInConfig;
+        var7 = entitiesInConfig.length;
 
-            // generate ItemCost
+        for(var8 = 0; var8 < var7; ++var8) {
+            s = var6[var8];
+            HashMap<String, Object> entity = new HashMap();
+            HashMap<String, Object> ItemCost = new HashMap();
             ItemCost.put("ItemName", config.getString("ItemCost.ItemId", "gold_nugget"));
-            ItemCost.put("Amount", config.getDouble("ItemCost.Amount." + s, 0.0));
+            ItemCost.put("Amount", config.getDouble("ItemCost.Amount." + s, 0.0D));
             entity.put("ItemCost", ItemCost);
-
-            //  generate VaultCost
-            entity.put("VaultCost", config.getDouble("VaultCost." + s, 0.0));
-
-            // generate CatchChance
-            entity.put("CatchChance", config.getDouble("CatchChance." + s, 0.0));
-
-            // generate HealthPercentage
-            entity.put("HealthPercentage", config.getDouble("HealthPercentage." + s, 0.0));
-
-
+            entity.put("VaultCost", config.getDouble("VaultCost." + s, 0.0D));
+            entity.put("CatchChance", config.getDouble("CatchChance." + s, 0.0D));
+            entity.put("HealthPercentage", config.getDouble("HealthPercentage." + s, 0.0D));
             entityList.put(s, entity);
         }
-        config.set("Entity", entityList);
-        config.set("ConfigVersion", 6.0);
-        config.set("VaultCost", null);
-        config.set("HealthPercentage", null);
-        config.set("CatchChance", null);
-        config.set("ItemCost", null);
 
+        config.set("Entity", entityList);
+        config.set("ConfigVersion", 6.0D);
+        config.set("VaultCost", (Object)null);
+        config.set("HealthPercentage", (Object)null);
+        config.set("CatchChance", (Object)null);
+        config.set("ItemCost", (Object)null);
         return true;
     }
 }
