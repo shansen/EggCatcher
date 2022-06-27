@@ -4,7 +4,7 @@
 
     <groupId>com.minecraftheads</groupId>
     <artifactId>EggCatcher</artifactId>
-    <version>1.5</version>
+    <version>1.3</version>
     <packaging>jar</packaging>
 
     <name>EggCatcher</name>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.19-R0.1-SNAPSHOT</version>
+            <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

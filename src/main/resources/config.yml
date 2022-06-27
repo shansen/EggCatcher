@@ -1,4 +1,4 @@
-ConfigVersion: 6.1
+ConfigVersion: 6.0
 DeleteVillagerInventoryOnCatch: true
 NonPlayerCatching: true
 PreventCatchingBabyAnimals: true
@@ -18,13 +18,6 @@ LooseEggOnFail: true
 setPersistence: true
 VaultTargetBankAccount: ''
 Entity:
-  Allay:
-    CatchChance: 100.0
-    HealthPercentage: 100.0
-    ItemCost:
-      Amount: 0.0
-      ItemName: gold_nugget
-    VaultCost: 0.0
   Axolotl:
     CatchChance: 100.0
     HealthPercentage: 100.0
@@ -145,13 +138,6 @@ Entity:
       ItemName: gold_nugget
     VaultCost: 0.0
   Fox:
-    CatchChance: 100.0
-    HealthPercentage: 100.0
-    ItemCost:
-      Amount: 0.0
-      ItemName: gold_nugget
-    VaultCost: 0.0
-  Frog:
     CatchChance: 100.0
     HealthPercentage: 100.0
     ItemCost:
@@ -403,13 +389,6 @@ Entity:
       Amount: 0.0
       ItemName: gold_nugget
     VaultCost: 0.0
-  Tadpole:
-    CatchChance: 100.0
-    HealthPercentage: 100.0
-    ItemCost:
-      Amount: 0.0
-      ItemName: gold_nugget
-    VaultCost: 0.0
   TraderLlama:
     CatchChance: 100.0
     HealthPercentage: 100.0
@@ -453,13 +432,6 @@ Entity:
       ItemName: gold_nugget
     VaultCost: 0.0
   WanderingTrader:
-    CatchChance: 100.0
-    HealthPercentage: 100.0
-    ItemCost:
-      Amount: 0.0
-      ItemName: gold_nugget
-    VaultCost: 0.0
-  Warden:
     CatchChance: 100.0
     HealthPercentage: 100.0
     ItemCost:
