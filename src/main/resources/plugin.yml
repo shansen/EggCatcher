@@ -1,8 +1,8 @@
 name: EggCatcher
-version: 6.1
+version: 6.2
 description: This plugin allows you to catch mobs in eggs.
 author: MinecraftHeads
-api-version: 1.18
+api-version: 1.19
 
 main: com.minecraftheads.EggCatcher.EggCatcher
 
