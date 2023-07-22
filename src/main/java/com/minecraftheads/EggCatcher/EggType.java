@@ -76,7 +76,9 @@ public enum EggType {
     ALLAY(EntityType.ALLAY, "Allay", Material.ALLAY_SPAWN_EGG),
     FROG(EntityType.FROG, "Frog", Material.FROG_SPAWN_EGG),
     TADPOLE(EntityType.TADPOLE, "Tadpole", Material.TADPOLE_SPAWN_EGG),
-    WARDEN(EntityType.WARDEN, "Warden", Material.WARDEN_SPAWN_EGG);
+    WARDEN(EntityType.WARDEN, "Warden", Material.WARDEN_SPAWN_EGG),
+    CAMEL(EntityType.CAMEL, "Camel", Material.CAMEL_SPAWN_EGG),
+    SNIFFER(EntityType.SNIFFER, "Sniffer", Material.SNIFFER_SPAWN_EGG);
 
     private final EntityType entityType;
     private final String friendlyName;

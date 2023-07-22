@@ -1,8 +1,10 @@
 name: EggCatcher
-version: 6.2
+version: 6.3
 description: This plugin allows you to catch mobs in eggs.
 author: MinecraftHeads
-api-version: 1.19
+api-version: 1.20
+depend: []
+softdepend: [ Vault ]
 
 main: com.minecraftheads.EggCatcher.EggCatcher
 
@@ -15,6 +17,7 @@ permissions:
             eggcatcher.catch.bat: true
             eggcatcher.catch.bee: true
             eggcatcher.catch.blaze: true
+            eggcatcher.catch.camel: true
             eggcatcher.catch.cat: true
             eggcatcher.catch.cavespider: true
             eggcatcher.catch.chicken: true
@@ -59,6 +62,7 @@ permissions:
             eggcatcher.catch.silverfish: true
             eggcatcher.catch.skeleton: true
             eggcatcher.catch.skeletonhorse: true
+            eggcatcher.catch.sniffer: true
             eggcatcher.catch.slime: true
             eggcatcher.catch.spider: true
             eggcatcher.catch.squid: true

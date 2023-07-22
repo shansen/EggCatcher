@@ -1,4 +1,4 @@
-ConfigVersion: 6.1
+ConfigVersion: 6.3
 DeleteVillagerInventoryOnCatch: true
 NonPlayerCatching: true
 PreventCatchingBabyAnimals: true
@@ -47,6 +47,13 @@ Entity:
       ItemName: gold_nugget
     VaultCost: 0.0
   Blaze:
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    ItemCost:
+      Amount: 0.0
+      ItemName: gold_nugget
+    VaultCost: 0.0
+  Camel:
     CatchChance: 100.0
     HealthPercentage: 100.0
     ItemCost:
@@ -362,6 +369,13 @@ Entity:
       ItemName: gold_nugget
     VaultCost: 0.0
   SkeletonHorse:
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    ItemCost:
+      Amount: 0.0
+      ItemName: gold_nugget
+    VaultCost: 0.0
+  Sniffer:
     CatchChance: 100.0
     HealthPercentage: 100.0
     ItemCost:
