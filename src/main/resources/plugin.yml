@@ -1,19 +1,23 @@
 name: EggCatcher
-version: 5.0
+version: 6.3
 description: This plugin allows you to catch mobs in eggs.
-author: shansen
-api-version: 1.15
+author: MinecraftHeads
+api-version: 1.20
+depend: []
+softdepend: [ Vault ]
 
-main: me.shansen.EggCatcher.EggCatcher
+main: com.minecraftheads.EggCatcher.EggCatcher
 
 permissions:
     eggcatcher.catch.*:
         description: Gives access to catch all types of mobs.
         default: op
         children:
+            eggcatcher.catch.axolotl: true
             eggcatcher.catch.bat: true
             eggcatcher.catch.bee: true
             eggcatcher.catch.blaze: true
+            eggcatcher.catch.camel: true
             eggcatcher.catch.cat: true
             eggcatcher.catch.cavespider: true
             eggcatcher.catch.chicken: true
@@ -29,7 +33,10 @@ permissions:
             eggcatcher.catch.evoker: true
             eggcatcher.catch.fox: true
             eggcatcher.catch.ghast: true
+            eggcatcher.catch.glowsquid: true
+            eggcatcher.catch.goat: true
             eggcatcher.catch.guardian: true
+            eggcatcher.catch.hoglin: true
             eggcatcher.catch.horse: true
             eggcatcher.catch.husk: true
             eggcatcher.catch.llama: true
@@ -41,6 +48,8 @@ permissions:
             eggcatcher.catch.parrot: true
             eggcatcher.catch.phantom: true
             eggcatcher.catch.pig: true
+            eggcatcher.catch.piglin: true
+            eggcatcher.catch.piglinbrute: true
             eggcatcher.catch.pigzombie: true
             eggcatcher.catch.pillager: true
             eggcatcher.catch.polarbear: true
@@ -53,10 +62,12 @@ permissions:
             eggcatcher.catch.silverfish: true
             eggcatcher.catch.skeleton: true
             eggcatcher.catch.skeletonhorse: true
+            eggcatcher.catch.sniffer: true
             eggcatcher.catch.slime: true
             eggcatcher.catch.spider: true
             eggcatcher.catch.squid: true
             eggcatcher.catch.stray: true
+            eggcatcher.catch.strider: true
             eggcatcher.catch.traderllama: true
             eggcatcher.catch.tropicalfish: true
             eggcatcher.catch.turtle: true
@@ -67,9 +78,11 @@ permissions:
             eggcatcher.catch.witch: true
             eggcatcher.catch.witherskeleton: true
             eggcatcher.catch.wolf: true
+            eggcatcher.catch.zoglin: true
             eggcatcher.catch.zombie: true
             eggcatcher.catch.zombiehorse: true
             eggcatcher.catch.zombievillager: true
+            eggcatcher.catch.zombifiedpiglin: true
     eggcatcher.free:
         description: Makes catching a mob free.
         default: false

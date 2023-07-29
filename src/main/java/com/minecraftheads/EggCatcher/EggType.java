@@ -1,22 +1,4 @@
-/*
-EggCatcher
-Copyright (C) 2012, 2013  me@shansen.me
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-package me.shansen.EggCatcher;
+package com.minecraftheads.EggCatcher;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -24,14 +6,14 @@ import org.bukkit.entity.EntityType;
 
 public enum EggType {
     DROWNED(EntityType.DROWNED, "Drowned", Material.DROWNED_SPAWN_EGG),
-    EVOKER(EntityType.EVOKER,"Evoker", Material.EVOKER_SPAWN_EGG),
+    EVOKER(EntityType.EVOKER, "Evoker", Material.EVOKER_SPAWN_EGG),
     VEX(EntityType.VEX, "Vex", Material.VEX_SPAWN_EGG),
     VINDICATOR(EntityType.VINDICATOR, "Vindicator", Material.VINDICATOR_SPAWN_EGG),
-    PIG_ZOMBIE(EntityType.PIG_ZOMBIE, "PigZombie", Material.ZOMBIE_PIGMAN_SPAWN_EGG),
+    PIG_ZOMBIE(EntityType.ZOMBIFIED_PIGLIN, "PigZombie", Material.ZOMBIFIED_PIGLIN_SPAWN_EGG),
     MAGMA_CUBE(EntityType.MAGMA_CUBE, "MagmaCube", Material.MAGMA_CUBE_SPAWN_EGG),
     CAVE_SPIDER(EntityType.CAVE_SPIDER, "CaveSpider", Material.CAVE_SPIDER_SPAWN_EGG),
     MUSHROOM_COW(EntityType.MUSHROOM_COW, "MushroomCow", Material.MOOSHROOM_SPAWN_EGG),
-    CREEPER(EntityType.CREEPER,"Creeper", Material.CREEPER_SPAWN_EGG),
+    CREEPER(EntityType.CREEPER, "Creeper", Material.CREEPER_SPAWN_EGG),
     WITHER_SKELETON(EntityType.WITHER_SKELETON, "WitherSkeleton", Material.WITHER_SKELETON_SPAWN_EGG),
     STRAY(EntityType.STRAY, "Stray", Material.STRAY_SPAWN_EGG),
     SKELETON(EntityType.SKELETON, "Skeleton", Material.SKELETON_SPAWN_EGG),
@@ -48,6 +30,7 @@ public enum EggType {
     SHEEP(EntityType.SHEEP, "Sheep", Material.SHEEP_SPAWN_EGG),
     COW(EntityType.COW, "Cow", Material.COW_SPAWN_EGG),
     CHICKEN(EntityType.CHICKEN, "Chicken", Material.CHICKEN_SPAWN_EGG),
+    GLOW_SQUID(EntityType.GLOW_SQUID, "GlowSquid", Material.GLOW_SQUID_SPAWN_EGG),
     SQUID(EntityType.SQUID, "Squid", Material.SQUID_SPAWN_EGG),
     WOLF(EntityType.WOLF, "Wolf", Material.WOLF_SPAWN_EGG),
     VILLAGER(EntityType.VILLAGER, "Villager", Material.VILLAGER_SPAWN_EGG),
@@ -81,13 +64,27 @@ public enum EggType {
     SALMON(EntityType.SALMON, "Salmon", Material.SALMON_SPAWN_EGG),
     TROPICAL_FISH(EntityType.TROPICAL_FISH, "TropicalFish", Material.TROPICAL_FISH_SPAWN_EGG),
     TURTLE(EntityType.TURTLE, "Turtle", Material.TURTLE_SPAWN_EGG),
-    WANDERING_TRADER(EntityType.WANDERING_TRADER, "WanderingTrader", Material.WANDERING_TRADER_SPAWN_EGG);
+    HOGLIN(EntityType.HOGLIN, "Hoglin", Material.HOGLIN_SPAWN_EGG),
+    PIGLIN(EntityType.PIGLIN, "Piglin", Material.PIGLIN_SPAWN_EGG),
+    PIGLIN_BRUTE(EntityType.PIGLIN_BRUTE, "PiglinBrute", Material.PIGLIN_BRUTE_SPAWN_EGG),
+    STRIDER(EntityType.STRIDER, "Strider", Material.STRIDER_SPAWN_EGG),
+    ZOGLIN(EntityType.ZOGLIN, "Zoglin", Material.ZOGLIN_SPAWN_EGG),
+    WANDERING_TRADER(EntityType.WANDERING_TRADER, "WanderingTrader", Material.WANDERING_TRADER_SPAWN_EGG),
+    AXOLOTL(EntityType.AXOLOTL, "Axolotl", Material.AXOLOTL_SPAWN_EGG),
+    GOAT(EntityType.GOAT, "Goat", Material.GOAT_SPAWN_EGG),
+    ZOMBIFIED_PIGLIN(EntityType.ZOMBIFIED_PIGLIN, "ZombifiedPiglin", Material.ZOMBIFIED_PIGLIN_SPAWN_EGG),
+    ALLAY(EntityType.ALLAY, "Allay", Material.ALLAY_SPAWN_EGG),
+    FROG(EntityType.FROG, "Frog", Material.FROG_SPAWN_EGG),
+    TADPOLE(EntityType.TADPOLE, "Tadpole", Material.TADPOLE_SPAWN_EGG),
+    WARDEN(EntityType.WARDEN, "Warden", Material.WARDEN_SPAWN_EGG),
+    CAMEL(EntityType.CAMEL, "Camel", Material.CAMEL_SPAWN_EGG),
+    SNIFFER(EntityType.SNIFFER, "Sniffer", Material.SNIFFER_SPAWN_EGG);
 
     private final EntityType entityType;
     private final String friendlyName;
     private final Material material;
 
-    EggType(EntityType entityType, String friendlyName, Material material) {
+    private EggType(EntityType entityType, String friendlyName, Material material) {
         this.entityType = entityType;
         this.friendlyName = friendlyName;
         this.material = material;
@@ -106,12 +103,16 @@ public enum EggType {
     }
 
     public static EggType getEggType(Entity entity) {
-        for (EggType eggType : EggType.values()) {
-            if (!eggType.getCreatureType().getEntityClass().isInstance(entity)) {
-                continue;
+        EggType[] var1 = values();
+        int var2 = var1.length;
+
+        for(int var3 = 0; var3 < var2; ++var3) {
+            EggType eggType = var1[var3];
+            if (eggType.getCreatureType().getEntityClass().isInstance(entity)) {
+                return eggType;
             }
-            return eggType;
         }
+
         return null;
     }
 }
