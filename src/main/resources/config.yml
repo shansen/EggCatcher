@@ -1,270 +1,555 @@
-UsePermissions: true
+UsePermissions: false
 UseCatchChance: true
 LooseEggOnFail: true
-UseVaultCost: false
-UseItemCost: false
+UseVaultCost: true
+UseItemCost: true
 UseHealthPercentage: false
-ExplosionEffect: true
-SmokeEffect: false
+ExplosionEffect: false
+SmokeEffect: true
 NonPlayerCatching: false
 PreventCatchingBabyAnimals: true
 PreventCatchingTamedAnimals: true
-PreventCatchingShearedSheeps: true
+PreventCatchingShearedSheeps: false
 SpawnChickenOnSuccess: false
 SpawnChickenOnFail: true
-VaultTargetBankAccount: ""
+VaultTargetBankAccount: ''
 DeleteVillagerInventoryOnCatch: false
-LogEggCaptures: false
-CatchChance:
-  Bat: 100.0
-  Bee: 100.0
-  Blaze: 100.0
-  Cat: 100.0
-  CaveSpider: 100.0
-  Chicken: 100.0
-  Cod: 100.0
-  Cow: 100.0
-  Creeper: 100.0
-  Dolphin: 100.0
-  Donkey: 100.0
-  Drowned: 100.0
-  ElderGuardian: 100.0
-  Enderman: 100.0
-  Endermite: 100.0
-  Evoker: 100.0
-  Fox: 100.0
-  Ghast: 100.0
-  Guardian: 100.0
-  Horse: 100.0
-  Husk: 100.0
-  Llama: 100.0
-  MagmaCube: 100.0
-  Mule: 100.0
-  MushroomCow: 100.0
-  Ocelot: 100.0
-  Panda: 100.0
-  Parrot: 100.0
-  Phantom: 100.0
-  Pig: 100.0
-  PigZombie: 100.0
-  Pillager: 100.0
-  PolarBear: 100.0
-  Pufferfish: 100.0
-  Rabbit: 100.0
-  Ravager: 100.0
-  Salmon: 100.0
-  Sheep: 100.0
-  Shulker: 100.0
-  Silverfish: 100.0
-  Skeleton: 100.0
-  SkeletonHorse: 100.0
-  Slime: 100.0
-  Spider: 100.0
-  Squid: 100.0
-  Stray: 100.0
-  TraderLlama: 100.0
-  TropicalFish: 100.0
-  Turtle: 100.0
-  Vex: 100.0
-  Villager: 100.0
-  Vindicator: 100.0
-  WanderingTrader: 100.0
-  Witch: 100.0
-  WitherSkeleton: 100.0
-  Wolf: 100.0
-  Zombie: 100.0
-  ZombieHorse: 100.0
-  ZombieVillager: 100.0
-VaultCost:
-  Bat: 0.0
-  Bee: 0.0
-  Blaze: 0.0
-  Cat: 0.0
-  CaveSpider: 0.0
-  Chicken: 0.0
-  Cod: 0.0
-  Cow: 0.0
-  Creeper: 0.0
-  Dolphin: 0.0
-  Donkey: 0.0
-  Drowned: 0.0
-  ElderGuardian: 0.0
-  Enderman: 0.0
-  Endermite: 0.0
-  Evoker: 0.0
-  Fox: 0.0
-  Ghast: 0.0
-  Guardian: 0.0
-  Horse: 0.0
-  Husk: 0.0
-  Llama: 0.0
-  MagmaCube: 0.0
-  Mule: 0.0
-  MushroomCow: 0.0
-  Ocelot: 0.0
-  Panda: 0.0
-  Parrot: 0.0
-  Phantom: 0.0
-  Pig: 0.0
-  PigZombie: 0.0
-  Pillager: 0.0
-  PolarBear: 0.0
-  Pufferfish: 0.0
-  Rabbit: 0.0
-  Ravager: 0.0
-  Salmon: 0.0
-  Sheep: 0.0
-  Shulker: 0.0
-  Silverfish: 0.0
-  Skeleton: 0.0
-  SkeletonHorse: 0.0
-  Slime: 0.0
-  Spider: 0.0
-  Squid: 0.0
-  Stray: 0.0
-  TraderLlama: 0.0
-  TropicalFish: 0.0
-  Turtle: 0.0
-  Vex: 0.0
-  Villager: 0.0
-  Vindicator: 0.0
-  WanderingTrader: 0.0
-  Witch: 0.0
-  WitherSkeleton: 0.0
-  Wolf: 0.0
-  Zombie: 0.0
-  ZombieHorse: 0.0
-  ZombieVillager: 0.0
-ItemCost:
-  ItemId: gold_nugget
-  ItemData: 0
-  Amount:
-    Bat: 0.0
-    Bee: 0.0
-    Blaze: 0.0
-    Cat: 0.0
-    CaveSpider: 0.0
-    Chicken: 0.0
-    Cod: 0.0
-    Cow: 0.0
-    Creeper: 0.0
-    Dolphin: 0.0
-    Donkey: 0.0
-    Drowned: 0.0
-    ElderGuardian: 0.0
-    Enderman: 0.0
-    Endermite: 0.0
-    Evoker: 0.0
-    Fox: 0.0
-    Ghast: 0.0
-    Guardian: 0.0
-    Horse: 0.0
-    Husk: 0.0
-    Llama: 0.0
-    MagmaCube: 0.0
-    Mule: 0.0
-    MushroomCow: 0.0
-    Ocelot: 0.0
-    Panda: 0.0
-    Parrot: 0.0
-    Phantom: 0.0
-    Pig: 0.0
-    PigZombie: 0.0
-    Pillager: 0.0
-    PolarBear: 0.0
-    Pufferfish: 0.0
-    Rabbit: 0.0
-    Ravager: 0.0
-    Salmon: 0.0
-    Sheep: 0.0
-    Shulker: 0.0
-    Silverfish: 0.0
-    Skeleton: 0.0
-    SkeletonHorse: 0.0
-    Slime: 0.0
-    Spider: 0.0
-    Squid: 0.0
-    Stray: 0.0
-    TraderLlama: 0.0
-    TropicalFish: 0.0
-    Turtle: 0.0
-    Vex: 0.0
-    Villager: 0.0
-    Vindicator: 0.0
-    WanderingTrader: 0.0
-    Witch: 0.0
-    WitherSkeleton: 0.0
-    Wolf: 0.0
-    Zombie: 0.0
-    ZombieHorse: 0.0
-    ZombieVillager: 0.0
-HealthPercentage:
-  Bat: 100.0
-  Bee: 100.0
-  Blaze: 100.0
-  Cat: 100.0
-  CaveSpider: 100.0
-  Chicken: 100.0
-  Cod: 100.0
-  Cow: 100.0
-  Creeper: 100.0
-  Dolphin: 100.0
-  Donkey: 100.0
-  Drowned: 100.0
-  ElderGuardian: 100.0
-  Enderman: 100.0
-  Endermite: 100.0
-  Evoker: 100.0
-  Fox: 100.0
-  Ghast: 100.0
-  Guardian: 100.0
-  Horse: 100.0
-  Husk: 100.0
-  Llama: 100.0
-  MagmaCube: 100.0
-  Mule: 100.0
-  MushroomCow: 100.0
-  Ocelot: 100.0
-  Panda: 100.0
-  Parrot: 100.0
-  Phantom: 100.0
-  Pig: 100.0
-  PigZombie: 100.0
-  Pillager: 100.0
-  PolarBear: 100.0
-  Pufferfish: 100.0
-  Rabbit: 100.0
-  Ravager: 100.0
-  Salmon: 100.0
-  Sheep: 100.0
-  Shulker: 100.0
-  Silverfish: 100.0
-  Skeleton: 100.0
-  SkeletonHorse: 100.0
-  Slime: 100.0
-  Spider: 100.0
-  Squid: 100.0
-  Stray: 100.0
-  TraderLlama: 100.0
-  TropicalFish: 100.0
-  Turtle: 100.0
-  Vex: 100.0
-  Villager: 100.0
-  Vindicator: 100.0
-  WanderingTrader: 100.0
-  Witch: 100.0
-  WitherSkeleton: 100.0
-  Wolf: 100.0
-  Zombie: 100.0
-  ZombieHorse: 100.0
-  ZombieVillager: 100.0
+LogEggCaptures: true
 Messages:
-  PermissionFail: "You do not have permission to catch this mob!"
-  VaultFail: "It costs %s dollars to catch this mob!"
-  VaultSuccess: "You paid %s dollars for catching this mob!"
-  ItemCostFail: "It costs %s gold nugget(s) to catch this mob!"
-  ItemCostSuccess: "You paid %s gold nugget(s) for catching this mob!"
-  CatchChanceFail: "You failed to catch this mob!"
-  CatchChanceSuccess: ""
-  HealthPercentageFail: "The mob has more than %s percent health left and cannot be caught!"
-ConfigVersion: 5.0
+  PermissionFail: §6[§4Info§6] §aDu bist nicht berechtigt diesen Mob zu fangen!
+  VaultFail: §6[§4Info§6] §aEs kostet %s Coins um diesen Mob zu fangen!
+  VaultSuccess: §6[§4Info§6] §a%s Coins bezahlt.
+  ItemCostFail: §6[§4Info§6] §aDu brauchst %s Smaragde um diesen Mob zu fangen!
+  ItemCostSuccess: §6[§4Info§6] §a%s Smaragd(e) bezahlt.
+  CatchChanceFail: §6[§4Info§6] §aDu kannst diesen Mob nicht fangen!
+  CatchChanceSuccess: §6[§4Info§6] §aDu hast den Mob eingefangen!
+  HealthPercentageFail: §6[§4Info§6] §aDer Mob hat nur noch %s  Prozent Lebensenergie
+    und kann nicht gefangen werden!
+ConfigVersion: 6.4
+setPersistence: true
+Entity:
+  Armadillo:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Donkey:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Sniffer:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Camel:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Dolphin:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Vex:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Strider:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Horse:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Pufferfish:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Phantom:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Piglin:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Villager:
+    ItemCost:
+      Amount: 5.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 100.0
+  Guardian:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  WanderingTrader:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Goat:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Pillager:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  GlowSquid:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Turtle:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  MushroomCow:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Salmon:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Zombie:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Parrot:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  ElderGuardian:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  PiglinBrute:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Evoker:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Ravager:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Fox:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Panda:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  WitherSkeleton:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  ZombieHorse:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Ocelot:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Drowned:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Enderman:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  CaveSpider:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Cat:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  ZombifiedPiglin:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 0.0
+    VaultCost: 0.0
+  Axolotl:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Chicken:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  ZombieVillager:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Endermite:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Stray:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Vindicator:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  TraderLlama:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Creeper:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Rabbit:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Silverfish:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Shulker:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Squid:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  TropicalFish:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Hoglin:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Cod:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Skeleton:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Wolf:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  MagmaCube:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Witch:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  SkeletonHorse:
+    ItemCost:
+      Amount: 20.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 1000.0
+  PolarBear:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Bee:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Mule:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Husk:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Cow:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Slime:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Pig:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Bat:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Llama:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Blaze:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  PigZombie:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Ghast:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Spider:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Sheep:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Zoglin:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Allay:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Frog:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Tadpole:
+    ItemCost:
+      Amount: 1.0
+      ItemName: emerald
+    CatchChance: 100.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
+  Warden:
+    ItemCost:
+      Amount: 0.0
+      ItemName: emerald
+    CatchChance: 0.0
+    HealthPercentage: 100.0
+    VaultCost: 0.0
